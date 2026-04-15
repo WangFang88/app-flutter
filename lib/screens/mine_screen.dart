@@ -71,10 +71,10 @@ class _MineScreenState extends State<MineScreen> {
               ),
             ),
             if (_loading)
-              SliverPadding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 80),
-                sliver: SliverList(delegate: SliverChildBuilderDelegate(
-                  (_, __) => const SkeletonCard(), childCount: 5)),
+              SliverFillRemaining(
+                child: Column(children: List.generate(5, (_) => const SkeletonCard())
+                    .map((e) => Padding(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5), child: e))
+                    .toList()),
               )
             else if (_initialized && _items.isEmpty)
               const SliverFillRemaining(
