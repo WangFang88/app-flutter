@@ -68,6 +68,18 @@ class MainShell extends StatefulWidget {
 class _MainShellState extends State<MainShell> {
   int _tab = 0;
 
+  late final List<Widget> _screens;
+
+  @override
+  void initState() {
+    super.initState();
+    _screens = [
+      FeedScreen(uid: widget.uid, onOpenDetail: (id) => _openDetail(context, id), onCreateNew: () => _openCreate(context)),
+      MineScreen(uid: widget.uid, onOpenDetail: (id) => _openDetail(context, id), onCreateNew: () => _openCreate(context), onLogout: widget.onLogout),
+      const StatsScreen(),
+    ];
+  }
+
   void _openDetail(BuildContext context, String id) {
     Navigator.push(context, MaterialPageRoute(
       builder: (_) => DetailScreen(reminderId: id, myUid: widget.uid),
@@ -82,19 +94,10 @@ class _MainShellState extends State<MainShell> {
 
   @override
   Widget build(BuildContext context) {
-    final screens = [
-      FeedScreen(uid: widget.uid, onOpenDetail: (id) => _openDetail(context, id), onCreateNew: () => _openCreate(context)),
-      MineScreen(uid: widget.uid, onOpenDetail: (id) => _openDetail(context, id), onCreateNew: () => _openCreate(context), onLogout: widget.onLogout),
-      const StatsScreen(),
-    ];
-
     return Scaffold(
-      body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 220),
-        switchInCurve: Curves.easeOut,
-        switchOutCurve: Curves.easeIn,
-        transitionBuilder: (child, anim) => FadeTransition(opacity: anim, child: child),
-        child: KeyedSubtree(key: ValueKey(_tab), child: screens[_tab]),
+      body: IndexedStack(
+        index: _tab,
+        children: _screens,
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _tab,
