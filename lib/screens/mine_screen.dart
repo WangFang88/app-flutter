@@ -45,13 +45,10 @@ class _MineScreenState extends State<MineScreen> with AutomaticKeepAliveClientMi
   Widget build(BuildContext context) {
     super.build(context);
     if (_loading) {
-      return Scaffold(
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-            child: Column(children: List.generate(6, (_) => const SkeletonCard())),
-          ),
-        ),
+      return ListView(
+        padding: const EdgeInsets.fromLTRB(16, 56, 16, 16),
+        physics: const NeverScrollableScrollPhysics(),
+        children: List.generate(6, (_) => const SkeletonCard()),
       );
     }
     return Scaffold(
