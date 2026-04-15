@@ -16,7 +16,9 @@ class MineScreen extends StatefulWidget {
   State<MineScreen> createState() => _MineScreenState();
 }
 
-class _MineScreenState extends State<MineScreen> {
+class _MineScreenState extends State<MineScreen> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   List<Reminder> _items = [];
   Map<String, int> _counts = {};
   bool _loading = true;
@@ -38,6 +40,7 @@ class _MineScreenState extends State<MineScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: _load,

@@ -68,25 +68,13 @@ class MainShell extends StatefulWidget {
 class _MainShellState extends State<MainShell> {
   int _tab = 0;
 
-  late final List<Widget> _screens;
-
-  @override
-  void initState() {
-    super.initState();
-    _screens = [
-      FeedScreen(uid: widget.uid, onOpenDetail: (id) => _openDetail(context, id), onCreateNew: () => _openCreate(context)),
-      MineScreen(uid: widget.uid, onOpenDetail: (id) => _openDetail(context, id), onCreateNew: () => _openCreate(context), onLogout: widget.onLogout),
-      const StatsScreen(),
-    ];
-  }
-
-  void _openDetail(BuildContext context, String id) {
+  void _openDetail(String id) {
     Navigator.push(context, MaterialPageRoute(
       builder: (_) => DetailScreen(reminderId: id, myUid: widget.uid),
     ));
   }
 
-  void _openCreate(BuildContext context) {
+  void _openCreate() {
     Navigator.push(context, MaterialPageRoute(
       builder: (_) => CreateScreen(uid: widget.uid, onDone: () => Navigator.pop(context), onBack: () => Navigator.pop(context)),
     ));
@@ -97,7 +85,11 @@ class _MainShellState extends State<MainShell> {
     return Scaffold(
       body: IndexedStack(
         index: _tab,
-        children: _screens,
+        children: [
+          FeedScreen(uid: widget.uid, onOpenDetail: _openDetail, onCreateNew: _openCreate),
+          MineScreen(uid: widget.uid, onOpenDetail: _openDetail, onCreateNew: _openCreate, onLogout: widget.onLogout),
+          const StatsScreen(),
+        ],
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _tab,
