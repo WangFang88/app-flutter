@@ -146,6 +146,11 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                         onPressed: _loading ? null : _login,
                         loading: _loading,
                       ),
+                      const SizedBox(height: 12),
+                      Center(
+                        child: Text('填写邮箱则自动注册或登录，不填则匿名使用',
+                            style: TextStyle(fontSize: 12, color: Colors.grey.shade500)),
+                      ),
                     ]),
                   ),
                 ],
