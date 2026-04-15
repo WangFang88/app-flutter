@@ -25,14 +25,12 @@ class _FeedScreenState extends State<FeedScreen> with AutomaticKeepAliveClientMi
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _load());
+    _load();
   }
 
   Future<void> _load() async {
-    if (!_initialized) {
-      if (mounted) setState(() => _loading = true);
-      await Future.delayed(const Duration(milliseconds: 800));
-    }
+    if (!_initialized && mounted) setState(() => _loading = true);
+    await Future.delayed(const Duration(milliseconds: 50));
     try {
       final items = await ApiService.getPublicReminders();
       final counts = <String, int>{};

@@ -27,11 +27,12 @@ class _MineScreenState extends State<MineScreen> with AutomaticKeepAliveClientMi
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _load());
+    _load();
   }
 
   Future<void> _load() async {
-    if (!_initialized) setState(() => _loading = true);
+    if (!_initialized && mounted) setState(() => _loading = true);
+    await Future.delayed(const Duration(milliseconds: 50));
     try {
       final items = await ApiService.getMyReminders();
       final counts = <String, int>{};
