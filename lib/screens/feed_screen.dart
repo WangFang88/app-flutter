@@ -23,7 +23,7 @@ class _FeedScreenState extends State<FeedScreen> {
   void initState() { super.initState(); _load(); }
 
   Future<void> _load() async {
-    setState(() => _loading = true);
+    if (_items.isEmpty) setState(() => _loading = true);
     try {
       final items = await ApiService.getPublicReminders();
       final counts = <String, int>{};

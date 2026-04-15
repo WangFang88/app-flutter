@@ -25,7 +25,7 @@ class _MineScreenState extends State<MineScreen> {
   void initState() { super.initState(); _load(); }
 
   Future<void> _load() async {
-    setState(() => _loading = true);
+    if (_items.isEmpty) setState(() => _loading = true);
     try {
       final items = await ApiService.getMyReminders();
       final counts = <String, int>{};
