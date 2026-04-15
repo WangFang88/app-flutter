@@ -45,18 +45,21 @@ class _AppRootState extends State<AppRoot> {
     _uid = SessionStore.userId;
   }
 
+  void _logout() => setState(() => _uid = null);
+
   @override
   Widget build(BuildContext context) {
     if (_uid == null) {
       return LoginScreen(onLoggedIn: () => setState(() => _uid = SessionStore.userId));
     }
-    return MainShell(uid: _uid!);
+    return MainShell(uid: _uid!, onLogout: _logout);
   }
 }
 
 class MainShell extends StatefulWidget {
   final String uid;
-  const MainShell({super.key, required this.uid});
+  final VoidCallback onLogout;
+  const MainShell({super.key, required this.uid, required this.onLogout});
 
   @override
   State<MainShell> createState() => _MainShellState();
@@ -81,7 +84,7 @@ class _MainShellState extends State<MainShell> {
   Widget build(BuildContext context) {
     final screens = [
       FeedScreen(uid: widget.uid, onOpenDetail: (id) => _openDetail(context, id), onCreateNew: () => _openCreate(context)),
-      MineScreen(uid: widget.uid, onOpenDetail: (id) => _openDetail(context, id), onCreateNew: () => _openCreate(context)),
+      MineScreen(uid: widget.uid, onOpenDetail: (id) => _openDetail(context, id), onCreateNew: () => _openCreate(context), onLogout: widget.onLogout),
       const StatsScreen(),
     ];
 

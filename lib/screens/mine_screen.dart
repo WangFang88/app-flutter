@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../data/api_service.dart';
 import '../data/models.dart';
+import '../data/session_store.dart';
 import '../widgets/common_widgets.dart';
 import '../theme/app_theme.dart';
 
@@ -8,7 +9,8 @@ class MineScreen extends StatefulWidget {
   final String uid;
   final void Function(String id) onOpenDetail;
   final VoidCallback onCreateNew;
-  const MineScreen({super.key, required this.uid, required this.onOpenDetail, required this.onCreateNew});
+  final VoidCallback onLogout;
+  const MineScreen({super.key, required this.uid, required this.onOpenDetail, required this.onCreateNew, required this.onLogout});
 
   @override
   State<MineScreen> createState() => _MineScreenState();
@@ -52,8 +54,17 @@ class _MineScreenState extends State<MineScreen> {
                   ),
                 ),
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text('我的提醒', style: Theme.of(context).textTheme.headlineMedium),
-                  const SizedBox(height: 4),
+                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                    Text('我的提醒', style: Theme.of(context).textTheme.headlineMedium),
+                    IconButton(
+                      icon: const Icon(Icons.logout_rounded, size: 20),
+                      onPressed: () async {
+                        await SessionStore.clear();
+                        widget.onLogout();
+                      },
+                      tooltip: '退出登录',
+                    ),
+                  ]),
                   Text('共 ${_items.length} 个提醒', style: Theme.of(context).textTheme.bodyMedium),
                 ]),
               ),
