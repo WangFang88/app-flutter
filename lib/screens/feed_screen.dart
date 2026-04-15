@@ -42,6 +42,16 @@ class _FeedScreenState extends State<FeedScreen> with AutomaticKeepAliveClientMi
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    if (_loading) {
+      return Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+            child: Column(children: List.generate(6, (_) => const SkeletonCard())),
+          ),
+        ),
+      );
+    }
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: _load,
