@@ -34,7 +34,13 @@ ThemeData _buildTheme(Brightness brightness) {
     colorScheme: cs,
     brightness: brightness,
     scaffoldBackgroundColor: isDark ? kBgDark : kSurface,
-    cardTheme: CardTheme(
+    pageTransitionsTheme: const PageTransitionsTheme(
+      builders: {
+        TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+        TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+      },
+    ),
+    cardTheme: CardThemeData(
       elevation: 0,
       color: isDark ? kCardDark : kCardLight,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

@@ -25,12 +25,6 @@ class ReminderApp extends StatelessWidget {
       darkTheme: appDarkTheme,
       themeMode: ThemeMode.system,
       home: const AppRoot(),
-      pageTransitionsTheme: const PageTransitionsTheme(
-        builders: {
-          TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-        },
-      ),
     );
   }
 }
