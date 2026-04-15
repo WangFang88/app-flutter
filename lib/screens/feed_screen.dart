@@ -18,19 +18,20 @@ class _FeedScreenState extends State<FeedScreen> {
   List<Reminder> _items = [];
   Map<String, int> _counts = {};
   bool _loading = true;
+  bool _initialized = false;
 
   @override
   void initState() { super.initState(); _load(); }
 
   Future<void> _load() async {
-    if (_items.isEmpty) setState(() => _loading = true);
+    if (!_initialized) setState(() => _loading = true);
     try {
       final items = await ApiService.getPublicReminders();
       final counts = <String, int>{};
       for (final r in items) { counts[r.id] = await ApiService.supporterCount(r.id); }
       if (mounted) setState(() { _items = items; _counts = counts; });
     } catch (_) {}
-    if (mounted) setState(() => _loading = false);
+    if (mounted) setState(() { _loading = false; _initialized = true; });
   }
 
   @override
@@ -64,7 +65,7 @@ class _FeedScreenState extends State<FeedScreen> {
                 sliver: SliverList(delegate: SliverChildBuilderDelegate(
                   (_, __) => const SkeletonCard(), childCount: 5)),
               )
-            else if (_items.isEmpty)
+            else if (_initialized && _items.isEmpty)
               const SliverFillRemaining(
                 child: Center(child: Text('暂无公开提醒', style: TextStyle(color: Colors.grey))),
               )
