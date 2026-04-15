@@ -67,6 +67,7 @@ class MainShell extends StatefulWidget {
 
 class _MainShellState extends State<MainShell> {
   int _tab = 0;
+  List<Widget>? _screens;
 
   void _openDetail(String id) {
     Navigator.push(context, MaterialPageRoute(
@@ -82,14 +83,15 @@ class _MainShellState extends State<MainShell> {
 
   @override
   Widget build(BuildContext context) {
+    _screens ??= [
+      FeedScreen(uid: widget.uid, onOpenDetail: _openDetail, onCreateNew: _openCreate),
+      MineScreen(uid: widget.uid, onOpenDetail: _openDetail, onCreateNew: _openCreate, onLogout: widget.onLogout),
+      const StatsScreen(),
+    ];
     return Scaffold(
       body: IndexedStack(
         index: _tab,
-        children: [
-          FeedScreen(uid: widget.uid, onOpenDetail: _openDetail, onCreateNew: _openCreate),
-          MineScreen(uid: widget.uid, onOpenDetail: _openDetail, onCreateNew: _openCreate, onLogout: widget.onLogout),
-          const StatsScreen(),
-        ],
+        children: _screens!,
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _tab,
