@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import '../data/api_service.dart';
 import '../data/models.dart';
 import '../widgets/common_widgets.dart';
+import '../theme/app_theme.dart';
 
 class DetailScreen extends StatefulWidget {
   final String reminderId;
@@ -116,52 +117,75 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     final r = _reminder;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
         title: const Text('提醒详情'),
-        backgroundColor: Colors.transparent,
         actions: r?.authorId == widget.myUid ? [
-          IconButton(icon: const Icon(Icons.edit), onPressed: _edit),
-          IconButton(icon: const Icon(Icons.delete), onPressed: _delete),
+          IconButton(icon: const Icon(Icons.edit_outlined), onPressed: _edit),
+          IconButton(icon: const Icon(Icons.delete_outline), onPressed: _delete),
         ] : null,
       ),
       body: _loading
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator(color: kPrimary))
           : r == null
               ? const Center(child: Text('加载失败'))
               : SingleChildScrollView(
                   child: Column(children: [
                     Container(
                       width: double.infinity,
-                      padding: const EdgeInsets.all(32),
+                      padding: const EdgeInsets.fromLTRB(32, 48, 32, 40),
                       decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [Color(0xFF6366F1), Color(0xFF8B5CF6)],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
+                        gradient: gradientHeader,
+                        borderRadius: BorderRadius.vertical(bottom: Radius.circular(32)),
                       ),
                       child: Column(children: [
                         Text(DateFormat('HH:mm').format(DateTime.fromMillisecondsSinceEpoch(r.scheduledAtMillis)),
-                            style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: Colors.white)),
+                            style: const TextStyle(fontSize: 52, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1)),
+                        const SizedBox(height: 4),
                         Text(DateFormat('yyyy年MM月dd日').format(DateTime.fromMillisecondsSinceEpoch(r.scheduledAtMillis)),
-                            style: const TextStyle(color: Colors.white70)),
+                            style: const TextStyle(color: Colors.white70, fontSize: 15)),
                       ]),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(20),
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text(r.title, style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
-                        const SizedBox(height: 16),
-                        LinearProgressIndicator(value: (_supporters.clamp(0, 10)) / 10.0),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4),
-                          child: Text('提醒强度：$_supporters 人', style: const TextStyle(color: Color(0xFF6366F1))),
+                        const SizedBox(height: 4),
+                        Text(r.title, style: Theme.of(context).textTheme.headlineSmall),
+                        const SizedBox(height: 20),
+                        // 提醒强度进度条
+                        Row(children: [
+                          const Icon(Icons.people_rounded, size: 16, color: kPrimary),
+                          const SizedBox(width: 6),
+                          Text('提醒强度：$_supporters 人',
+                              style: const TextStyle(color: kPrimary, fontWeight: FontWeight.w600)),
+                        ]),
+                        const SizedBox(height: 8),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(100),
+                          child: LinearProgressIndicator(
+                            value: (_supporters.clamp(0, 10)) / 10.0,
+                            minHeight: 8,
+                            backgroundColor: isDark ? Colors.white12 : const Color(0xFFE5E7EB),
+                            valueColor: const AlwaysStoppedAnimation(kPrimary),
+                          ),
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 24),
                         if (r.authorId != widget.myUid)
                           _supported
-                              ? OutlinedButton.icon(onPressed: null, icon: const Icon(Icons.check), label: const Text('已提醒'))
+                              ? Container(
+                                  width: double.infinity,
+                                  height: 54,
+                                  decoration: BoxDecoration(
+                                    color: isDark ? Colors.white10 : const Color(0xFFF3F4F6),
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  child: const Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                                    Icon(Icons.check_circle_rounded, color: kPrimary, size: 20),
+                                    SizedBox(width: 8),
+                                    Text('已提醒', style: TextStyle(color: kPrimary, fontWeight: FontWeight.w600)),
+                                  ]),
+                                )
                               : GradientButton(text: '提醒他', onPressed: _reminding ? null : _remind, loading: _reminding),
                       ]),
                     ),

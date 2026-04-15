@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../data/api_service.dart';
 import '../data/models.dart';
 import '../widgets/common_widgets.dart';
+import '../theme/app_theme.dart';
 
 class MineScreen extends StatefulWidget {
   final String uid;
@@ -16,22 +17,20 @@ class MineScreen extends StatefulWidget {
 class _MineScreenState extends State<MineScreen> {
   List<Reminder> _items = [];
   Map<String, int> _counts = {};
+  bool _loading = true;
 
   @override
-  void initState() {
-    super.initState();
-    _load();
-  }
+  void initState() { super.initState(); _load(); }
 
   Future<void> _load() async {
+    setState(() => _loading = true);
     try {
       final items = await ApiService.getMyReminders();
       final counts = <String, int>{};
-      for (final r in items) {
-        counts[r.id] = await ApiService.supporterCount(r.id);
-      }
+      for (final r in items) { counts[r.id] = await ApiService.supporterCount(r.id); }
       if (mounted) setState(() { _items = items; _counts = counts; });
     } catch (_) {}
+    if (mounted) setState(() => _loading = false);
   }
 
   @override
@@ -39,49 +38,63 @@ class _MineScreenState extends State<MineScreen> {
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: _load,
+        color: kPrimary,
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
               child: Container(
-                padding: const EdgeInsets.fromLTRB(16, 48, 16, 24),
+                padding: const EdgeInsets.fromLTRB(20, 56, 20, 28),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [const Color(0xFF6366F1).withOpacity(0.15), Colors.transparent],
+                    colors: [kPrimary.withOpacity(0.12), Colors.transparent],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
                 ),
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text('我的提醒', style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold)),
-                  Text('共 ${_items.length} 个提醒', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey)),
+                  Text('我的提醒', style: Theme.of(context).textTheme.headlineMedium),
+                  const SizedBox(height: 4),
+                  Text('共 ${_items.length} 个提醒', style: Theme.of(context).textTheme.bodyMedium),
                 ]),
               ),
             ),
-            if (_items.isEmpty)
+            if (_loading)
+              SliverPadding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 80),
+                sliver: SliverList(delegate: SliverChildBuilderDelegate(
+                  (_, __) => const SkeletonCard(), childCount: 5)),
+              )
+            else if (_items.isEmpty)
               const SliverFillRemaining(
                 child: Center(child: Text('暂无提醒', style: TextStyle(color: Colors.grey))),
               )
             else
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 80),
-                sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (ctx, i) => ReminderCard(
-                      reminder: _items[i],
-                      supporterCount: _counts[_items[i].id] ?? 0,
-                      onTap: () => widget.onOpenDetail(_items[i].id),
-                    ),
-                    childCount: _items.length,
+                sliver: SliverList(delegate: SliverChildBuilderDelegate(
+                  (ctx, i) => ReminderCard(
+                    reminder: _items[i],
+                    supporterCount: _counts[_items[i].id] ?? 0,
+                    onTap: () => widget.onOpenDetail(_items[i].id),
                   ),
-                ),
+                  childCount: _items.length,
+                )),
               ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: widget.onCreateNew,
-        backgroundColor: const Color(0xFF6366F1),
-        child: const Icon(Icons.add, color: Colors.white),
+      floatingActionButton: Container(
+        decoration: BoxDecoration(
+          gradient: gradientPurple,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [BoxShadow(color: kPrimary.withOpacity(0.4), blurRadius: 16, offset: const Offset(0, 6))],
+        ),
+        child: FloatingActionButton(
+          onPressed: widget.onCreateNew,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          child: const Icon(Icons.add_rounded, color: Colors.white),
+        ),
       ),
     );
   }

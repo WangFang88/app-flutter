@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../data/api_service.dart';
 import '../widgets/common_widgets.dart';
+import '../theme/app_theme.dart';
 
 class CreateScreen extends StatefulWidget {
   final String uid;
@@ -70,62 +71,65 @@ class _CreateScreenState extends State<CreateScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
         title: const Text('新建提醒'),
-        backgroundColor: Colors.transparent,
-        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: widget.onBack),
+        leading: IconButton(icon: const Icon(Icons.arrow_back_rounded), onPressed: widget.onBack),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(20),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           TextField(
             controller: _titleCtrl,
-            decoration: const InputDecoration(labelText: '提醒标题', border: UnderlineInputBorder()),
+            decoration: const InputDecoration(
+              labelText: '提醒标题',
+              prefixIcon: Icon(Icons.title_rounded, size: 18),
+            ),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 24),
-          const Text('可见性', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
-          const SizedBox(height: 8),
+          Text('可见性', style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600, letterSpacing: 0.5)),
+          const SizedBox(height: 10),
           Row(children: [
-            _chip('公开', _isPublic, () => setState(() => _isPublic = true)),
+            _chip('公开', _isPublic, () => setState(() => _isPublic = true), isDark),
             const SizedBox(width: 8),
-            _chip('私有', !_isPublic, () => setState(() => _isPublic = false)),
+            _chip('私有', !_isPublic, () => setState(() => _isPublic = false), isDark),
           ]),
           const SizedBox(height: 24),
-          const Text('快捷选择', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
-          const SizedBox(height: 8),
+          Text('快捷选择', style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600, letterSpacing: 0.5)),
+          const SizedBox(height: 10),
           Row(children: [
-            _quickBtn('10分钟', const Duration(minutes: 10)),
+            _quickBtn('10分钟', const Duration(minutes: 10), isDark),
             const SizedBox(width: 8),
-            _quickBtn('1小时', const Duration(hours: 1)),
+            _quickBtn('1小时', const Duration(hours: 1), isDark),
             const SizedBox(width: 8),
-            _quickBtn('1天', const Duration(days: 1)),
+            _quickBtn('1天', const Duration(days: 1), isDark),
           ]),
-          const SizedBox(height: 16),
-          const Text('精确选择', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
-          const SizedBox(height: 8),
-          OutlinedButton.icon(
-            onPressed: _pickDate,
-            icon: const Icon(Icons.calendar_today, size: 16),
-            label: Text(DateFormat('yyyy年MM月dd日').format(_selectedTime)),
-          ),
-          const SizedBox(height: 8),
-          OutlinedButton.icon(
-            onPressed: _pickTime,
-            icon: const Icon(Icons.access_time, size: 16),
-            label: Text(DateFormat('HH:mm').format(_selectedTime)),
-          ),
+          const SizedBox(height: 24),
+          Text('精确选择', style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600, letterSpacing: 0.5)),
+          const SizedBox(height: 10),
+          Row(children: [
+            Expanded(child: _dateBtn(context)),
+            const SizedBox(width: 8),
+            Expanded(child: _timeBtn(context)),
+          ]),
           const SizedBox(height: 16),
           Container(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             decoration: BoxDecoration(
-              color: const Color(0xFF6366F1).withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
+              color: kPrimary.withOpacity(isDark ? 0.15 : 0.08),
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: kPrimary.withOpacity(0.2)),
             ),
             child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              const Text('提醒时间'),
+              Row(children: [
+                const Icon(Icons.alarm_rounded, size: 16, color: kPrimary),
+                const SizedBox(width: 8),
+                const Text('提醒时间', style: TextStyle(fontWeight: FontWeight.w500)),
+              ]),
               Text(DateFormat('MM-dd HH:mm').format(_selectedTime),
-                  style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF6366F1))),
+                  style: const TextStyle(fontWeight: FontWeight.w700, color: kPrimary)),
             ]),
           ),
           const SizedBox(height: 32),
@@ -142,24 +146,70 @@ class _CreateScreenState extends State<CreateScreen> {
     );
   }
 
-  Widget _chip(String label, bool selected, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        decoration: BoxDecoration(
-          color: selected ? const Color(0xFF6366F1) : Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(100),
-        ),
-        child: Text(label, style: TextStyle(color: selected ? Colors.white : Colors.black87)),
+  Widget _dateBtn(BuildContext context) {
+    return OutlinedButton.icon(
+      onPressed: _pickDate,
+      icon: const Icon(Icons.calendar_today_rounded, size: 15),
+      label: Text(DateFormat('MM月dd日').format(_selectedTime)),
+      style: OutlinedButton.styleFrom(
+        side: const BorderSide(color: kPrimary),
+        foregroundColor: kPrimary,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
     );
   }
 
-  Widget _quickBtn(String label, Duration duration) {
-    return OutlinedButton(
-      onPressed: () => setState(() => _selectedTime = DateTime.now().add(duration)),
-      child: Text(label),
+  Widget _timeBtn(BuildContext context) {
+    return OutlinedButton.icon(
+      onPressed: _pickTime,
+      icon: const Icon(Icons.access_time_rounded, size: 15),
+      label: Text(DateFormat('HH:mm').format(_selectedTime)),
+      style: OutlinedButton.styleFrom(
+        side: const BorderSide(color: kPrimary),
+        foregroundColor: kPrimary,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+    );
+  }
+
+  Widget _chip(String label, bool selected, VoidCallback onTap, bool isDark) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
+        decoration: BoxDecoration(
+          gradient: selected ? gradientPurple : null,
+          color: selected ? null : (isDark ? Colors.white10 : const Color(0xFFF3F4F6)),
+          borderRadius: BorderRadius.circular(100),
+          boxShadow: selected ? [BoxShadow(color: kPrimary.withOpacity(0.3), blurRadius: 8, offset: const Offset(0, 3))] : null,
+        ),
+        child: Text(label, style: TextStyle(
+          color: selected ? Colors.white : (isDark ? Colors.white70 : Colors.black87),
+          fontWeight: FontWeight.w600,
+          fontSize: 13,
+        )),
+      ),
+    );
+  }
+
+  Widget _quickBtn(String label, Duration duration, bool isDark) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: () => setState(() => _selectedTime = DateTime.now().add(duration)),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          decoration: BoxDecoration(
+            color: isDark ? Colors.white10 : const Color(0xFFF3F4F6),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: isDark ? Colors.white12 : const Color(0xFFE5E7EB)),
+          ),
+          child: Center(child: Text(label, style: TextStyle(
+            fontSize: 13, fontWeight: FontWeight.w600,
+            color: isDark ? Colors.white70 : const Color(0xFF374151),
+          ))),
+        ),
+      ),
     );
   }
 }
