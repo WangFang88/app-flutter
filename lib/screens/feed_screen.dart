@@ -23,7 +23,10 @@ class _FeedScreenState extends State<FeedScreen> with AutomaticKeepAliveClientMi
   bool _initialized = false;
 
   @override
-  void initState() { super.initState(); _load(); }
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _load());
+  }
 
   Future<void> _load() async {
     if (!_initialized) setState(() => _loading = true);
