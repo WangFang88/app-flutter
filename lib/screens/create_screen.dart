@@ -83,7 +83,7 @@ class _CreateScreenState extends State<CreateScreen> {
           TextField(
             controller: _titleCtrl,
             decoration: const InputDecoration(
-              labelText: '提醒标题',
+              labelText: '提醒事件',
               prefixIcon: Icon(Icons.title_rounded, size: 18),
             ),
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
