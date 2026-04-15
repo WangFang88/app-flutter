@@ -29,7 +29,9 @@ class _FeedScreenState extends State<FeedScreen> with AutomaticKeepAliveClientMi
   }
 
   Future<void> _load() async {
-    if (!_initialized) setState(() => _loading = true);
+    if (!_initialized) {
+      if (mounted) setState(() => _loading = true);
+    }
     try {
       final items = await ApiService.getPublicReminders();
       final counts = <String, int>{};
