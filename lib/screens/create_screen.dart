@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../data/api_service.dart';
+import '../services/notification_service.dart';
 import '../widgets/common_widgets.dart';
 import '../theme/app_theme.dart';
 
@@ -60,8 +61,13 @@ class _CreateScreenState extends State<CreateScreen> {
     if (_titleCtrl.text.trim().isEmpty) return;
     setState(() => _saving = true);
     try {
-      await ApiService.createReminder(
+      final id = await ApiService.createReminder(
           _titleCtrl.text.trim(), _selectedTime.millisecondsSinceEpoch, _isPublic);
+      await NotificationService.scheduleReminder(
+        reminderId: id,
+        title: _titleCtrl.text.trim(),
+        scheduledAt: _selectedTime,
+      );
       widget.onDone();
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));

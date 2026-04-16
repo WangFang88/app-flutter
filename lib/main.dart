@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'data/session_store.dart';
+import 'services/notification_service.dart';
 import 'theme/app_theme.dart';
 import 'screens/login_screen.dart';
 import 'screens/feed_screen.dart';
@@ -11,6 +12,7 @@ import 'screens/stats_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SessionStore.load();
+  await NotificationService.init();
   runApp(const ReminderApp());
 }
 
