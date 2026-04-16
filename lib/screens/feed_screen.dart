@@ -16,6 +16,8 @@ class FeedScreen extends StatefulWidget {
 }
 
 class _FeedScreenState extends State<FeedScreen> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   List<Reminder> _items = [];
   Map<String, int> _counts = {};
   bool _loading = true;
