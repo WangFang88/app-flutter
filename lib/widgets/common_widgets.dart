@@ -115,8 +115,34 @@ class ReminderCard extends StatelessWidget {
                 color: isDark ? Colors.white38 : const Color(0xFF9CA3AF)),
             const SizedBox(width: 4),
             Text(time, style: Theme.of(context).textTheme.bodySmall),
+            const SizedBox(width: 8),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+              decoration: BoxDecoration(
+                color: reminder.isPublic
+                    ? kPrimary.withOpacity(0.12)
+                    : Colors.grey.withOpacity(0.15),
+                borderRadius: BorderRadius.circular(100),
+              ),
+              child: Row(mainAxisSize: MainAxisSize.min, children: [
+                Icon(
+                  reminder.isPublic ? Icons.public_rounded : Icons.lock_rounded,
+                  size: 10,
+                  color: reminder.isPublic ? kPrimary : Colors.grey,
+                ),
+                const SizedBox(width: 3),
+                Text(
+                  reminder.isPublic ? '公开' : '私有',
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w600,
+                    color: reminder.isPublic ? kPrimary : Colors.grey,
+                  ),
+                ),
+              ]),
+            ),
             const Spacer(),
-            if (supporterCount > 0)
+            if (reminder.isPublic && supporterCount > 0)
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                 decoration: BoxDecoration(
@@ -130,7 +156,7 @@ class ReminderCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Text('$supporterCount 人提醒',
+                child: Text('$supporterCount 人已提醒',
                     style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w600)),
               ),
           ]),
