@@ -10,7 +10,8 @@ class MineScreen extends StatefulWidget {
   final void Function(String id) onOpenDetail;
   final VoidCallback onCreateNew;
   final VoidCallback onLogout;
-  const MineScreen({super.key, required this.uid, required this.onOpenDetail, required this.onCreateNew, required this.onLogout});
+  final ValueNotifier<int>? refreshNotifier;
+  const MineScreen({super.key, required this.uid, required this.onOpenDetail, required this.onCreateNew, required this.onLogout, this.refreshNotifier});
 
   @override
   State<MineScreen> createState() => _MineScreenState();
@@ -19,6 +20,8 @@ class MineScreen extends StatefulWidget {
 class _MineScreenState extends State<MineScreen> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
+
+  void refresh() => _load();
   List<Reminder> _items = [];
   Map<String, int> _counts = {};
   bool _loading = true;
@@ -28,6 +31,13 @@ class _MineScreenState extends State<MineScreen> with AutomaticKeepAliveClientMi
   void initState() {
     super.initState();
     _load();
+    widget.refreshNotifier?.addListener(_load);
+  }
+
+  @override
+  void dispose() {
+    widget.refreshNotifier?.removeListener(_load);
+    super.dispose();
   }
 
   Future<void> _load() async {

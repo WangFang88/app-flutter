@@ -68,6 +68,7 @@ class MainShell extends StatefulWidget {
 class _MainShellState extends State<MainShell> {
   int _tab = 0;
   List<Widget>? _screens;
+  final _refreshNotifier = ValueNotifier<int>(0);
 
   void _openDetail(String id) {
     Navigator.push(context, MaterialPageRoute(
@@ -75,17 +76,24 @@ class _MainShellState extends State<MainShell> {
     ));
   }
 
-  void _openCreate() {
-    Navigator.push(context, MaterialPageRoute(
-      builder: (_) => CreateScreen(uid: widget.uid, onDone: () => Navigator.pop(context), onBack: () => Navigator.pop(context)),
+  Future<void> _openCreate() async {
+    final created = await Navigator.push<bool>(context, MaterialPageRoute(
+      builder: (_) => CreateScreen(uid: widget.uid, onDone: () => Navigator.pop(context, true), onBack: () => Navigator.pop(context)),
     ));
+    if (created == true) _refreshNotifier.value++;
+  }
+
+  @override
+  void dispose() {
+    _refreshNotifier.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     _screens ??= [
-      FeedScreen(uid: widget.uid, onOpenDetail: _openDetail, onCreateNew: _openCreate),
-      MineScreen(uid: widget.uid, onOpenDetail: _openDetail, onCreateNew: _openCreate, onLogout: widget.onLogout),
+      FeedScreen(uid: widget.uid, onOpenDetail: _openDetail, onCreateNew: _openCreate, refreshNotifier: _refreshNotifier),
+      MineScreen(uid: widget.uid, onOpenDetail: _openDetail, onCreateNew: _openCreate, onLogout: widget.onLogout, refreshNotifier: _refreshNotifier),
       const StatsScreen(),
     ];
     return Scaffold(

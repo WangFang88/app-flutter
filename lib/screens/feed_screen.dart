@@ -8,15 +8,14 @@ class FeedScreen extends StatefulWidget {
   final String uid;
   final void Function(String id) onOpenDetail;
   final VoidCallback onCreateNew;
-  const FeedScreen({super.key, required this.uid, required this.onOpenDetail, required this.onCreateNew});
+  final ValueNotifier<int>? refreshNotifier;
+  const FeedScreen({super.key, required this.uid, required this.onOpenDetail, required this.onCreateNew, this.refreshNotifier});
 
   @override
   State<FeedScreen> createState() => _FeedScreenState();
 }
 
 class _FeedScreenState extends State<FeedScreen> with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
   List<Reminder> _items = [];
   Map<String, int> _counts = {};
   bool _loading = true;
@@ -26,6 +25,13 @@ class _FeedScreenState extends State<FeedScreen> with AutomaticKeepAliveClientMi
   void initState() {
     super.initState();
     _load();
+    widget.refreshNotifier?.addListener(_load);
+  }
+
+  @override
+  void dispose() {
+    widget.refreshNotifier?.removeListener(_load);
+    super.dispose();
   }
 
   Future<void> _load() async {
