@@ -1,8 +1,11 @@
+import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz_data;
 
 final _notif = FlutterLocalNotificationsPlugin();
+const _channel = MethodChannel('reminder_app/battery');
 
 class NotificationService {
   static Future<void> init() async {
@@ -17,6 +20,11 @@ class NotificationService {
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.requestNotificationsPermission();
+    if (Platform.isAndroid) {
+      try {
+        await _channel.invokeMethod('requestIgnoreBatteryOptimizations');
+      } catch (_) {}
+    }
   }
 
   static Future<void> scheduleReminder({
