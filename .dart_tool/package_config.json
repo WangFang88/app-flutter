@@ -254,12 +254,6 @@
       "languageVersion": "3.4"
     },
     {
-      "name": "workmanager",
-      "rootUri": "file:///C:/Users/desk/AppData/Local/Pub/Cache/hosted/pub.dev/workmanager-0.5.2",
-      "packageUri": "lib/",
-      "languageVersion": "3.1"
-    },
-    {
       "name": "xdg_directories",
       "rootUri": "file:///C:/Users/desk/AppData/Local/Pub/Cache/hosted/pub.dev/xdg_directories-1.1.0",
       "packageUri": "lib/",
