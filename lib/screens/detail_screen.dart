@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../data/api_service.dart';
 import '../data/models.dart';
+import '../services/notification_service.dart';
 import '../widgets/common_widgets.dart';
 import '../theme/app_theme.dart';
 
@@ -43,6 +44,15 @@ class _DetailScreenState extends State<DetailScreen> {
     await ApiService.remindOnce(widget.reminderId);
     final count = await ApiService.supporterCount(widget.reminderId);
     if (mounted) setState(() { _supporters = count; _supported = true; _reminding = false; });
+    final r = _reminder;
+    if (r != null) {
+      await NotificationService.scheduleReminder(
+        reminderId: r.id,
+        title: r.title,
+        scheduledAt: DateTime.fromMillisecondsSinceEpoch(r.scheduledAtMillis),
+        supporterCount: count,
+      );
+    }
   }
 
   Future<void> _delete() async {
