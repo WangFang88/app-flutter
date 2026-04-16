@@ -19,6 +19,7 @@ class _CreateScreenState extends State<CreateScreen> {
   bool _isPublic = true;
   bool _saving = false;
   DateTime _selectedTime = DateTime.now().add(const Duration(hours: 1));
+  String? _quickSelected = '1小时';
 
   @override
   void initState() {
@@ -194,19 +195,25 @@ class _CreateScreenState extends State<CreateScreen> {
   }
 
   Widget _quickBtn(String label, Duration duration, bool isDark) {
+    final selected = _quickSelected == label;
     return Expanded(
       child: GestureDetector(
-        onTap: () => setState(() => _selectedTime = DateTime.now().add(duration)),
-        child: Container(
+        onTap: () => setState(() {
+          _selectedTime = DateTime.now().add(duration);
+          _quickSelected = label;
+        }),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 180),
           padding: const EdgeInsets.symmetric(vertical: 10),
           decoration: BoxDecoration(
-            color: isDark ? Colors.white10 : const Color(0xFFF3F4F6),
+            gradient: selected ? gradientPurple : null,
+            color: selected ? null : (isDark ? Colors.white10 : const Color(0xFFF3F4F6)),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: isDark ? Colors.white12 : const Color(0xFFE5E7EB)),
+            boxShadow: selected ? [BoxShadow(color: kPrimary.withOpacity(0.3), blurRadius: 8, offset: const Offset(0, 3))] : null,
           ),
           child: Center(child: Text(label, style: TextStyle(
             fontSize: 13, fontWeight: FontWeight.w600,
-            color: isDark ? Colors.white70 : const Color(0xFF374151),
+            color: selected ? Colors.white : (isDark ? Colors.white70 : const Color(0xFF374151)),
           ))),
         ),
       ),
