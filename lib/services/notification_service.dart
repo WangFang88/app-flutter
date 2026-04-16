@@ -7,6 +7,7 @@ final _notif = FlutterLocalNotificationsPlugin();
 class NotificationService {
   static Future<void> init() async {
     tz_data.initializeTimeZones();
+    tz.setLocalLocation(tz.getLocation('Asia/Shanghai'));
     await _notif.initialize(
       const InitializationSettings(
         android: AndroidInitializationSettings('@mipmap/ic_launcher'),
