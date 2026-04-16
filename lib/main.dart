@@ -70,10 +70,11 @@ class _MainShellState extends State<MainShell> {
   List<Widget>? _screens;
   final _refreshNotifier = ValueNotifier<int>(0);
 
-  void _openDetail(String id) {
-    Navigator.push(context, MaterialPageRoute(
+  Future<void> _openDetail(String id) async {
+    final changed = await Navigator.push<bool>(context, MaterialPageRoute(
       builder: (_) => DetailScreen(reminderId: id, myUid: widget.uid),
     ));
+    if (changed == true) _refreshNotifier.value++;
   }
 
   Future<void> _openCreate() async {
