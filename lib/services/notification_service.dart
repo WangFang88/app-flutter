@@ -16,6 +16,17 @@ class NotificationService {
         android: AndroidInitializationSettings('@mipmap/ic_launcher'),
       ),
     );
+    // 创建高优先级通知渠道
+    await _notif
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(const AndroidNotificationChannel(
+          'reminder_high_channel',
+          '提醒通知',
+          importance: Importance.max,
+          enableVibration: true,
+          playSound: true,
+        ));
     await _notif
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
@@ -45,7 +56,7 @@ class NotificationService {
       tz.TZDateTime.from(scheduledAt, tz.local),
       NotificationDetails(
         android: AndroidNotificationDetails(
-          'reminder_channel',
+          'reminder_high_channel',
           '提醒通知',
           importance: importance,
           priority: priority,
@@ -70,7 +81,7 @@ class NotificationService {
       '通知功能正常！',
       const NotificationDetails(
         android: AndroidNotificationDetails(
-          'reminder_channel',
+          'reminder_high_channel',
           '提醒通知',
           importance: Importance.max,
           priority: Priority.max,
