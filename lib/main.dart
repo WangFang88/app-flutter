@@ -13,6 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SessionStore.load();
   await NotificationService.init();
+  await NotificationService.showTestNotification();
   runApp(const ReminderApp());
 }
 

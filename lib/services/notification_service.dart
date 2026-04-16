@@ -54,6 +54,23 @@ class NotificationService {
     await _notif.cancel(reminderId.hashCode);
   }
 
+  /// 立即发一条测试通知，用于验证权限是否正常
+  static Future<void> showTestNotification() async {
+    await _notif.show(
+      0,
+      '通知测试',
+      '通知功能正常！',
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'reminder_channel',
+          '提醒通知',
+          importance: Importance.max,
+          priority: Priority.max,
+        ),
+      ),
+    );
+  }
+
   static (String, Importance, Priority) _intensity(int count) {
     if (count >= 5) {
       return ('$count 人和你一起提醒！快行动吧！', Importance.max, Priority.max);
