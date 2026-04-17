@@ -101,9 +101,9 @@ class _DetailScreenState extends State<DetailScreen> {
             OutlinedButton.icon(
               onPressed: () async {
                 final dt = DateTime.fromMillisecondsSinceEpoch(scheduledAt);
-                final date = await showDatePicker(context: ctx, initialDate: dt, firstDate: DateTime.now(), lastDate: DateTime.now().add(const Duration(days: 365)));
-                if (date != null) {
-                  final time = await showTimePicker(context: ctx, initialTime: TimeOfDay.fromDateTime(dt));
+                final date = await showDatePicker(context: context, initialDate: dt, firstDate: DateTime.now(), lastDate: DateTime.now().add(const Duration(days: 365)));
+                if (date != null && mounted) {
+                  final time = await showTimePicker(context: context, initialTime: TimeOfDay.fromDateTime(dt));
                   if (time != null) {
                     setS(() => scheduledAt = DateTime(date.year, date.month, date.day, time.hour, time.minute).millisecondsSinceEpoch);
                   }
