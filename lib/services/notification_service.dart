@@ -34,10 +34,8 @@ class NotificationService {
         android: const AndroidInitializationSettings('@mipmap/ic_launcher'),
       ),
       onDidReceiveNotificationResponse: (details) {
-        if (details.actionId == 'confirm') {
-          _pendingReminders.remove(details.id);
-          _notif.cancel(details.id!);
-        }
+        // 点击通知本身即视为已确认，停止重复
+        _pendingReminders.remove(details.id);
       },
       onDidReceiveBackgroundNotificationResponse: onBackgroundNotificationResponse,
     );
@@ -110,9 +108,6 @@ class NotificationService {
         priority: priority,
         enableVibration: true,
         autoCancel: true,
-        actions: const [
-          AndroidNotificationAction('confirm', '确定', cancelNotification: true),
-        ],
       ),
     );
   }
