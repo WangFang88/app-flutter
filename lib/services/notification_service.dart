@@ -60,7 +60,12 @@ class NotificationService {
           '提醒通知',
           importance: importance,
           priority: priority,
-          enableVibration: supporterCount > 0,
+          enableVibration: true,
+          ongoing: true,
+          autoCancel: false,
+          actions: const [
+            AndroidNotificationAction('confirm', '确定', cancelNotification: true),
+          ],
         ),
       ),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
