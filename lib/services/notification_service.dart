@@ -3,26 +3,23 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz_data;
+import '../data/api_service.dart';
 
 final _notif = FlutterLocalNotificationsPlugin();
 const _channel = MethodChannel('reminder_app/battery');
 
-// 存储待重复的通知信息
 final Map<int, _PendingReminder> _pendingReminders = {};
 
 @pragma('vm:entry-point')
 void onBackgroundNotificationResponse(NotificationResponse details) {
-  if (details.actionId == 'confirm') {
-    _pendingReminders.remove(details.id);
-  }
+  _pendingReminders.remove(details.id);
 }
 
 class _PendingReminder {
+  final String reminderId;
   final String title;
-  final String body;
-  final Importance importance;
-  final Priority priority;
-  _PendingReminder(this.title, this.body, this.importance, this.priority);
+  final DateTime scheduledAt;
+  _PendingReminder(this.reminderId, this.title, this.scheduledAt);
 }
 
 class NotificationService {
@@ -70,14 +67,12 @@ class NotificationService {
     final delay = scheduledAt.difference(DateTime.now());
     if (delay.isNegative) return;
 
-    final (body, importance, priority) = _intensity(supporterCount, scheduledAt);
     final id = reminderId.hashCode;
-    _pendingReminders[id] = _PendingReminder(title, body, importance, priority);
+    _pendingReminders[id] = _PendingReminder(reminderId, title, scheduledAt);
 
+    final (body, importance, priority) = _intensity(supporterCount, scheduledAt);
     await _notif.zonedSchedule(
-      id,
-      title,
-      body,
+      id, title, body,
       tz.TZDateTime.from(scheduledAt, tz.local),
       _buildDetails(importance, priority),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
@@ -86,16 +81,15 @@ class NotificationService {
     );
   }
 
-  /// 重新发送通知（用于重复提醒）
-  static Future<void> reshowIfPending(int id) async {
-    final pending = _pendingReminders[id];
-    if (pending == null) return;
-    await _notif.show(id, pending.title, pending.body, _buildDetails(pending.importance, pending.priority));
-  }
-
   static Future<void> reshowAllPending() async {
-    for (final id in _pendingReminders.keys.toList()) {
-      await reshowIfPending(id);
+    for (final entry in _pendingReminders.entries.toList()) {
+      final pending = entry.value;
+      int count = 0;
+      try {
+        count = await ApiService.supporterCount(pending.reminderId);
+      } catch (_) {}
+      final (body, importance, priority) = _intensity(count, pending.scheduledAt);
+      await _notif.show(entry.key, pending.title, body, _buildDetails(importance, priority));
     }
   }
 
