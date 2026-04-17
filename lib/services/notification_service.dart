@@ -10,6 +10,13 @@ const _channel = MethodChannel('reminder_app/battery');
 // 存储待重复的通知信息
 final Map<int, _PendingReminder> _pendingReminders = {};
 
+@pragma('vm:entry-point')
+void onBackgroundNotificationResponse(NotificationResponse details) {
+  if (details.actionId == 'confirm') {
+    _pendingReminders.remove(details.id);
+  }
+}
+
 class _PendingReminder {
   final String title;
   final String body;
@@ -32,6 +39,7 @@ class NotificationService {
           _notif.cancel(details.id!);
         }
       },
+      onDidReceiveBackgroundNotificationResponse: onBackgroundNotificationResponse,
     );
     await _notif
         .resolvePlatformSpecificImplementation<
