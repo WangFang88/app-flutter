@@ -113,6 +113,7 @@ class _FeedScreenState extends State<FeedScreen> with AutomaticKeepAliveClientMi
           boxShadow: [BoxShadow(color: kPrimary.withOpacity(0.4), blurRadius: 16, offset: const Offset(0, 6))],
         ),
         child: FloatingActionButton(
+          heroTag: 'feed_fab',
           onPressed: widget.onCreateNew,
           backgroundColor: Colors.transparent,
           elevation: 0,
