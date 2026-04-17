@@ -42,6 +42,7 @@ class NotificationService {
           importance: Importance.max,
           enableVibration: true,
           playSound: true,
+          showBadge: true,
         ));
     await _notif
         .resolvePlatformSpecificImplementation<
