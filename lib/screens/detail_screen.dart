@@ -80,13 +80,17 @@ class _DetailScreenState extends State<DetailScreen> {
     var scheduledAt = r.scheduledAtMillis;
     var isPublic = r.isPublic;
 
-    await showDialog(
+    await showModalBottomSheet(
       context: context,
-      builder: (ctx) => StatefulBuilder(
-        builder: (ctx, setS) => AlertDialog(
-          title: const Text('编辑提醒'),
-          content: Column(mainAxisSize: MainAxisSize.min, children: [
-            TextField(controller: titleCtrl, decoration: const InputDecoration(labelText: '标题')),
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (ctx) => Padding(
+        padding: EdgeInsets.fromLTRB(20, 20, 20, MediaQuery.of(ctx).viewInsets.bottom + 20),
+        child: StatefulBuilder(
+          builder: (ctx, setS) => Column(mainAxisSize: MainAxisSize.min, children: [
+            Text('编辑提醒', style: Theme.of(ctx).textTheme.titleLarge),
+            const SizedBox(height: 16),
+            TextField(controller: titleCtrl, decoration: const InputDecoration(labelText: '标题', border: OutlineInputBorder())),
             const SizedBox(height: 12),
             Row(children: [
               const Text('公开'),
@@ -94,7 +98,7 @@ class _DetailScreenState extends State<DetailScreen> {
               Switch(value: isPublic, onChanged: (v) => setS(() => isPublic = v)),
             ]),
             const SizedBox(height: 8),
-            OutlinedButton(
+            OutlinedButton.icon(
               onPressed: () async {
                 final dt = DateTime.fromMillisecondsSinceEpoch(scheduledAt);
                 final date = await showDatePicker(context: ctx, initialDate: dt, firstDate: DateTime.now(), lastDate: DateTime.now().add(const Duration(days: 365)));
@@ -105,20 +109,23 @@ class _DetailScreenState extends State<DetailScreen> {
                   }
                 }
               },
-              child: Text(DateFormat('MM-dd HH:mm').format(DateTime.fromMillisecondsSinceEpoch(scheduledAt))),
+              icon: const Icon(Icons.access_time_rounded, size: 16),
+              label: Text(DateFormat('MM月dd日 HH:mm').format(DateTime.fromMillisecondsSinceEpoch(scheduledAt))),
             ),
+            const SizedBox(height: 16),
+            Row(children: [
+              Expanded(child: OutlinedButton(onPressed: () => Navigator.pop(ctx), child: const Text('取消'))),
+              const SizedBox(width: 12),
+              Expanded(child: ElevatedButton(
+                onPressed: () async {
+                  await ApiService.updateReminder(r.id, title: titleCtrl.text.trim(), scheduledAt: scheduledAt, isPublic: isPublic);
+                  Navigator.pop(ctx);
+                  _load();
+                },
+                child: const Text('保存'),
+              )),
+            ]),
           ]),
-          actions: [
-            TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('取消')),
-            TextButton(
-              onPressed: () async {
-                await ApiService.updateReminder(r.id, title: titleCtrl.text.trim(), scheduledAt: scheduledAt, isPublic: isPublic);
-                Navigator.pop(ctx);
-                _load();
-              },
-              child: const Text('保存'),
-            ),
-          ],
         ),
       ),
     );
