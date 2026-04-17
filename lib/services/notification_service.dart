@@ -47,7 +47,7 @@ class NotificationService {
     final delay = scheduledAt.difference(DateTime.now());
     if (delay.isNegative) return;
 
-    final (body, importance, priority) = _intensity(supporterCount);
+    final (body, importance, priority) = _intensity(supporterCount, scheduledAt);
 
     await _notif.zonedSchedule(
       reminderId.hashCode,
@@ -90,12 +90,13 @@ class NotificationService {
     );
   }
 
-  static (String, Importance, Priority) _intensity(int count) {
+  static (String, Importance, Priority) _intensity(int count, DateTime scheduledAt) {
+    final timeStr = '${scheduledAt.hour.toString().padLeft(2, '0')}:${scheduledAt.minute.toString().padLeft(2, '0')}';
     if (count >= 5) {
-      return ('$count 人和你一起提醒！快行动吧！', Importance.max, Priority.max);
+      return ('$timeStr 提醒时间到！$count 人和你一起！', Importance.max, Priority.max);
     } else if (count >= 1) {
-      return ('$count 人和你一起提醒', Importance.high, Priority.high);
+      return ('$timeStr 提醒时间到！$count 人和你一起', Importance.high, Priority.high);
     }
-    return ('该提醒了', Importance.defaultImportance, Priority.defaultPriority);
+    return ('$timeStr 提醒时间到！', Importance.defaultImportance, Priority.defaultPriority);
   }
 }
