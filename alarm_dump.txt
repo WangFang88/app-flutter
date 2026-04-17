@@ -1,0 +1,1435 @@
+Current Alarm Manager state:
+  Settings:
+    min_futurity=+5s0ms
+    min_interval=+1m0s0ms
+    max_interval=+365d0h0m0s0ms
+    listener_timeout=+5s0ms
+    allow_while_idle_short_time=+5s0ms
+    allow_while_idle_long_time=+9m0s0ms
+    allow_while_idle_whitelist_duration=+10s0ms
+    max_alarms_per_uid=500
+    app_standby_window=+1h0m0s0ms
+    standby_active_quota=720
+    standby_working_quota=10
+    standby_frequent_quota=2
+    standby_rare_quota=1
+    standby_never_quota=0
+    standby_restricted_quota=1
+    app_standby_restricted_window=+1d0h0m0s0ms
+
+  Forced App Standby Feature enabled: true
+  Force all apps standby: false
+  Small Battery Device: false
+  Force all apps standby for small battery device: false
+  Plugged In: true
+  Active uids: [u0a0 u0a63 u0a76 u0a85 u0a100 u0a119 u0a123 u0a136 u0a146 u0a149 u0a150 u0a158 u0a164 u0a170 u0a179 u0a182 u0a183 u0a187 u0a192 u0a215 u0a221 u0a314]
+  Foreground uids: [u0a0 u0a63 u0a76 u0a100 u0a119 u0a123 u0a136 u0a146 u0a149 u0a150 u0a158 u0a164 u0a170 u0a179 u0a182 u0a183 u0a187 u0a192 u0a215 u0a221 u0a314]
+  Except-idle + user whitelist appids: [1000, 1001, 2000, 10053, 10057, 10058, 10066, 10070, 10076, 10093, 10096, 10101, 10109, 10132, 10137, 10146, 10151, 10153, 10163, 10164, 10179, 10211, 10290, 10314]
+  User whitelist appids: [1000, 10066, 10076, 10093, 10096, 10101, 10109, 10132, 10137, 10146, 10151, 10153, 10164, 10211, 10290, 10314]
+  Temp whitelist appids: []
+  Exempted packages:
+    User 0
+      com.android.internal.display.cutout.emulation.corner
+      com.android.internal.display.cutout.emulation.double
+      com.vivo.fuelsummary
+      com.android.theme.icon.pebble
+      com.android.providers.media
+      com.vivo.livewallpaper.coffeetime
+      com.qti.service.colorservice
+      com.google.android.onetimeinitializer
+      com.google.android.ext.shared
+      com.android.internal.systemui.navbar.gestural_wide_back
+      com.vivo.epm
+      com.vivo.sps
+      com.android.theme.icon.vessel
+      com.android.theme.color.cinnamon
+      com.vivo.widgetweather
+      com.android.theme.icon_pack.rounded.systemui
+      com.android.theme.icon.taperedrect
+      com.android.externalstorage
+      com.qualcomm.uimremoteclient
+      android.overlay.vrro
+      com.android.mms.service
+      com.funtouch.uiengine
+      com.qualcomm.qti.qms.service.connectionsecurity
+      com.android.providers.downloads
+      com.android.networkstack.inprocess
+      com.android.theme.icon_pack.rounded.android
+      vendor.qti.hardware.cacert.server
+      com.qualcomm.qti.gpudrivers.msmnile.api30
+      com.qualcomm.qti.telephonyservice
+      com.bbk.updater
+      com.android.theme.icon_pack.circular.themepicker
+      vendor.qti.iwlan
+      com.vivo.ewarranty
+      com.vivo.pushservice
+      com.qualcomm.uimremoteserver
+      android.qvaoverlay.common
+      com.android.systemui.plugin.globalactions.wallet
+      com.google.ar.core
+      com.android.pacprocessor
+      android.overlay.common
+      com.android.internal.display.cutout.emulation.hole
+      com.android.internal.display.cutout.emulation.tall
+      com.android.vendors.bridge.softsim
+      com.android.modulemetadata
+      com.android.theme.color.black
+      com.android.carrierconfig
+      com.android.theme.color.green
+      com.android.theme.color.ocean
+      com.android.theme.color.space
+      com.android.internal.systemui.navbar.threebutton
+      com.qti.qualcomm.datastatusnotification
+      com.qualcomm.wfd.service
+      com.vivo.secime.service
+      com.android.theme.icon_pack.rounded.launcher
+      com.rongcard.eid
+      com.vivo.timerwidget
+      com.android.ons
+      org.codeaurora.ims
+      com.android.statementservice
+      android.overlay.target
+      com.android.nfc.tests
+      com.vlife.vivo.wallpaper
+      com.google.android.overlay.gmsconfig.common
+      com.android.internal.systemui.navbar.gestural_extra_wide_back
+      com.qualcomm.qti.dynamicddsservice
+      com.mobile.cos.iroaming
+      com.qualcomm.qcrilmsgtunnel
+      com.android.providers.settings
+      com.android.sharedstoragebackup
+      com.android.theme.icon_pack.filled.settings
+      com.android.wifi.resources.overlay.common
+      org.ifaa.aidl.manager
+      com.android.se
+      com.android.inputdevices
+      com.qti.dpmserviceapp
+      com.android.theme.icon_pack.circular.settings
+      com.android.theme.icon.teardrop
+      com.vivo.faceui
+      com.android.cellbroadcastservice
+      com.android.theme.icon_pack.rounded.themepicker
+      com.qti.snapdragon.qdcm_ff
+      com.android.wifi.resources.overlay.target
+      com.android.theme.icon_pack.filled.systemui
+      com.google.android.gms
+      com.android.phone.overlay.common
+      com.android.carrierconfig.overlay.common
+      com.android.calllogbackup
+      com.android.systemui.overlay.common
+      com.android.server.telecom.overlay.common
+      com.android.localtransport
+      com.qualcomm.qti.remoteSimlockAuth
+      com.qualcomm.qti.devicestatisticsservice
+      com.android.theme.font.notoserifsource
+      com.android.theme.icon_pack.filled.android
+      com.vivo.livewallpaper.silk
+      com.android.proxyhandler
+      com.android.internal.display.cutout.emulation.waterfall
+      com.qualcomm.qti.workloadclassifier
+      com.android.theme.icon_pack.circular.systemui
+      com.google.android.printservice.recommendation
+      com.google.android.syncadapters.calendar
+      com.vivo.vibrator4d
+      com.tencent.soter.soterserver
+      com.vivo.livewallpaper.galaxy
+      com.vivo.livewallpaper.monster
+      com.android.smspush
+      com.android.theme.icon.squircle
+      com.vivo.widget.cleanspeed
+      com.vivo.dream.weather
+      com.bbk.theme.resources
+      com.qualcomm.qti.cne
+      com.qualcomm.qti.lpa
+      com.qualcomm.qti.uim
+      com.android.theme.icon_pack.filled.launcher
+      com.vivo.multinlp
+      com.android.networkstack.tethering.inprocess
+      com.android.networkstack.permissionconfig
+      com.android.theme.icon_pack.circular.launcher
+      com.qualcomm.qti.uimGbaApp
+      com.bbk.scene.databaseprovider
+      com.qti.diagservices
+      com.vivo.dream.music
+      com.example.reminder_app
+      com.vivo.gamewatch
+      com.android.theme.icon_pack.filled.themepicker
+      com.android.wallpaperbackup
+      com.android.providers.blockednumber
+      com.vivo.widget.timemanager
+      com.android.providers.userdictionary
+      com.vivo.minscreen
+      com.qualcomm.qti.seccamservice
+      com.vivo.contentcatcher
+      com.android.internal.systemui.navbar.gestural
+      com.android.location.fused
+      com.android.theme.color.orchid
+      android.overlay.vivoresrro
+      com.android.theme.color.purple
+      com.vivo.livewallpaper.coralsea
+      com.android.bluetoothmidiservice
+      com.vivo.dr
+      com.vivo.systemblur.server
+      com.qualcomm.qti.server.wigig.tethering.rro
+      com.qualcomm.timeservice
+      com.qualcomm.atfwd
+      com.qualcomm.embms
+      com.android.theme.icon.roundedrect
+      com.android.internal.systemui.navbar.gestural_narrow_back
+      com.android.cellbroadcastreceiver.overlay.common
+      com.android.theme.icon_pack.rounded.settings
+      com.android.theme.icon_pack.circular.android
+  
+  Restricted packages:
+  Stats:
+    UID_FG_STATE_CHANGED: count=129, total=70.4ms, avg=0.546ms, max calls/s=24 max dur/s=66.4ms max time=66.4ms
+    UID_ACTIVE_STATE_CHANGED: count=82, total=70.9ms, avg=0.865ms, max calls/s=14 max dur/s=41.7ms max time=40.4ms
+    RUN_ANY_CHANGED: count=0, total=0.0ms, avg=0.000ms, max calls/s=0 max dur/s=0.0ms max time=0.0ms
+    ALL_UNWHITELISTED: count=0, total=0.0ms, avg=0.000ms, max calls/s=0 max dur/s=0.0ms max time=0.0ms
+    ALL_WHITELIST_CHANGED: count=0, total=0.0ms, avg=0.000ms, max calls/s=0 max dur/s=0.0ms max time=0.0ms
+    TEMP_WHITELIST_CHANGED: count=8, total=5.1ms, avg=0.639ms, max calls/s=2 max dur/s=4.3ms max time=4.1ms
+    EXEMPT_CHANGED: count=21, total=20.6ms, avg=0.981ms, max calls/s=18 max dur/s=20.3ms max time=20.2ms
+    FORCE_ALL_CHANGED: count=0, total=0.0ms, avg=0.000ms, max calls/s=0 max dur/s=0.0ms max time=0.0ms
+    FORCE_APP_STANDBY_FEATURE_FLAG_CHANGED: count=0, total=0.0ms, avg=0.000ms, max calls/s=0 max dur/s=0.0ms max time=0.0ms
+    IS_UID_ACTIVE_CACHED: count=0, total=0.0ms, avg=0.000ms, max calls/s=0 max dur/s=0.0ms max time=0.0ms
+    IS_UID_ACTIVE_RAW: count=5, total=0.1ms, avg=0.028ms, max calls/s=3 max dur/s=0.1ms max time=0.0ms
+
+  App Standby Parole: false
+
+  nowRTC=1776394973844=2026-04-17 11:02:53.844 nowELAPSED=29499904
+  mLastTimeChangeClockTime=0=1970-01-01 08:00:00.000
+  mLastTimeChangeRealtime=0
+  mLastTickReceived=2026-04-17 11:02:00.000
+  mLastTickSet=2026-04-17 11:02:00.001
+  mLastTickAdded=2026-04-17 11:02:00.001
+  mLastTickRemoved=2026-04-17 02:52:04.412
+
+  Recent TIME_TICK history:
+    2026-04-17 11:02:00.000
+    2026-04-17 11:01:00.000
+    2026-04-17 11:00:00.001
+    2026-04-17 10:58:00.001
+    2026-04-17 10:57:00.001
+    2026-04-17 10:56:54.554
+    2026-04-17 10:55:27.280
+    2026-04-17 10:54:18.110
+    2026-04-17 10:53:33.590
+    2026-04-17 10:52:25.440
+
+  RuntimeStarted=2026-04-17 02:51:22.862
+  Runtime uptime (elapsed): +8h11m30s982ms
+  Runtime uptime (uptime): +8h11m30s982ms
+
+  Max wakeup delay: +2m0s0ms
+  Time since last dispatch: +19s912ms
+  Next non-wakeup delivery time: -53s844ms
+  Next non-wakeup alarm: +6s156ms = 29506060 = 2026-04-17 11:03:00.000
+    set at -19s903ms
+  Next wakeup alarm: +22s93ms = 29521997 = 2026-04-17 11:03:15.937
+    set at -19s903ms
+  Next kernel non-wakeup alarm: +6s153ms
+  Next kernel wakeup alarm: +22s90ms
+  Last wakeup: -19s912ms = 29479992
+  Last trigger: -19s912ms = 29479992
+  Num time change events: 0
+
+  Next alarm clock information: 
+
+  Pending alarm batches: 67
+Batch{e5c2bc4 num=1 start=29506060 end=29506060 flgs=0x1}:
+    ELAPSED #0: Alarm{2c8aad type 3 when 29506060 flags 1 windowLength 0 whenElapsed 29506060 maxWhenElapsed 29506060 repeatInterval 0 android}
+      tag=*alarm*:TIME_TICK
+      type=3 expectedWhenElapsed=+6s156ms expectedMaxWhenElapsed=+6s156ms whenElapsed=+6s156ms maxWhenElapsed=+6s156ms when=+6s156ms
+      window=0 repeatInterval=0 count=0 flags=0x1
+      operation=null
+      listener=com.android.server.AlarmManagerService$3@78aae5a
+Batch{b3b5aa2 num=4 start=29521997 end=29588324 flgs=0x8}:
+    ELAPSED #3: Alarm{92f2333 type 3 when 29521997 flags 0 windowLength 119486 whenElapsed 29521997 maxWhenElapsed 29641483 repeatInterval 0 android}
+      tag=*alarm*:*job.delay*
+      type=3 expectedWhenElapsed=+22s93ms expectedMaxWhenElapsed=+2m21s579ms whenElapsed=+22s93ms maxWhenElapsed=+2m21s579ms when=+22s93ms
+      window=+1m59s486ms repeatInterval=0 count=0 flags=0x0
+      operation=null
+      listener=android.app.AlarmManager$ListenerWrapper@bfe8275
+    RTC_WAKEUP #2: Alarm{23db6f0 type 0 when 1776394980000 flags 8 windowLength 82263 whenElapsed 29506061 maxWhenElapsed 29588324 repeatInterval 0 com.example.reminder_app}
+      tag=*walarm*:com.example.reminder_app/com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver
+      type=0 expectedWhenElapsed=+6s157ms expectedMaxWhenElapsed=+1m28s420ms whenElapsed=+6s157ms maxWhenElapsed=+1m28s420ms when=2026-04-17 11:03:00.000
+      window=+1m22s263ms repeatInterval=0 count=0 flags=0x8
+      operation=PendingIntent{fa43469: PendingIntentRecord{3187eee com.example.reminder_app broadcastIntent}}
+    ELAPSED #1: Alarm{29b620a type 3 when 29492784 flags 8 windowLength 225000 whenElapsed 29492784 maxWhenElapsed 29717784 repeatInterval 300000 com.tencent.mm}
+      tag=*alarm*:com.tencent.mm.TrafficStatsReceiver
+      type=3 expectedWhenElapsed=-7s120ms expectedMaxWhenElapsed=+3m37s880ms whenElapsed=-7s120ms maxWhenElapsed=+3m37s880ms when=-7s120ms
+      window=+3m45s0ms repeatInterval=300000 count=0 flags=0x8
+      operation=PendingIntent{1c3fa7b: PendingIntentRecord{ce55098 com.tencent.mm broadcastIntent}}
+    RTC #0: Alarm{9c1d0f1 type 1 when 1776394948750 flags 8 windowLength 225000 whenElapsed 29474811 maxWhenElapsed 29699811 repeatInterval 300000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=-25s93ms expectedMaxWhenElapsed=+3m19s907ms whenElapsed=-25s93ms maxWhenElapsed=+3m19s907ms when=2026-04-17 11:02:28.750
+      window=+3m45s0ms repeatInterval=300000 count=0 flags=0x8
+      operation=PendingIntent{9594d6: PendingIntentRecord{68dc357 com.vivo.aiengine broadcastIntent}}
+Batch{22ebf8f num=1 start=29773620 end=29773620 flgs=0x9}:
+    ELAPSED_WAKEUP #0: Alarm{328ad29 type 2 when 29773620 flags 9 windowLength 0 whenElapsed 29773620 maxWhenElapsed 29773620 repeatInterval 0 com.google.android.gms}
+      tag=*walarm*:com.google.android.gms.gcm.HEARTBEAT_ALARM
+      type=2 expectedWhenElapsed=+4m33s716ms expectedMaxWhenElapsed=+4m33s716ms whenElapsed=+4m33s716ms maxWhenElapsed=+4m33s716ms when=+4m33s716ms
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{3ca68ae: PendingIntentRecord{da7c64f com.google.android.gms/apkappcontext broadcastIntent}}
+Batch{3df521c num=1 start=29792772 end=30467772 flgs=0x9}:
+    RTC_WAKEUP #0: Alarm{6f5f2e5 type 0 when 1776395266711 flags 9 windowLength 675000 whenElapsed 29792772 maxWhenElapsed 30467772 repeatInterval 900000 com.tencent.mm}
+      tag=*walarm*:com.tencent.mm/.booter.MMReceivers$AlarmReceiver
+      type=0 expectedWhenElapsed=+4m52s868ms expectedMaxWhenElapsed=+16m7s868ms whenElapsed=+4m52s868ms maxWhenElapsed=+16m7s868ms when=2026-04-17 11:07:46.711
+      window=+11m15s0ms repeatInterval=900000 count=0 flags=0x9
+      operation=PendingIntent{8d861ba: PendingIntentRecord{1c4786b com.tencent.mm broadcastIntent}}
+Batch{ec2ae25 num=1 start=29827697 end=29827697 flgs=0x1}:
+    ELAPSED_WAKEUP #0: Alarm{f919bfa type 2 when 29827697 flags 1 windowLength 0 whenElapsed 29827697 maxWhenElapsed 29827697 repeatInterval 0 com.xunmeng.pinduoduo}
+      tag=*walarm*:ALARM_ACTION(10704)
+      type=2 expectedWhenElapsed=+5m27s793ms expectedMaxWhenElapsed=+5m27s793ms whenElapsed=+5m27s793ms maxWhenElapsed=+5m27s793ms when=+5m27s793ms
+      window=0 repeatInterval=0 count=0 flags=0x1
+      operation=PendingIntent{be1c5ab: PendingIntentRecord{69d7408 com.xunmeng.pinduoduo broadcastIntent}}
+Batch{9507a1 num=1 start=29973935 end=29973935 flgs=0x9}:
+    ELAPSED_WAKEUP #0: Alarm{f4d7dc6 type 2 when 29973935 flags 9 windowLength 0 whenElapsed 29973935 maxWhenElapsed 29973935 repeatInterval 0 com.tencent.mm}
+      tag=*walarm*:ALARM_ACTION(10000)
+      type=2 expectedWhenElapsed=+7m54s31ms expectedMaxWhenElapsed=+7m54s31ms whenElapsed=+7m54s31ms maxWhenElapsed=+7m54s31ms when=+7m54s31ms
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{d751187: PendingIntentRecord{b99c8b4 com.tencent.mm broadcastIntent}}
+Batch{ad97cdd num=4 start=30013757 end=30090574 flgs=0x8}:
+    ELAPSED #3: Alarm{fa46074 type 3 when 30013757 flags 8 windowLength 899999 whenElapsed 30013757 maxWhenElapsed 30913756 repeatInterval 0 com.vivo.assistant}
+      tag=*alarm*:com.vivo.assistant.lbs.per_day_loc
+      type=3 expectedWhenElapsed=+8m33s853ms expectedMaxWhenElapsed=+23m33s852ms whenElapsed=+8m33s853ms maxWhenElapsed=+23m33s852ms when=+8m33s853ms
+      window=+14m59s999ms repeatInterval=0 count=0 flags=0x8
+      operation=PendingIntent{c18999d: PendingIntentRecord{1b56e12 com.vivo.assistant broadcastIntent}}
+    RTC_WAKEUP #2: Alarm{5b589e3 type 0 when 1776395339095 flags 8 windowLength 21600000 whenElapsed 29865156 maxWhenElapsed 51465156 repeatInterval 28800000 com.vivo.pushservice}
+      tag=*walarm*:com.vivo.pushservice.action.EIGHT_HOUR_REPEAT_ALARM
+      type=0 expectedWhenElapsed=+6m5s252ms expectedMaxWhenElapsed=+6h6m5s252ms whenElapsed=+6m5s252ms maxWhenElapsed=+6h6m5s252ms when=2026-04-17 11:08:59.095
+      window=+6h0m0s0ms repeatInterval=28800000 count=0 flags=0x8
+      operation=PendingIntent{6e10fe0: PendingIntentRecord{7ea3299 com.vivo.pushservice broadcastIntent}}
+    ELAPSED_WAKEUP #1: Alarm{293b052 type 2 when 29772361 flags 0 windowLength 318213 whenElapsed 29772361 maxWhenElapsed 30090574 repeatInterval 0 com.google.android.gms}
+      tag=*walarm*:com.google.android.gms.gcm.ACTION_CHECK_QUEUE
+      type=2 expectedWhenElapsed=+4m32s457ms expectedMaxWhenElapsed=+9m50s670ms whenElapsed=+4m32s457ms maxWhenElapsed=+9m50s670ms when=+4m32s457ms
+      window=+5m18s213ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{a073f23: PendingIntentRecord{1774a0c com.google.android.gms/apkappcontext broadcastIntent}}
+    ELAPSED_WAKEUP #0: Alarm{9a25f55 type 2 when 29746802 flags 0 windowLength 656382 whenElapsed 29746802 maxWhenElapsed 30403184 repeatInterval 0 android}
+      tag=*walarm*:*job.deadline*
+      type=2 expectedWhenElapsed=+4m6s898ms expectedMaxWhenElapsed=+15m3s280ms whenElapsed=+4m6s898ms maxWhenElapsed=+15m3s280ms when=+4m6s898ms
+      window=+10m56s382ms repeatInterval=0 count=0 flags=0x0
+      operation=null
+      listener=android.app.AlarmManager$ListenerWrapper@3ecad6a
+Batch{405f1e2 num=1 start=30303983 end=30303983 flgs=0x9}:
+    ELAPSED_WAKEUP #0: Alarm{d070973 type 2 when 30303983 flags 9 windowLength 0 whenElapsed 30303983 maxWhenElapsed 30303983 repeatInterval 0 com.vivo.pushservice}
+      tag=*walarm*:com.vivo.alarm.filter
+      type=2 expectedWhenElapsed=+13m24s79ms expectedMaxWhenElapsed=+13m24s79ms whenElapsed=+13m24s79ms maxWhenElapsed=+13m24s79ms when=+13m24s79ms
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{2d24030: PendingIntentRecord{7d703fe com.vivo.pushservice broadcastIntent}}
+Batch{264bc20 num=8 start=30921437 end=32002639 flgs=0x8}:
+    RTC #7: Alarm{154faf8 type 1 when 1776396395376 flags 8 windowLength 1350000 whenElapsed 30921437 maxWhenElapsed 32271437 repeatInterval 1800000 com.vivo.assistant}
+      tag=*alarm*:com.vivo.assistant.express.poll
+      type=1 expectedWhenElapsed=+23m41s533ms expectedMaxWhenElapsed=+46m11s533ms whenElapsed=+23m41s533ms maxWhenElapsed=+46m11s533ms when=2026-04-17 11:26:35.376
+      window=+22m30s0ms repeatInterval=1800000 count=0 flags=0x8
+      operation=PendingIntent{9769bd1: PendingIntentRecord{fa03636 com.vivo.assistant broadcastIntent}}
+    RTC #6: Alarm{b7fb937 type 1 when 1776396378339 flags 8 windowLength 2700000 whenElapsed 30904400 maxWhenElapsed 33604400 repeatInterval 3600000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=+23m24s496ms expectedMaxWhenElapsed=+1h8m24s496ms whenElapsed=+23m24s496ms maxWhenElapsed=+1h8m24s496ms when=2026-04-17 11:26:18.339
+      window=+45m0s0ms repeatInterval=3600000 count=0 flags=0x8
+      operation=PendingIntent{75acea4: PendingIntentRecord{378240d com.vivo.aiengine broadcastIntent}}
+    ELAPSED_WAKEUP #5: Alarm{4317fc2 type 2 when 30671500 flags 8 windowLength 1350000 whenElapsed 30671500 maxWhenElapsed 32021500 repeatInterval 1800000 android}
+      tag=*walarm*:android.appwidget.action.APPWIDGET_UPDATE
+      type=2 expectedWhenElapsed=+19m31s596ms expectedMaxWhenElapsed=+42m1s596ms whenElapsed=+19m31s596ms maxWhenElapsed=+42m1s596ms when=+19m31s596ms
+      window=+22m30s0ms repeatInterval=1800000 count=0 flags=0x8
+      operation=PendingIntent{cb1d3: PendingIntentRecord{fc83110 android broadcastIntent}}
+    ELAPSED_WAKEUP #4: Alarm{98ff409 type 2 when 30671479 flags 8 windowLength 1350000 whenElapsed 30671479 maxWhenElapsed 32021479 repeatInterval 1800000 android}
+      tag=*walarm*:android.appwidget.action.APPWIDGET_UPDATE
+      type=2 expectedWhenElapsed=+19m31s575ms expectedMaxWhenElapsed=+42m1s575ms whenElapsed=+19m31s575ms maxWhenElapsed=+42m1s575ms when=+19m31s575ms
+      window=+22m30s0ms repeatInterval=1800000 count=0 flags=0x8
+      operation=PendingIntent{69bd60e: PendingIntentRecord{866982f android broadcastIntent}}
+    ELAPSED_WAKEUP #3: Alarm{9674e3c type 2 when 30671471 flags 8 windowLength 1350000 whenElapsed 30671471 maxWhenElapsed 32021471 repeatInterval 1800000 android}
+      tag=*walarm*:android.appwidget.action.APPWIDGET_UPDATE
+      type=2 expectedWhenElapsed=+19m31s567ms expectedMaxWhenElapsed=+42m1s567ms whenElapsed=+19m31s567ms maxWhenElapsed=+42m1s567ms when=+19m31s567ms
+      window=+22m30s0ms repeatInterval=1800000 count=0 flags=0x8
+      operation=PendingIntent{93ac7c5: PendingIntentRecord{e43451a android broadcastIntent}}
+    ELAPSED_WAKEUP #2: Alarm{dce884b type 2 when 30671465 flags 8 windowLength 1350000 whenElapsed 30671465 maxWhenElapsed 32021465 repeatInterval 1800000 android}
+      tag=*walarm*:android.appwidget.action.APPWIDGET_UPDATE
+      type=2 expectedWhenElapsed=+19m31s561ms expectedMaxWhenElapsed=+42m1s561ms whenElapsed=+19m31s561ms maxWhenElapsed=+42m1s561ms when=+19m31s561ms
+      window=+22m30s0ms repeatInterval=1800000 count=0 flags=0x8
+      operation=PendingIntent{3791228: PendingIntentRecord{1051b41 android broadcastIntent}}
+    ELAPSED #1: Alarm{2c098e6 type 3 when 30652639 flags 8 windowLength 1350000 whenElapsed 30652639 maxWhenElapsed 32002639 repeatInterval 1800000 android}
+      tag=*alarm*:com.android.server.action.NETWORK_STATS_POLL
+      type=3 expectedWhenElapsed=+19m12s735ms expectedMaxWhenElapsed=+41m42s735ms whenElapsed=+19m12s735ms maxWhenElapsed=+41m42s735ms when=+19m12s735ms
+      window=+22m30s0ms repeatInterval=1800000 count=0 flags=0x8
+      operation=PendingIntent{27b5e27: PendingIntentRecord{e6128d4 android broadcastIntent}}
+    RTC #0: Alarm{797d861 type 1 when 1776395638617 flags 8 windowLength 64800000 whenElapsed 30164678 maxWhenElapsed 94964678 repeatInterval 86400000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.action.WAKE_SLEEP_PERIOD_UPLOAD
+      type=1 expectedWhenElapsed=+11m4s774ms expectedMaxWhenElapsed=+18h11m4s774ms whenElapsed=+11m4s774ms maxWhenElapsed=+18h11m4s774ms when=2026-04-17 11:13:58.617
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{b9adf86: PendingIntentRecord{8b03047 com.vivo.aiengine broadcastIntent}}
+Batch{6f609d9 num=1 start=31060670 end=32410595 flgs=0x9}:
+    ELAPSED #0: Alarm{41d470f type 3 when 31060670 flags 9 windowLength 1349925 whenElapsed 31060670 maxWhenElapsed 32410595 repeatInterval 0 com.vivo.pem}
+      tag=*alarm*:com.vivo.pem.PEM_ELAPSED_REALTIME
+      type=3 expectedWhenElapsed=+26m0s766ms expectedMaxWhenElapsed=+48m30s691ms whenElapsed=+26m0s766ms maxWhenElapsed=+48m30s691ms when=+26m0s766ms
+      window=+22m29s925ms repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{b8039c: PendingIntentRecord{61b41a5 com.vivo.pem broadcastIntent}}
+Batch{4987f9e num=1 start=32270487 end=32270487 flgs=0x9}:
+    RTC #0: Alarm{a6d5d72 type 1 when 1776397744426 flags 9 windowLength 0 whenElapsed 32270487 maxWhenElapsed 32270487 repeatInterval 0 com.vivo.abe}
+      tag=*alarm*:com.vivo.vmcs.action.HEART_BEAR
+      type=1 expectedWhenElapsed=+46m10s583ms expectedMaxWhenElapsed=+46m10s583ms whenElapsed=+46m10s583ms maxWhenElapsed=+46m10s583ms when=2026-04-17 11:49:04.426
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{b35b5c3: PendingIntentRecord{b11fe40 com.vivo.abe broadcastIntent}}
+Batch{e04aa7f num=1 start=32540050 end=32540050 flgs=0x1}:
+    ELAPSED_WAKEUP #0: Alarm{5afdebe type 2 when 32540050 flags 1 windowLength 0 whenElapsed 32540050 maxWhenElapsed 32540050 repeatInterval 0 com.google.android.gms}
+      tag=*walarm*:CONTEXT_MANAGER_ALARM_WAKEUP
+      type=2 expectedWhenElapsed=+50m40s146ms expectedMaxWhenElapsed=+50m40s146ms whenElapsed=+50m40s146ms maxWhenElapsed=+50m40s146ms when=+50m40s146ms
+      window=0 repeatInterval=0 count=0 flags=0x1
+      operation=PendingIntent{6b3eb1f: PendingIntentRecord{538be6c com.google.android.gms/apkappcontext broadcastIntent}}
+Batch{1297a4c num=7 start=33492303 end=35165000 flgs=0x8}:
+    RTC_WAKEUP #6: Alarm{30728ca type 0 when 1776398966242 flags 8 windowLength 18658470 whenElapsed 33492303 maxWhenElapsed 52150773 repeatInterval 24877961 com.vivo.assistant}
+      tag=*walarm*:com.vivo.assistant.update.file
+      type=0 expectedWhenElapsed=+1h6m32s399ms expectedMaxWhenElapsed=+6h17m30s869ms whenElapsed=+1h6m32s399ms maxWhenElapsed=+6h17m30s869ms when=2026-04-17 12:09:26.242
+      window=+5h10m58s470ms repeatInterval=24877961 count=0 flags=0x8
+      operation=PendingIntent{eb61a3b: PendingIntentRecord{4295558 com.vivo.assistant broadcastIntent}}
+    RTC_WAKEUP #5: Alarm{7aa56b1 type 0 when 1776398400000 flags 0 windowLength 16199966 whenElapsed 32926061 maxWhenElapsed 49126027 repeatInterval 0 com.vivo.magazine}
+      tag=*walarm*:com.vivo.magazine.ACTION_NOON
+      type=0 expectedWhenElapsed=+57m6s157ms expectedMaxWhenElapsed=+5h27m6s123ms whenElapsed=+57m6s157ms maxWhenElapsed=+5h27m6s123ms when=2026-04-17 12:00:00.000
+      window=+4h29m59s966ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{7d70796: PendingIntentRecord{ee21f17 com.vivo.magazine broadcastIntent}}
+    ELAPSED #4: Alarm{d5f95b3 type 3 when 32926060 flags 8 windowLength 64800000 whenElapsed 32926060 maxWhenElapsed 97726060 repeatInterval 86400000 com.vivo.assistant}
+      tag=*alarm*:com.vivo.assistant.map_usage_update
+      type=3 expectedWhenElapsed=+57m6s156ms expectedMaxWhenElapsed=+18h57m6s156ms whenElapsed=+57m6s156ms maxWhenElapsed=+18h57m6s156ms when=+57m6s156ms
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{cc17770: PendingIntentRecord{1642ae9 com.vivo.assistant broadcastIntent}}
+    ELAPSED #3: Alarm{e8a6f04 type 3 when 32926060 flags 8 windowLength 64800000 whenElapsed 32926060 maxWhenElapsed 97726060 repeatInterval 86400000 com.vivo.assistant}
+      tag=*alarm*:com.vivo.intelliengine.rest_schedule_data
+      type=3 expectedWhenElapsed=+57m6s156ms expectedMaxWhenElapsed=+18h57m6s156ms whenElapsed=+57m6s156ms maxWhenElapsed=+18h57m6s156ms when=+57m6s156ms
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{fdcaced: PendingIntentRecord{9f40722 com.vivo.assistant broadcastIntent}}
+    RTC #2: Alarm{5ef736e type 1 when 1776398229983 flags 0 windowLength 2699988 whenElapsed 32756044 maxWhenElapsed 35456032 repeatInterval 0 com.vivo.weather.provider}
+      tag=*alarm*:com.vivo.weather.update.ALARM_ALERT_ALL
+      type=1 expectedWhenElapsed=+54m16s140ms expectedMaxWhenElapsed=+1h39m16s128ms whenElapsed=+54m16s140ms maxWhenElapsed=+1h39m16s128ms when=2026-04-17 11:57:09.983
+      window=+44m59s988ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{133da0f: PendingIntentRecord{61e9a9c com.vivo.weather.provider broadcastIntent}}
+    ELAPSED #1: Alarm{ecb8ca5 type 3 when 32582574 flags 8 windowLength 10799994 whenElapsed 32582574 maxWhenElapsed 43382568 repeatInterval 0 com.google.android.gms}
+      tag=*alarm*:com.google.android.gms.westworld.action.ALARM
+      type=3 expectedWhenElapsed=+51m22s670ms expectedMaxWhenElapsed=+3h51m22s664ms whenElapsed=+51m22s670ms maxWhenElapsed=+3h51m22s664ms when=+51m22s670ms
+      window=+2h59m59s994ms repeatInterval=0 count=0 flags=0x8
+      operation=PendingIntent{e23587a: PendingIntentRecord{25e082b com.google.android.gms/apkappcontext startService}}
+    RTC #0: Alarm{4c8c488 type 1 when 1776397938939 flags 8 windowLength 2700000 whenElapsed 32465000 maxWhenElapsed 35165000 repeatInterval 3600000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=+49m25s96ms expectedMaxWhenElapsed=+1h34m25s96ms whenElapsed=+49m25s96ms maxWhenElapsed=+1h34m25s96ms when=2026-04-17 11:52:18.939
+      window=+45m0s0ms repeatInterval=3600000 count=0 flags=0x8
+      operation=PendingIntent{e8d4e21: PendingIntentRecord{e7e8246 com.vivo.aiengine broadcastIntent}}
+Batch{4b46a95 num=1 start=34726057 end=34726057 flgs=0x9}:
+    RTC_WAKEUP #0: Alarm{c69a134 type 0 when 1776400199996 flags 9 windowLength 0 whenElapsed 34726057 maxWhenElapsed 34726057 repeatInterval 0 android}
+      tag=*walarm*:android.intent.action.auto_bright.day.mid
+      type=0 expectedWhenElapsed=+1h27m6s153ms expectedMaxWhenElapsed=+1h27m6s153ms whenElapsed=+1h27m6s153ms maxWhenElapsed=+1h27m6s153ms when=2026-04-17 12:29:59.996
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{a4fab5d: PendingIntentRecord{1107cd2 android broadcastIntent}}
+Batch{d88f7aa num=1 start=34726061 end=34726061 flgs=0x9}:
+    RTC #0: Alarm{f999ca0 type 1 when 1776400200000 flags 9 windowLength 0 whenElapsed 34726061 maxWhenElapsed 34726061 repeatInterval 0 com.vivo.networkstate}
+      tag=*alarm*:com.vivo.action.PHONE_ORIENTATION.TIME
+      type=1 expectedWhenElapsed=+1h27m6s157ms expectedMaxWhenElapsed=+1h27m6s157ms whenElapsed=+1h27m6s157ms maxWhenElapsed=+1h27m6s157ms when=2026-04-17 12:30:00.000
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{5e0a059: PendingIntentRecord{f55941e com.vivo.networkstate broadcastIntent}}
+Batch{6436f9b num=5 start=40126061 end=41456243 flgs=0x8}:
+    RTC_WAKEUP #4: Alarm{be2cc type 0 when 1776405600000 flags 0 windowLength 30046755 whenElapsed 40126061 maxWhenElapsed 70172816 repeatInterval 0 com.vivo.magazine}
+      tag=*walarm*:com.vivo.magazine.ACTION_CLOCK_CONFIG_AUTO
+      type=0 expectedWhenElapsed=+2h57m6s157ms expectedMaxWhenElapsed=+11h17m52s912ms whenElapsed=+2h57m6s157ms maxWhenElapsed=+11h17m52s912ms when=2026-04-17 14:00:00.000
+      window=+8h20m46s755ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{9f1e915: PendingIntentRecord{c42d42a com.vivo.magazine broadcastIntent}}
+    ELAPSED #3: Alarm{795521b type 3 when 38463290 flags 0 windowLength 16200000 whenElapsed 38463290 maxWhenElapsed 54663290 repeatInterval 0 com.google.android.gms}
+      tag=*alarm*:com.google.android.gms.common.operation.LOG_CORE_ANALYTICS
+      type=3 expectedWhenElapsed=+2h29m23s386ms expectedMaxWhenElapsed=+6h59m23s386ms whenElapsed=+2h29m23s386ms maxWhenElapsed=+6h59m23s386ms when=+2h29m23s386ms
+      window=+4h30m0s0ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{57a5fb8: PendingIntentRecord{e950191 com.google.android.gms/apkappcontext startService}}
+    RTC_WAKEUP #2: Alarm{31208f6 type 0 when 1776402465065 flags 8 windowLength 11997911 whenElapsed 36991126 maxWhenElapsed 48989037 repeatInterval 15997215 com.bbk.updater}
+      tag=*walarm*:com.bbk.updater.SAL_AUTO_POLL
+      type=0 expectedWhenElapsed=+2h4m51s222ms expectedMaxWhenElapsed=+5h24m49s133ms whenElapsed=+2h4m51s222ms maxWhenElapsed=+5h24m49s133ms when=2026-04-17 13:07:45.065
+      window=+3h19m57s911ms repeatInterval=15997215 count=0 flags=0x8
+      operation=PendingIntent{1acf4f7: PendingIntentRecord{751bf64 com.bbk.updater broadcastIntent}}
+    RTC #1: Alarm{17725cd type 1 when 1776401784209 flags 0 windowLength 9224103 whenElapsed 36310270 maxWhenElapsed 45534373 repeatInterval 0 com.bbk.launcher2}
+      tag=*alarm*:com.bbk.launcher2.random.check
+      type=1 expectedWhenElapsed=+1h53m30s366ms expectedMaxWhenElapsed=+4h27m14s469ms whenElapsed=+1h53m30s366ms maxWhenElapsed=+4h27m14s469ms when=2026-04-17 12:56:24.209
+      window=+2h33m44s103ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{6cdbe82: PendingIntentRecord{31e993 com.bbk.launcher2 broadcastIntent}}
+    RTC_WAKEUP #0: Alarm{51d6dd0 type 0 when 1776401530182 flags 8 windowLength 5400000 whenElapsed 36056243 maxWhenElapsed 41456243 repeatInterval 7200000 com.vivo.daemonService}
+      tag=*walarm*:com.bbk.updater.remote.daemonService.RESET_TIMES
+      type=0 expectedWhenElapsed=+1h49m16s339ms expectedMaxWhenElapsed=+3h19m16s339ms whenElapsed=+1h49m16s339ms maxWhenElapsed=+3h19m16s339ms when=2026-04-17 12:52:10.182
+      window=+1h30m0s0ms repeatInterval=7200000 count=0 flags=0x8
+      operation=PendingIntent{3dd51c9: PendingIntentRecord{e9d40ce com.vivo.daemonService broadcastIntent}}
+Batch{399ef38 num=1 start=43260608 end=43260608 flgs=0x9}:
+    ELAPSED_WAKEUP #0: Alarm{9b396fc type 2 when 43260608 flags 9 windowLength 0 whenElapsed 43260608 maxWhenElapsed 43260608 repeatInterval 0 com.android.networkstack.inprocess}
+      tag=*walarm*:DhcpClient.wlan0.RENEW
+      type=2 expectedWhenElapsed=+3h49m20s704ms expectedMaxWhenElapsed=+3h49m20s704ms whenElapsed=+3h49m20s704ms maxWhenElapsed=+3h49m20s704ms when=+3h49m20s704ms
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=null
+      listener=android.app.AlarmManager$ListenerWrapper@c604185
+Batch{cbe1b11 num=1 start=43339694 end=43339694 flgs=0x1}:
+    ELAPSED_WAKEUP #0: Alarm{eeaf80b type 2 when 43339694 flags 1 windowLength 0 whenElapsed 43339694 maxWhenElapsed 43339694 repeatInterval 0 com.google.android.gms}
+      tag=*walarm*:CONTEXT_MANAGER_ALARM_WAKEUP
+      type=2 expectedWhenElapsed=+3h50m39s790ms expectedMaxWhenElapsed=+3h50m39s790ms whenElapsed=+3h50m39s790ms maxWhenElapsed=+3h50m39s790ms when=+3h50m39s790ms
+      window=0 repeatInterval=0 count=0 flags=0x1
+      operation=PendingIntent{52126e8: PendingIntentRecord{8687101 com.google.android.gms/apkappcontext broadcastIntent}}
+Batch{956e476 num=13 start=49833637 end=54101217 flgs=0x8}:
+    RTC #12: Alarm{f4f09e7 type 1 when 1776415307577 flags 0 windowLength 16199984 whenElapsed 49833637 maxWhenElapsed 66033621 repeatInterval 0 com.sohu.inputmethod.sogou.vivo}
+      tag=*alarm*:sogou.action.excute.for.six.hour
+      type=1 expectedWhenElapsed=+5h38m53s733ms expectedMaxWhenElapsed=+10h8m53s717ms whenElapsed=+5h38m53s733ms maxWhenElapsed=+10h8m53s717ms when=2026-04-17 16:41:47.577
+      window=+4h29m59s984ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{955c994: PendingIntentRecord{96a1c3d com.sohu.inputmethod.sogou.vivo broadcastIntent}}
+    RTC #11: Alarm{af6cc32 type 1 when 1776409367346 flags 8 windowLength 16200000 whenElapsed 43893406 maxWhenElapsed 60093406 repeatInterval 0 com.android.bbklog}
+      tag=*alarm*:android.vivo.bbklog.action.pull_serverConfig
+      type=1 expectedWhenElapsed=+3h59m53s502ms expectedMaxWhenElapsed=+8h29m53s502ms whenElapsed=+3h59m53s502ms maxWhenElapsed=+8h29m53s502ms when=2026-04-17 15:02:47.346
+      window=+4h30m0s0ms repeatInterval=0 count=0 flags=0x8
+      operation=PendingIntent{df85d83: PendingIntentRecord{58feb00 com.android.bbklog broadcastIntent}}
+    RTC_WAKEUP #10: Alarm{cdf6a77 type 0 when 1776409209601 flags 8 windowLength 10800000 whenElapsed 43735661 maxWhenElapsed 54535661 repeatInterval 14400000 com.bbk.appstore}
+      tag=*walarm*:com.bbk.appstore.action.ACTION_SILENT_UPDATE_BY_ALARM
+      type=0 expectedWhenElapsed=+3h57m15s757ms expectedMaxWhenElapsed=+6h57m15s757ms whenElapsed=+3h57m15s757ms maxWhenElapsed=+6h57m15s757ms when=2026-04-17 15:00:09.601
+      window=+3h0m0s0ms repeatInterval=14400000 count=0 flags=0x8
+      operation=PendingIntent{c9ac6e4: PendingIntentRecord{46e9c71 com.bbk.appstore broadcastIntent}}
+    RTC #9: Alarm{9e13f39 type 1 when 1776408970466 flags 8 windowLength 32580000 whenElapsed 43496526 maxWhenElapsed 76076526 repeatInterval 0 com.vivo.pem}
+      tag=*alarm*:com.vivo.pem.PEM_RTC
+      type=1 expectedWhenElapsed=+3h53m16s622ms expectedMaxWhenElapsed=+12h56m16s622ms whenElapsed=+3h53m16s622ms maxWhenElapsed=+12h56m16s622ms when=2026-04-17 14:56:10.466
+      window=+9h3m0s0ms repeatInterval=0 count=0 flags=0x8
+      operation=PendingIntent{541797e: PendingIntentRecord{5594edf com.vivo.pem broadcastIntent}}
+    ELAPSED_WAKEUP #8: Alarm{c88b72c type 2 when 43456703 flags 0 windowLength 32503599 whenElapsed 43456703 maxWhenElapsed 75960302 repeatInterval 0 com.google.android.gms}
+      tag=*walarm*:com.google.android.location.ALARM_WAKEUP_CACHE_UPDATER
+      type=2 expectedWhenElapsed=+3h52m36s799ms expectedMaxWhenElapsed=+12h54m20s398ms whenElapsed=+3h52m36s799ms maxWhenElapsed=+12h54m20s398ms when=+3h52m36s799ms
+      window=+9h1m43s599ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{60d95f5: PendingIntentRecord{7f7af8a com.google.android.gms/com.google.android.gms.location_base broadcastIntent}}
+    ELAPSED #7: Alarm{7293a56 type 3 when 43301217 flags 8 windowLength 10800000 whenElapsed 43301217 maxWhenElapsed 54101217 repeatInterval 14400000 com.google.android.gms}
+      tag=*alarm*:com.google.android.gms.westworld.action.METADATA_ALARM
+      type=3 expectedWhenElapsed=+3h50m1s313ms expectedMaxWhenElapsed=+6h50m1s313ms whenElapsed=+3h50m1s313ms maxWhenElapsed=+6h50m1s313ms when=+3h50m1s313ms
+      window=+3h0m0s0ms repeatInterval=14400000 count=0 flags=0x8
+      operation=PendingIntent{d83ad7: PendingIntentRecord{748bfc4 com.google.android.gms/apkappcontext startService}}
+    ELAPSED #6: Alarm{9ff8ead type 3 when 43288077 flags 0 windowLength 32399999 whenElapsed 43288077 maxWhenElapsed 75688076 repeatInterval 0 com.google.android.gms}
+      tag=*alarm*:com.google.android.gms.common.download.START
+      type=3 expectedWhenElapsed=+3h49m48s173ms expectedMaxWhenElapsed=+12h49m48s172ms whenElapsed=+3h49m48s173ms maxWhenElapsed=+12h49m48s172ms when=+3h49m48s173ms
+      window=+8h59m59s999ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{616a5e2: PendingIntentRecord{cfbad73 com.google.android.gms/com.google.android.gms.core_download startService}}
+    RTC #5: Alarm{ff41430 type 1 when 1776408753697 flags 8 windowLength 32400000 whenElapsed 43279757 maxWhenElapsed 75679757 repeatInterval 43200000 com.vivo.abe}
+      tag=*alarm*:com.vivo.behavior.alarm
+      type=1 expectedWhenElapsed=+3h49m39s853ms expectedMaxWhenElapsed=+12h49m39s853ms whenElapsed=+3h49m39s853ms maxWhenElapsed=+12h49m39s853ms when=2026-04-17 14:52:33.697
+      window=+9h0m0s0ms repeatInterval=43200000 count=0 flags=0x8
+      operation=PendingIntent{63368a9: PendingIntentRecord{97d3e2e com.vivo.abe broadcastIntent}}
+    ELAPSED_WAKEUP #4: Alarm{8d9adcf type 2 when 43271401 flags 8 windowLength 32400000 whenElapsed 43271401 maxWhenElapsed 75671401 repeatInterval 43200000 android}
+      tag=*walarm*:android.appwidget.action.APPWIDGET_UPDATE
+      type=2 expectedWhenElapsed=+3h49m31s497ms expectedMaxWhenElapsed=+12h49m31s497ms whenElapsed=+3h49m31s497ms maxWhenElapsed=+12h49m31s497ms when=+3h49m31s497ms
+      window=+9h0m0s0ms repeatInterval=43200000 count=0 flags=0x8
+      operation=PendingIntent{4be435c: PendingIntentRecord{2b0e665 android broadcastIntent}}
+    RTC #3: Alarm{2a30f3a type 1 when 1776408741159 flags 0 windowLength 16200000 whenElapsed 43267219 maxWhenElapsed 59467219 repeatInterval 21600000 com.sohu.inputmethod.sogou.vivo}
+      tag=*alarm*:com.sohu.inputmethod.sogou.vivo/lib.datamanager.pingback.AlarmReceiver
+      type=1 expectedWhenElapsed=+3h49m27s315ms expectedMaxWhenElapsed=+8h19m27s315ms whenElapsed=+3h49m27s315ms maxWhenElapsed=+8h19m27s315ms when=2026-04-17 14:52:21.159
+      window=+4h30m0s0ms repeatInterval=21600000 count=0 flags=0x0
+      operation=PendingIntent{eed57eb: PendingIntentRecord{69a3948 com.sohu.inputmethod.sogou.vivo broadcastIntent}}
+    ELAPSED_WAKEUP #2: Alarm{2ce83e1 type 2 when 43200000 flags 0 windowLength 16200000 whenElapsed 43200000 maxWhenElapsed 59400000 repeatInterval 21600000 com.android.providers.calendar}
+      tag=*walarm*:com.android.providers.calendar.intent.CalendarProvider2
+      type=2 expectedWhenElapsed=+3h48m20s96ms expectedMaxWhenElapsed=+8h18m20s96ms whenElapsed=+3h48m20s96ms maxWhenElapsed=+8h18m20s96ms when=+3h48m20s96ms
+      window=+4h30m0s0ms repeatInterval=21600000 count=0 flags=0x0
+      operation=PendingIntent{f22e506: PendingIntentRecord{c4787c7 com.android.providers.calendar broadcastIntent}}
+    RTC #1: Alarm{bda1f4 type 1 when 1776407389268 flags 8 windowLength 21600000 whenElapsed 41915329 maxWhenElapsed 63515329 repeatInterval 28800000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=+3h26m55s425ms expectedMaxWhenElapsed=+9h26m55s425ms whenElapsed=+3h26m55s425ms maxWhenElapsed=+9h26m55s425ms when=2026-04-17 14:29:49.268
+      window=+6h0m0s0ms repeatInterval=28800000 count=0 flags=0x8
+      operation=PendingIntent{ece7d1d: PendingIntentRecord{9784b92 com.vivo.aiengine broadcastIntent}}
+    RTC_WAKEUP #0: Alarm{42ad963 type 0 when 1776407229990 flags 8 windowLength 32400000 whenElapsed 41756051 maxWhenElapsed 74156051 repeatInterval 43200000 com.bbk.updater}
+      tag=*walarm*:new.com.bbk.updater.action.AUTO_CHECK
+      type=0 expectedWhenElapsed=+3h24m16s147ms expectedMaxWhenElapsed=+12h24m16s147ms whenElapsed=+3h24m16s147ms maxWhenElapsed=+12h24m16s147ms when=2026-04-17 14:27:09.990
+      window=+9h0m0s0ms repeatInterval=43200000 count=0 flags=0x8
+      operation=PendingIntent{a0ce960: PendingIntentRecord{6dace19 com.bbk.updater broadcastIntent}}
+Batch{ed8574d num=1 start=56267789 end=56267789 flgs=0x1}:
+    ELAPSED_WAKEUP #0: Alarm{318de15 type 2 when 56267789 flags 1 windowLength 0 whenElapsed 56267789 maxWhenElapsed 56267789 repeatInterval 0 com.vivo.globalsearch}
+      tag=*walarm*:com.vivo.globalSearch.alarm_partial_index_update
+      type=2 expectedWhenElapsed=+7h26m7s885ms expectedMaxWhenElapsed=+7h26m7s885ms whenElapsed=+7h26m7s885ms maxWhenElapsed=+7h26m7s885ms when=+7h26m7s885ms
+      window=0 repeatInterval=0 count=0 flags=0x1
+      operation=PendingIntent{e7f252a: PendingIntentRecord{4e412c6 com.vivo.globalsearch broadcastIntent}}
+Batch{f44d202 num=1 start=61726056 end=61726056 flgs=0x9}:
+    RTC_WAKEUP #0: Alarm{55bf0b7 type 0 when 1776427199996 flags 9 windowLength 0 whenElapsed 61726056 maxWhenElapsed 61726056 repeatInterval 0 android}
+      tag=*walarm*:android.intent.action.auto_bright.day.end
+      type=0 expectedWhenElapsed=+8h57m6s152ms expectedMaxWhenElapsed=+8h57m6s152ms whenElapsed=+8h57m6s152ms maxWhenElapsed=+8h57m6s152ms when=2026-04-17 19:59:59.996
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{77024: PendingIntentRecord{72de78d android broadcastIntent}}
+Batch{7d63713 num=1 start=61726060 end=61726060 flgs=0x9}:
+    RTC #0: Alarm{434e153 type 1 when 1776427200000 flags 9 windowLength 0 whenElapsed 61726060 maxWhenElapsed 61726060 repeatInterval 0 com.vivo.assistant}
+      tag=*alarm*:com.vivo.intelliengine.sport_update_triggered_time
+      type=1 expectedWhenElapsed=+8h57m6s156ms expectedMaxWhenElapsed=+8h57m6s156ms whenElapsed=+8h57m6s156ms maxWhenElapsed=+8h57m6s156ms when=2026-04-17 20:00:00.000
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{5d6a90: PendingIntentRecord{99e6f89 com.vivo.assistant broadcastIntent}}
+Batch{6af6d50 num=1 start=61727827 end=61727827 flgs=0x9}:
+    RTC_WAKEUP #0: Alarm{ba23faf type 0 when 1776427201767 flags 9 windowLength 0 whenElapsed 61727827 maxWhenElapsed 61727827 repeatInterval 0 com.vivo.pem}
+      tag=*walarm*:com.vivo.pem.PEM_RTC_WAKEUP
+      type=0 expectedWhenElapsed=+8h57m7s923ms expectedMaxWhenElapsed=+8h57m7s923ms whenElapsed=+8h57m7s923ms maxWhenElapsed=+8h57m7s923ms when=2026-04-17 20:00:01.767
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{3d69fbc: PendingIntentRecord{e757b45 com.vivo.pem broadcastIntent}}
+Batch{7e01b49 num=1 start=64547342 end=64547342 flgs=0x9}:
+    RTC_WAKEUP #0: Alarm{9dd27cb type 0 when 1776430021282 flags 9 windowLength 0 whenElapsed 64547342 maxWhenElapsed 64547342 repeatInterval 0 com.vivo.assistant}
+      tag=*walarm*:com.vivo.assistant/.services.scene.sport.weeklysport.WeekSummaryPushService
+      type=0 expectedWhenElapsed=+9h44m7s438ms expectedMaxWhenElapsed=+9h44m7s438ms whenElapsed=+9h44m7s438ms maxWhenElapsed=+9h44m7s438ms when=2026-04-17 20:47:01.282
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{74bfba8: PendingIntentRecord{df786c1 com.vivo.assistant startService}}
+Batch{6320c4e num=1 start=70311078 end=70311078 flgs=0x9}:
+    RTC_WAKEUP #0: Alarm{d9475a7 type 0 when 1776435785018 flags 9 windowLength 0 whenElapsed 70311078 maxWhenElapsed 70311078 repeatInterval 0 com.vivo.assistant}
+      tag=*walarm*:com.vivo.assistant.action.taxi.work_overtime_daily_check
+      type=0 expectedWhenElapsed=+11h20m11s174ms expectedMaxWhenElapsed=+11h20m11s174ms whenElapsed=+11h20m11s174ms maxWhenElapsed=+11h20m11s174ms when=2026-04-17 22:23:05.018
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{a392a54: PendingIntentRecord{634cdfd com.vivo.assistant broadcastIntent}}
+Batch{563316f num=1 start=72526060 end=72526060 flgs=0x9}:
+    RTC #0: Alarm{9e8729f type 1 when 1776438000000 flags 9 windowLength 0 whenElapsed 72526060 maxWhenElapsed 72526060 repeatInterval 0 com.vivo.vivolight}
+      tag=*alarm*:android.vivo.action.VIVO_COLORIZED_LIGHT_COLLECT_DATA
+      type=1 expectedWhenElapsed=+11h57m6s156ms expectedMaxWhenElapsed=+11h57m6s156ms whenElapsed=+11h57m6s156ms maxWhenElapsed=+11h57m6s156ms when=2026-04-17 23:00:00.000
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{df6fec: PendingIntentRecord{fc4bfb5 com.vivo.vivolight broadcastIntent}}
+Batch{f260e7c num=1 start=72526060 end=72526060 flgs=0x9}:
+    RTC_WAKEUP #0: Alarm{788c543 type 0 when 1776438000000 flags 9 windowLength 0 whenElapsed 72526060 maxWhenElapsed 72526060 repeatInterval 0 com.vivo.vivolight}
+      tag=*walarm*:android.vivo.action.VIVO_LIGHT_LIMIT_END_TIME_OUT
+      type=0 expectedWhenElapsed=+11h57m6s156ms expectedMaxWhenElapsed=+11h57m6s156ms whenElapsed=+11h57m6s156ms maxWhenElapsed=+11h57m6s156ms when=2026-04-17 23:00:00.000
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{62897c0: PendingIntentRecord{c054cf9 com.vivo.vivolight broadcastIntent}}
+Batch{b862305 num=1 start=75660584 end=75660584 flgs=0x9}:
+    ELAPSED_WAKEUP #0: Alarm{16b99bb type 2 when 75660584 flags 9 windowLength 0 whenElapsed 75660584 maxWhenElapsed 75660584 repeatInterval 0 com.android.networkstack.inprocess}
+      tag=*walarm*:DhcpClient.wlan0.REBIND
+      type=2 expectedWhenElapsed=+12h49m20s680ms expectedMaxWhenElapsed=+12h49m20s680ms whenElapsed=+12h49m20s680ms maxWhenElapsed=+12h49m20s680ms when=+12h49m20s680ms
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=null
+      listener=android.app.AlarmManager$ListenerWrapper@5499ed8
+Batch{1a69f5a num=1 start=76066060 end=76066060 flgs=0x9}:
+    RTC_WAKEUP #0: Alarm{d4c2d16 type 0 when 1776441540000 flags 9 windowLength 0 whenElapsed 76066060 maxWhenElapsed 76066060 repeatInterval 0 com.android.systemui}
+      tag=*walarm*:action_track_event_day_regularly
+      type=0 expectedWhenElapsed=+12h56m6s156ms expectedMaxWhenElapsed=+12h56m6s156ms whenElapsed=+12h56m6s156ms maxWhenElapsed=+12h56m6s156ms when=2026-04-17 23:59:00.000
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{4301697: PendingIntentRecord{f25d084 com.android.systemui broadcastIntent}}
+Batch{21b758b num=1 start=76126060 end=76126060 flgs=0x9}:
+    RTC #0: Alarm{5acda52 type 1 when 1776441600000 flags 9 windowLength 0 whenElapsed 76126060 maxWhenElapsed 76126060 repeatInterval 0 android}
+      tag=*alarm*:com.android.server.SlaManagementService.action.RESET_DAY
+      type=1 expectedWhenElapsed=+12h57m6s156ms expectedMaxWhenElapsed=+12h57m6s156ms whenElapsed=+12h57m6s156ms maxWhenElapsed=+12h57m6s156ms when=2026-04-18 00:00:00.000
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{28a2123: PendingIntentRecord{efaf620 android broadcastIntent}}
+Batch{8039668 num=1 start=76126060 end=76126060 flgs=0x9}:
+    RTC_WAKEUP #0: Alarm{c4807c6 type 0 when 1776441600000 flags 9 windowLength 0 whenElapsed 76126060 maxWhenElapsed 76126060 repeatInterval 0 com.google.android.gms}
+      tag=*walarm*:com.google.android.gms.reminders.notification.ACTION_REFRESH_TIME_REMINDERS
+      type=0 expectedWhenElapsed=+12h57m6s156ms expectedMaxWhenElapsed=+12h57m6s156ms whenElapsed=+12h57m6s156ms maxWhenElapsed=+12h57m6s156ms when=2026-04-18 00:00:00.000
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{62dd387: PendingIntentRecord{96062b4 com.google.android.gms/com.google.android.gms.reminders startService}}
+Batch{dcaea81 num=1 start=76126060 end=76126060 flgs=0x1}:
+    RTC_WAKEUP #0: Alarm{91785fa type 0 when 1776441600000 flags 1 windowLength 0 whenElapsed 76126060 maxWhenElapsed 76126060 repeatInterval 0 com.vivo.magazine}
+      tag=*walarm*:com.vivo.magazine.ACTION_ON_AD_TIMER_TRIGGER
+      type=0 expectedWhenElapsed=+12h57m6s156ms expectedMaxWhenElapsed=+12h57m6s156ms whenElapsed=+12h57m6s156ms maxWhenElapsed=+12h57m6s156ms when=2026-04-18 00:00:00.000
+      window=0 repeatInterval=0 count=0 flags=0x1
+      operation=PendingIntent{33267ab: PendingIntentRecord{14e6e08 com.vivo.magazine broadcastIntent}}
+Batch{39f5726 num=1 start=76126060 end=76126060 flgs=0x1}:
+    RTC #0: Alarm{55604a2 type 1 when 1776441600000 flags 1 windowLength 0 whenElapsed 76126060 maxWhenElapsed 76126060 repeatInterval 0 android}
+      tag=*alarm*:android.intent.action.DATE_CHANGED
+      type=1 expectedWhenElapsed=+12h57m6s156ms expectedMaxWhenElapsed=+12h57m6s156ms whenElapsed=+12h57m6s156ms maxWhenElapsed=+12h57m6s156ms when=2026-04-18 00:00:00.000
+      window=0 repeatInterval=0 count=0 flags=0x1
+      operation=PendingIntent{2558533: PendingIntentRecord{57170f0 android broadcastIntent}}
+Batch{4c9df67 num=1 start=76126060 end=76126060 flgs=0x9}:
+    RTC_WAKEUP #0: Alarm{533c8ee type 0 when 1776441600000 flags 9 windowLength 0 whenElapsed 76126060 maxWhenElapsed 76126060 repeatInterval 0 com.vivo.assistant}
+      tag=*walarm*:com.vivo.assistant.resetSteps
+      type=0 expectedWhenElapsed=+12h57m6s156ms expectedMaxWhenElapsed=+12h57m6s156ms whenElapsed=+12h57m6s156ms maxWhenElapsed=+12h57m6s156ms when=2026-04-18 00:00:00.000
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{459418f: PendingIntentRecord{f94ac1c com.vivo.assistant startService}}
+Batch{cafb114 num=1 start=82726060 end=82726060 flgs=0x9}:
+    RTC #0: Alarm{11a499e type 1 when 1776448200000 flags 9 windowLength 0 whenElapsed 82726060 maxWhenElapsed 82726060 repeatInterval 0 com.vivo.abe}
+      tag=*alarm*:com.vivo.abe.start_check
+      type=1 expectedWhenElapsed=+14h47m6s156ms expectedMaxWhenElapsed=+14h47m6s156ms whenElapsed=+14h47m6s156ms maxWhenElapsed=+14h47m6s156ms when=2026-04-18 01:50:00.000
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{8d3ac7f: PendingIntentRecord{9e9544c com.vivo.abe broadcastIntent}}
+Batch{83aadbd num=1 start=86460576 end=86460576 flgs=0x9}:
+    ELAPSED_WAKEUP #0: Alarm{15d61aa type 2 when 86460576 flags 9 windowLength 0 whenElapsed 86460576 maxWhenElapsed 86460576 repeatInterval 0 com.android.networkstack.inprocess}
+      tag=*walarm*:DhcpClient.wlan0.EXPIRY
+      type=2 expectedWhenElapsed=+15h49m20s672ms expectedMaxWhenElapsed=+15h49m20s672ms whenElapsed=+15h49m20s672ms maxWhenElapsed=+15h49m20s672ms when=+15h49m20s672ms
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=null
+      listener=android.app.AlarmManager$ListenerWrapper@c00919b
+Batch{f19bfb2 num=1 start=86539626 end=86539626 flgs=0x1}:
+    ELAPSED_WAKEUP #0: Alarm{1c50d11 type 2 when 86539626 flags 1 windowLength 0 whenElapsed 86539626 maxWhenElapsed 86539626 repeatInterval 0 com.google.android.gms}
+      tag=*walarm*:CONTEXT_MANAGER_ALARM_WAKEUP
+      type=2 expectedWhenElapsed=+15h50m39s722ms expectedMaxWhenElapsed=+15h50m39s722ms whenElapsed=+15h50m39s722ms maxWhenElapsed=+15h50m39s722ms when=+15h50m39s722ms
+      window=0 repeatInterval=0 count=0 flags=0x1
+      operation=PendingIntent{707ee76: PendingIntentRecord{e4cac77 com.google.android.gms/apkappcontext broadcastIntent}}
+Batch{c0b0b03 num=1 start=87551390 end=87551390 flgs=0x9}:
+    RTC_WAKEUP #0: Alarm{560ca80 type 0 when 1776453025330 flags 9 windowLength 0 whenElapsed 87551390 maxWhenElapsed 87551390 repeatInterval 0 com.vivo.daemonService}
+      tag=*walarm*:com.vivo.daemonService.unionApk.action.AlarmAtTime
+      type=0 expectedWhenElapsed=+16h7m31s486ms expectedMaxWhenElapsed=+16h7m31s486ms whenElapsed=+16h7m31s486ms maxWhenElapsed=+16h7m31s486ms when=2026-04-18 03:10:25.330
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{6e968b9: PendingIntentRecord{fd59913 com.vivo.daemonService broadcastIntent}}
+Batch{76024fe num=1 start=89024020 end=89024020 flgs=0x9}:
+    RTC #0: Alarm{4934d49 type 1 when 1776454497960 flags 9 windowLength 0 whenElapsed 89024020 maxWhenElapsed 89024020 repeatInterval 0 com.vivo.upslide}
+      tag=*alarm*:vivo.intent.action.ALARM_ONE_DAY_TIMER
+      type=1 expectedWhenElapsed=+16h32m4s116ms expectedMaxWhenElapsed=+16h32m4s116ms whenElapsed=+16h32m4s116ms maxWhenElapsed=+16h32m4s116ms when=2026-04-18 03:34:57.960
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{3ba564e: PendingIntentRecord{af6b36f com.vivo.upslide broadcastIntent}}
+Batch{9a9545f num=45 start=91606888 end=91889227 flgs=0x8}:
+    RTC #44: Alarm{53a7505 type 1 when 1776457080828 flags 8 windowLength 64800000 whenElapsed 91606888 maxWhenElapsed 156406888 repeatInterval 86400000 com.vivo.assistant}
+      tag=*alarm*:com.vivo.assistant.process_recycle
+      type=1 expectedWhenElapsed=+17h15m6s984ms expectedMaxWhenElapsed=+1d11h15m6s984ms whenElapsed=+17h15m6s984ms maxWhenElapsed=+1d11h15m6s984ms when=2026-04-18 04:18:00.828
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{69895a: PendingIntentRecord{a65178b com.vivo.assistant broadcastIntent}}
+    ELAPSED_WAKEUP #43: Alarm{ab99068 type 2 when 91140535 flags 8 windowLength 64800000 whenElapsed 91140535 maxWhenElapsed 155940535 repeatInterval 86400000 com.vivo.assistant}
+      tag=*walarm*:com.vivo.intelliengine.per_day_anl_location
+      type=2 expectedWhenElapsed=+17h7m20s631ms expectedMaxWhenElapsed=+1d11h7m20s631ms whenElapsed=+17h7m20s631ms maxWhenElapsed=+1d11h7m20s631ms when=+17h7m20s631ms
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{3725c81: PendingIntentRecord{ca6e126 com.vivo.assistant broadcastIntent}}
+    RTC #42: Alarm{50ba167 type 1 when 1776456529948 flags 8 windowLength 64800000 whenElapsed 91056008 maxWhenElapsed 155856008 repeatInterval 86400000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=+17h5m56s104ms expectedMaxWhenElapsed=+1d11h5m56s104ms whenElapsed=+17h5m56s104ms maxWhenElapsed=+1d11h5m56s104ms when=2026-04-18 04:08:49.948
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{dcb4b14: PendingIntentRecord{5e73fbd com.vivo.aiengine broadcastIntent}}
+    RTC #41: Alarm{20fe9b2 type 1 when 1776456000505 flags 8 windowLength 64800000 whenElapsed 90526565 maxWhenElapsed 155326565 repeatInterval 86400000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=+16h57m6s661ms expectedMaxWhenElapsed=+1d10h57m6s661ms whenElapsed=+16h57m6s661ms maxWhenElapsed=+1d10h57m6s661ms when=2026-04-18 04:00:00.505
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{ba6ed03: PendingIntentRecord{59c0480 com.vivo.aiengine broadcastIntent}}
+    RTC #40: Alarm{7cd1ab9 type 1 when 1776456000004 flags 8 windowLength 64800000 whenElapsed 90526064 maxWhenElapsed 155326064 repeatInterval 86400000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=+16h57m6s160ms expectedMaxWhenElapsed=+1d10h57m6s160ms whenElapsed=+16h57m6s160ms maxWhenElapsed=+1d10h57m6s160ms when=2026-04-18 04:00:00.004
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{48eeefe: PendingIntentRecord{421565f com.vivo.aiengine broadcastIntent}}
+    RTC #39: Alarm{6fce8ac type 1 when 1776455592116 flags 8 windowLength 64800000 whenElapsed 90118176 maxWhenElapsed 154918176 repeatInterval 86400000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=+16h50m18s272ms expectedMaxWhenElapsed=+1d10h50m18s272ms whenElapsed=+16h50m18s272ms maxWhenElapsed=+1d10h50m18s272ms when=2026-04-18 03:53:12.116
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{99ba975: PendingIntentRecord{a66fd0a com.vivo.aiengine broadcastIntent}}
+    RTC #38: Alarm{eaef97b type 1 when 1776455539020 flags 8 windowLength 64800000 whenElapsed 90065080 maxWhenElapsed 154865080 repeatInterval 86400000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.CarCommute.CHECK_EVERYDAY
+      type=1 expectedWhenElapsed=+16h49m25s176ms expectedMaxWhenElapsed=+1d10h49m25s176ms whenElapsed=+16h49m25s176ms maxWhenElapsed=+1d10h49m25s176ms when=2026-04-18 03:52:19.020
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{a5e398: PendingIntentRecord{18a67f1 com.vivo.aiengine broadcastIntent}}
+    RTC #37: Alarm{8ffdfd6 type 1 when 1776455536951 flags 8 windowLength 64800000 whenElapsed 90063011 maxWhenElapsed 154863011 repeatInterval 86400000 com.vivo.assistant}
+      tag=*alarm*:com.vivo.assistant.datasync.expire.clean
+      type=1 expectedWhenElapsed=+16h49m23s107ms expectedMaxWhenElapsed=+1d10h49m23s107ms whenElapsed=+16h49m23s107ms maxWhenElapsed=+1d10h49m23s107ms when=2026-04-18 03:52:16.951
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{a9b257: PendingIntentRecord{2e1a144 com.vivo.assistant broadcastIntent}}
+    RTC #36: Alarm{7cc922d type 1 when 1776455534495 flags 8 windowLength 64800000 whenElapsed 90060555 maxWhenElapsed 154860555 repeatInterval 86400000 com.vivo.assistant}
+      tag=*alarm*:com.vivo.assistant.CarCommute.CHECK_EVERYDAY
+      type=1 expectedWhenElapsed=+16h49m20s651ms expectedMaxWhenElapsed=+1d10h49m20s651ms whenElapsed=+16h49m20s651ms maxWhenElapsed=+1d10h49m20s651ms when=2026-04-18 03:52:14.495
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{2722362: PendingIntentRecord{12d1cf3 com.vivo.assistant broadcastIntent}}
+    RTC #35: Alarm{5f98db0 type 1 when 1776455078835 flags 8 windowLength 64800000 whenElapsed 89604895 maxWhenElapsed 154404895 repeatInterval 86400000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=+16h41m44s991ms expectedMaxWhenElapsed=+1d10h41m44s991ms whenElapsed=+16h41m44s991ms maxWhenElapsed=+1d10h41m44s991ms when=2026-04-18 03:44:38.835
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{a8d2429: PendingIntentRecord{fd313ae com.vivo.aiengine broadcastIntent}}
+    RTC #34: Alarm{372954f type 1 when 1776454812424 flags 8 windowLength 64800000 whenElapsed 89338484 maxWhenElapsed 154138484 repeatInterval 86400000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=+16h37m18s580ms expectedMaxWhenElapsed=+1d10h37m18s580ms whenElapsed=+16h37m18s580ms maxWhenElapsed=+1d10h37m18s580ms when=2026-04-18 03:40:12.424
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{b61d4dc: PendingIntentRecord{5aad9e5 com.vivo.aiengine broadcastIntent}}
+    RTC #33: Alarm{440bcba type 1 when 1776454201996 flags 8 windowLength 64800000 whenElapsed 88728056 maxWhenElapsed 153528056 repeatInterval 86400000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=+16h27m8s152ms expectedMaxWhenElapsed=+1d10h27m8s152ms whenElapsed=+16h27m8s152ms maxWhenElapsed=+1d10h27m8s152ms when=2026-04-18 03:30:01.996
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{aed376b: PendingIntentRecord{5a562c8 com.vivo.aiengine broadcastIntent}}
+    ELAPSED #32: Alarm{a342f61 type 3 when 88652996 flags 0 windowLength 64800000 whenElapsed 88652996 maxWhenElapsed 153452996 repeatInterval 0 com.google.android.gms}
+      tag=*alarm*:com.google.android.gms.common.operation.LOG_CORE_ANALYTICS
+      type=3 expectedWhenElapsed=+16h25m53s92ms expectedMaxWhenElapsed=+1d10h25m53s92ms whenElapsed=+16h25m53s92ms maxWhenElapsed=+1d10h25m53s92ms when=+16h25m53s92ms
+      window=+18h0m0s0ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{4adea86: PendingIntentRecord{525df47 com.google.android.gms/apkappcontext startService}}
+    ELAPSED #31: Alarm{311e374 type 3 when 86566060 flags 8 windowLength 64800000 whenElapsed 86566060 maxWhenElapsed 151366060 repeatInterval 86400000 com.vivo.daemonService}
+      tag=*alarm*:com.vivo.daemonService.SEND_ATTRIBUTION_UPDATE_BROADCAST
+      type=3 expectedWhenElapsed=+15h51m6s156ms expectedMaxWhenElapsed=+1d9h51m6s156ms whenElapsed=+15h51m6s156ms maxWhenElapsed=+1d9h51m6s156ms when=+15h51m6s156ms
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{1a3609d: PendingIntentRecord{6e2912 com.vivo.daemonService broadcastIntent}}
+    ELAPSED_WAKEUP #30: Alarm{55728e3 type 2 when 86489441 flags 0 windowLength 64800000 whenElapsed 86489441 maxWhenElapsed 151289441 repeatInterval 86400000 com.google.android.gms}
+      tag=*walarm*:com.google.android.location.internal.UPLOAD_ANALYTICS
+      type=2 expectedWhenElapsed=+15h49m49s537ms expectedMaxWhenElapsed=+1d9h49m49s537ms whenElapsed=+15h49m49s537ms maxWhenElapsed=+1d9h49m49s537ms when=+15h49m49s537ms
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x0
+      operation=PendingIntent{723c2e0: PendingIntentRecord{8da6999 com.google.android.gms/com.google.android.gms.location_base startService}}
+    ELAPSED #29: Alarm{681c45e type 3 when 86489227 flags 0 windowLength 5400000 whenElapsed 86489227 maxWhenElapsed 91889227 repeatInterval 7200000 com.google.android.gms}
+      tag=*alarm*:com.google.android.gms.stats.eastworld.action.EASTWORLD_ALARM
+      type=3 expectedWhenElapsed=+15h49m49s323ms expectedMaxWhenElapsed=+17h19m49s323ms whenElapsed=+15h49m49s323ms maxWhenElapsed=+17h19m49s323ms when=+15h49m49s323ms
+      window=+1h30m0s0ms repeatInterval=7200000 count=0 flags=0x0
+      operation=PendingIntent{dc9703f: PendingIntentRecord{eb22d0c com.google.android.gms/apkappcontext startService}}
+    ELAPSED #28: Alarm{edf0655 type 3 when 86488322 flags 0 windowLength 64799999 whenElapsed 86488322 maxWhenElapsed 151288321 repeatInterval 0 com.google.android.gms}
+      tag=*alarm*:com.google.android.gms/.lockbox.LockboxAlarmReceiver
+      type=3 expectedWhenElapsed=+15h49m48s418ms expectedMaxWhenElapsed=+1d9h49m48s417ms whenElapsed=+15h49m48s418ms maxWhenElapsed=+1d9h49m48s417ms when=+15h49m48s418ms
+      window=+17h59m59s999ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{3a1c86a: PendingIntentRecord{2eed15b com.google.android.gms/com.google.android.gms.lockbox broadcastIntent}}
+    ELAPSED #27: Alarm{adb0df8 type 3 when 86481320 flags 8 windowLength 64800000 whenElapsed 86481320 maxWhenElapsed 151281320 repeatInterval 86400000 android}
+      tag=*alarm*:vivo_judgegame_timing_broadcast
+      type=3 expectedWhenElapsed=+15h49m41s416ms expectedMaxWhenElapsed=+1d9h49m41s416ms whenElapsed=+15h49m41s416ms maxWhenElapsed=+1d9h49m41s416ms when=+15h49m41s416ms
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{356b2d1: PendingIntentRecord{50c0136 android broadcastIntent}}
+    ELAPSED_WAKEUP #26: Alarm{43f2837 type 2 when 86471503 flags 8 windowLength 64800000 whenElapsed 86471503 maxWhenElapsed 151271503 repeatInterval 86400000 android}
+      tag=*walarm*:android.appwidget.action.APPWIDGET_UPDATE
+      type=2 expectedWhenElapsed=+15h49m31s599ms expectedMaxWhenElapsed=+1d9h49m31s599ms whenElapsed=+15h49m31s599ms maxWhenElapsed=+1d9h49m31s599ms when=+15h49m31s599ms
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{eaf11a4: PendingIntentRecord{c2ab0d android broadcastIntent}}
+    ELAPSED #25: Alarm{c0efac2 type 3 when 86461576 flags 8 windowLength 64800000 whenElapsed 86461576 maxWhenElapsed 151261576 repeatInterval 0 android}
+      tag=*alarm*:com.android.server.NetworkTimeUpdateService.action.POLL
+      type=3 expectedWhenElapsed=+15h49m21s672ms expectedMaxWhenElapsed=+1d9h49m21s672ms whenElapsed=+15h49m21s672ms maxWhenElapsed=+1d9h49m21s672ms when=+15h49m21s672ms
+      window=+18h0m0s0ms repeatInterval=0 count=0 flags=0x8
+      operation=PendingIntent{6d410d3: PendingIntentRecord{b9da410 android broadcastIntent}}
+    ELAPSED_WAKEUP #24: Alarm{e7beb09 type 2 when 86459721 flags 0 windowLength 64800000 whenElapsed 86459721 maxWhenElapsed 151259721 repeatInterval 86400000 com.vivo.globalsearch}
+      tag=*walarm*:com.vivo.globalsearch.appusage.update
+      type=2 expectedWhenElapsed=+15h49m19s817ms expectedMaxWhenElapsed=+1d9h49m19s817ms whenElapsed=+15h49m19s817ms maxWhenElapsed=+1d9h49m19s817ms when=+15h49m19s817ms
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x0
+      operation=PendingIntent{e56010e: PendingIntentRecord{dc4e72f com.vivo.globalsearch broadcastIntent}}
+    ELAPSED #23: Alarm{c42c74b type 3 when 86400000 flags 0 windowLength 64800000 whenElapsed 86400000 maxWhenElapsed 151200000 repeatInterval 86400000 com.google.android.gms}
+      tag=*alarm*:com.google.android.gms/.analytics.internal.PlayLogReportingService
+      type=3 expectedWhenElapsed=+15h48m20s96ms expectedMaxWhenElapsed=+1d9h48m20s96ms whenElapsed=+15h48m20s96ms maxWhenElapsed=+1d9h48m20s96ms when=+15h48m20s96ms
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x0
+      operation=PendingIntent{29e528: PendingIntentRecord{a98f241 com.google.android.gms/com.google.android.gms.analytics startService}}
+    ELAPSED_WAKEUP #22: Alarm{8a0f13c type 2 when 86400000 flags 8 windowLength 64800000 whenElapsed 86400000 maxWhenElapsed 151200000 repeatInterval 86400000 android}
+      tag=*walarm*:com.vivo.MAX_CN0_DATA
+      type=2 expectedWhenElapsed=+15h48m20s96ms expectedMaxWhenElapsed=+1d9h48m20s96ms whenElapsed=+15h48m20s96ms maxWhenElapsed=+1d9h48m20s96ms when=+15h48m20s96ms
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{66f2ec5: PendingIntentRecord{ef5201a android/LocationService broadcastIntent}}
+    ELAPSED #21: Alarm{26396e7 type 3 when 86206061 flags 8 windowLength 42708907 whenElapsed 86206061 maxWhenElapsed 128914968 repeatInterval 0 com.vivo.epm}
+      tag=*alarm*:vivo.intent.action.EPM_NIGHT_JOB_ALARM
+      type=3 expectedWhenElapsed=+15h45m6s157ms expectedMaxWhenElapsed=+1d3h36m55s64ms whenElapsed=+15h45m6s157ms maxWhenElapsed=+1d3h36m55s64ms when=+15h45m6s157ms
+      window=+11h51m48s907ms repeatInterval=0 count=0 flags=0x8
+      operation=PendingIntent{a0bd294: PendingIntentRecord{3a9f13d com.vivo.epm broadcastIntent}}
+    ELAPSED #20: Alarm{c3523e6 type 3 when 83566062 flags 8 windowLength 62614661 whenElapsed 83566062 maxWhenElapsed 146180723 repeatInterval 0 com.vivo.sps}
+      tag=*alarm*:vivo.intent.action.night_job_alarm
+      type=3 expectedWhenElapsed=+15h1m6s158ms expectedMaxWhenElapsed=+1d8h24m40s819ms whenElapsed=+15h1m6s158ms maxWhenElapsed=+1d8h24m40s819ms when=+15h1m6s158ms
+      window=+17h23m34s661ms repeatInterval=0 count=0 flags=0x8
+      operation=PendingIntent{d748d27: PendingIntentRecord{cc2bd4 com.vivo.sps broadcastIntent}}
+    ELAPSED #19: Alarm{641717d type 3 when 83446061 flags 8 windowLength 62545101 whenElapsed 83446061 maxWhenElapsed 145991162 repeatInterval 0 com.vivo.abe}
+      tag=*alarm*:vivo.intent.action.night_job_alarm
+      type=3 expectedWhenElapsed=+14h59m6s157ms expectedMaxWhenElapsed=+1d8h21m31s258ms whenElapsed=+14h59m6s157ms maxWhenElapsed=+1d8h21m31s258ms when=+14h59m6s157ms
+      window=+17h22m25s101ms repeatInterval=0 count=0 flags=0x8
+      operation=PendingIntent{e1f9872: PendingIntentRecord{e12d4c3 com.vivo.abe broadcastIntent}}
+    ELAPSED_WAKEUP #18: Alarm{caa3140 type 2 when 81854614 flags 8 windowLength 64800000 whenElapsed 81854614 maxWhenElapsed 146654614 repeatInterval 86400000 com.android.vivo.tws.vivotws}
+      tag=*walarm*:com.vivo.tws.per.day.check.upgrade
+      type=2 expectedWhenElapsed=+14h32m34s710ms expectedMaxWhenElapsed=+1d8h32m34s710ms whenElapsed=+14h32m34s710ms maxWhenElapsed=+1d8h32m34s710ms when=+14h32m34s710ms
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{6f8a879: PendingIntentRecord{1cac9be com.android.vivo.tws.vivotws broadcastIntent}}
+    RTC #17: Alarm{3c3fa1f type 1 when 1776445784219 flags 8 windowLength 64800000 whenElapsed 80310279 maxWhenElapsed 145110279 repeatInterval 86400000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=+14h6m50s375ms expectedMaxWhenElapsed=+1d8h6m50s375ms whenElapsed=+14h6m50s375ms maxWhenElapsed=+1d8h6m50s375ms when=2026-04-18 01:09:44.219
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{3a1216c: PendingIntentRecord{9525335 com.vivo.aiengine broadcastIntent}}
+    RTC #16: Alarm{d65c3ca type 1 when 1776444377400 flags 8 windowLength 64800000 whenElapsed 78903460 maxWhenElapsed 143703460 repeatInterval 86400000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=+13h43m23s556ms expectedMaxWhenElapsed=+1d7h43m23s556ms whenElapsed=+13h43m23s556ms maxWhenElapsed=+1d7h43m23s556ms when=2026-04-18 00:46:17.400
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{e38193b: PendingIntentRecord{434e858 com.vivo.aiengine broadcastIntent}}
+    RTC_WAKEUP #15: Alarm{561edb1 type 0 when 1776443190501 flags 8 windowLength 64800000 whenElapsed 77716561 maxWhenElapsed 142516561 repeatInterval 86400000 com.vivo.assistant}
+      tag=*walarm*:action_report_location_count
+      type=0 expectedWhenElapsed=+13h23m36s657ms expectedMaxWhenElapsed=+1d7h23m36s657ms whenElapsed=+13h23m36s657ms maxWhenElapsed=+1d7h23m36s657ms when=2026-04-18 00:26:30.501
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{9045296: PendingIntentRecord{e050e17 com.vivo.assistant broadcastIntent}}
+    RTC_WAKEUP #14: Alarm{f3c3204 type 0 when 1776441601827 flags 8 windowLength 64800000 whenElapsed 76127887 maxWhenElapsed 140927887 repeatInterval 86400000 com.vivo.assistant}
+      tag=*walarm*:DATE_CHANGE_BY_ALARM
+      type=0 expectedWhenElapsed=+12h57m7s983ms expectedMaxWhenElapsed=+1d6h57m7s983ms whenElapsed=+12h57m7s983ms maxWhenElapsed=+1d6h57m7s983ms when=2026-04-18 00:00:01.827
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{6f6b3ed: PendingIntentRecord{82b0222 com.vivo.assistant broadcastIntent}}
+    RTC #13: Alarm{d4274b3 type 1 when 1776441600000 flags 0 windowLength 64800000 whenElapsed 76126060 maxWhenElapsed 140926060 repeatInterval 86400000 com.sohu.inputmethod.sogou.vivo}
+      tag=*alarm*:sogou.action.statisticsdata.onedayup
+      type=1 expectedWhenElapsed=+12h57m6s156ms expectedMaxWhenElapsed=+1d6h57m6s156ms whenElapsed=+12h57m6s156ms maxWhenElapsed=+1d6h57m6s156ms when=2026-04-18 00:00:00.000
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x0
+      operation=PendingIntent{a4c6a70: PendingIntentRecord{d97a1e9 com.sohu.inputmethod.sogou.vivo broadcastIntent}}
+    RTC_WAKEUP #12: Alarm{1b1e6e type 0 when 1776441540047 flags 8 windowLength 64800000 whenElapsed 76066107 maxWhenElapsed 140866107 repeatInterval 86400000 com.vivo.abe}
+      tag=*walarm*:com.vivo.abe.intent.action.DATE_TIME
+      type=0 expectedWhenElapsed=+12h56m6s203ms expectedMaxWhenElapsed=+1d6h56m6s203ms whenElapsed=+12h56m6s203ms maxWhenElapsed=+1d6h56m6s203ms when=2026-04-17 23:59:00.047
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{5e5a90f: PendingIntentRecord{ce5bd9c com.vivo.abe broadcastIntent}}
+    RTC_WAKEUP #11: Alarm{3f73a5 type 0 when 1776441000983 flags 8 windowLength 64800000 whenElapsed 75527043 maxWhenElapsed 140327043 repeatInterval 86400000 com.vivo.abe}
+      tag=*walarm*:com.vivo.abe.intent.action.UPLOAD_APP_INFO
+      type=0 expectedWhenElapsed=+12h47m7s139ms expectedMaxWhenElapsed=+1d6h47m7s139ms whenElapsed=+12h47m7s139ms maxWhenElapsed=+1d6h47m7s139ms when=2026-04-17 23:50:00.983
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{6deb37a: PendingIntentRecord{1ddc72b com.vivo.abe broadcastIntent}}
+    ELAPSED_WAKEUP #10: Alarm{45f1788 type 2 when 72957849 flags 8 windowLength 54674999 whenElapsed 72957849 maxWhenElapsed 127632848 repeatInterval 0 com.vivo.aiengine}
+      tag=*walarm*:com.vivo.aiengine.action.intent.LOCAL_ALARM_DAILY
+      type=2 expectedWhenElapsed=+12h4m17s945ms expectedMaxWhenElapsed=+1d3h15m32s944ms whenElapsed=+12h4m17s945ms maxWhenElapsed=+1d3h15m32s944ms when=+12h4m17s945ms
+      window=+15h11m14s999ms repeatInterval=0 count=0 flags=0x8
+      operation=PendingIntent{d8a521: PendingIntentRecord{7148d46 com.vivo.aiengine broadcastIntent}}
+    ELAPSED #9: Alarm{efab07 type 3 when 72537018 flags 8 windowLength 54359999 whenElapsed 72537018 maxWhenElapsed 126897017 repeatInterval 0 android}
+      tag=*alarm*:WifiHealthMonitor Schedule Daily Detection Timer
+      type=3 expectedWhenElapsed=+11h57m17s114ms expectedMaxWhenElapsed=+1d3h3m17s113ms whenElapsed=+11h57m17s114ms maxWhenElapsed=+1d3h3m17s113ms when=+11h57m17s114ms
+      window=+15h5m59s999ms repeatInterval=0 count=0 flags=0x8
+      operation=null
+      listener=android.app.AlarmManager$ListenerWrapper@a922434
+    RTC #8: Alarm{b79725d type 1 when 1776438000000 flags 8 windowLength 54352628 whenElapsed 72526060 maxWhenElapsed 126878688 repeatInterval 0 com.vivo.smartmultiwindow}
+      tag=*alarm*:com.vivo.smartmultiwindow.ALARM_WRITE
+      type=1 expectedWhenElapsed=+11h57m6s156ms expectedMaxWhenElapsed=+1d3h2m58s784ms whenElapsed=+11h57m6s156ms maxWhenElapsed=+1d3h2m58s784ms when=2026-04-17 23:00:00.000
+      window=+15h5m52s628ms repeatInterval=0 count=0 flags=0x8
+      operation=PendingIntent{47c37d2: PendingIntentRecord{51f0a3 com.vivo.smartmultiwindow broadcastIntent}}
+    RTC #7: Alarm{b474fa0 type 1 when 1776436457802 flags 0 windowLength 32399976 whenElapsed 70983862 maxWhenElapsed 103383838 repeatInterval 0 com.sohu.inputmethod.sogou.vivo}
+      tag=*alarm*:sogou.action.excute.for.half.day
+      type=1 expectedWhenElapsed=+11h31m23s958ms expectedMaxWhenElapsed=+20h31m23s934ms whenElapsed=+11h31m23s958ms maxWhenElapsed=+20h31m23s934ms when=2026-04-17 22:34:17.802
+      window=+8h59m59s976ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{d5fd759: PendingIntentRecord{d41ff1e com.sohu.inputmethod.sogou.vivo broadcastIntent}}
+    RTC #6: Alarm{8f3ff type 1 when 1776435773796 flags 8 windowLength 64800000 whenElapsed 70299856 maxWhenElapsed 135099856 repeatInterval 86400000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=+11h19m59s952ms expectedMaxWhenElapsed=+1d5h19m59s952ms whenElapsed=+11h19m59s952ms maxWhenElapsed=+1d5h19m59s952ms when=2026-04-17 22:22:53.796
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{461c5cc: PendingIntentRecord{fad9015 com.vivo.aiengine broadcastIntent}}
+    RTC #5: Alarm{40aef2a type 1 when 1776434419020 flags 8 windowLength 64800000 whenElapsed 68945080 maxWhenElapsed 133745080 repeatInterval 86400000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.CarCommute.CHECK_SCORE
+      type=1 expectedWhenElapsed=+10h57m25s176ms expectedMaxWhenElapsed=+1d4h57m25s176ms whenElapsed=+10h57m25s176ms maxWhenElapsed=+1d4h57m25s176ms when=2026-04-17 22:00:19.020
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{202d11b: PendingIntentRecord{ccb72b8 com.vivo.aiengine broadcastIntent}}
+    RTC_WAKEUP #4: Alarm{1e41891 type 0 when 1776434414502 flags 8 windowLength 64800000 whenElapsed 68940562 maxWhenElapsed 133740562 repeatInterval 86400000 com.vivo.assistant}
+      tag=*walarm*:com.vivo.assistant.CarCommute.CHECK_SCORE
+      type=0 expectedWhenElapsed=+10h57m20s658ms expectedMaxWhenElapsed=+1d4h57m20s658ms whenElapsed=+10h57m20s658ms maxWhenElapsed=+1d4h57m20s658ms when=2026-04-17 22:00:14.502
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{ec0d3f6: PendingIntentRecord{ef363f7 com.vivo.assistant broadcastIntent}}
+    RTC_WAKEUP #3: Alarm{e210264 type 0 when 1776434400000 flags 8 windowLength 64800000 whenElapsed 68926060 maxWhenElapsed 133726060 repeatInterval 86400000 com.vivo.assistant}
+      tag=*walarm*:com.vivo.assistant.action.taxi.mall_daily_check
+      type=0 expectedWhenElapsed=+10h57m6s156ms expectedMaxWhenElapsed=+1d4h57m6s156ms whenElapsed=+10h57m6s156ms maxWhenElapsed=+1d4h57m6s156ms when=2026-04-17 22:00:00.000
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{20accd: PendingIntentRecord{61e3982 com.vivo.assistant broadcastIntent}}
+    RTC #2: Alarm{cf04893 type 1 when 1776429496687 flags 8 windowLength 64800000 whenElapsed 64022747 maxWhenElapsed 128822747 repeatInterval 86400000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=+9h35m22s843ms expectedMaxWhenElapsed=+1d3h35m22s843ms whenElapsed=+9h35m22s843ms maxWhenElapsed=+1d3h35m22s843ms when=2026-04-17 20:38:16.687
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{d1de0d0: PendingIntentRecord{11848c9 com.vivo.aiengine broadcastIntent}}
+    RTC #1: Alarm{1fa6bce type 1 when 1776427632522 flags 8 windowLength 64800000 whenElapsed 62158582 maxWhenElapsed 126958582 repeatInterval 86400000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=+9h4m18s678ms expectedMaxWhenElapsed=+1d3h4m18s678ms whenElapsed=+9h4m18s678ms maxWhenElapsed=+1d3h4m18s678ms when=2026-04-17 20:07:12.522
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{3ccdaef: PendingIntentRecord{cc839fc com.vivo.aiengine broadcastIntent}}
+    ELAPSED #0: Alarm{7d3a885 type 3 when 59861218 flags 8 windowLength 44836803 whenElapsed 59861218 maxWhenElapsed 104698021 repeatInterval 0 com.vivo.abe}
+      tag=*alarm*:com.vivo.abe.action.PERIOD_REQUEST
+      type=3 expectedWhenElapsed=+8h26m1s314ms expectedMaxWhenElapsed=+20h53m18s117ms whenElapsed=+8h26m1s314ms maxWhenElapsed=+20h53m18s117ms when=+8h26m1s314ms
+      window=+12h27m16s803ms repeatInterval=0 count=0 flags=0x8
+      operation=PendingIntent{e5576da: PendingIntentRecord{b36370b com.vivo.abe broadcastIntent}}
+Batch{5480eac num=1 start=97726060 end=97726060 flgs=0x9}:
+    RTC_WAKEUP #0: Alarm{52b4801 type 0 when 1776463200000 flags 9 windowLength 0 whenElapsed 97726060 maxWhenElapsed 97726060 repeatInterval 0 com.vivo.vivolight}
+      tag=*walarm*:android.vivo.action.VIVO_LIGHT_LIMIT_START_TIME_OUT
+      type=0 expectedWhenElapsed=+18h57m6s156ms expectedMaxWhenElapsed=+18h57m6s156ms whenElapsed=+18h57m6s156ms maxWhenElapsed=+18h57m6s156ms when=2026-04-18 06:00:00.000
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{52426a6: PendingIntentRecord{e8f38e7 com.vivo.vivolight broadcastIntent}}
+Batch{92ed775 num=1 start=101326056 end=101326056 flgs=0x9}:
+    RTC_WAKEUP #0: Alarm{503633d type 0 when 1776466799996 flags 9 windowLength 0 whenElapsed 101326056 maxWhenElapsed 101326056 repeatInterval 0 android}
+      tag=*walarm*:android.intent.action.auto_bright.day.start
+      type=0 expectedWhenElapsed=+19h57m6s152ms expectedMaxWhenElapsed=+19h57m6s152ms whenElapsed=+19h57m6s152ms maxWhenElapsed=+19h57m6s152ms when=2026-04-18 06:59:59.996
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{8dc0732: PendingIntentRecord{28c7c83 android broadcastIntent}}
+Batch{815930a num=1 start=101326062 end=101326062 flgs=0x9}:
+    RTC_WAKEUP #0: Alarm{347f639 type 0 when 1776466800002 flags 9 windowLength 0 whenElapsed 101326062 maxWhenElapsed 101326062 repeatInterval 0 com.vivo.aiengine}
+      tag=*walarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=0 expectedWhenElapsed=+19h57m6s158ms expectedMaxWhenElapsed=+19h57m6s158ms whenElapsed=+19h57m6s158ms maxWhenElapsed=+19h57m6s158ms when=2026-04-18 07:00:00.002
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{bbf647e: PendingIntentRecord{8905ddf com.vivo.aiengine broadcastIntent}}
+Batch{7b8d77b num=1 start=101326066 end=101326066 flgs=0x9}:
+    RTC_WAKEUP #0: Alarm{4a8bcf5 type 0 when 1776466800006 flags 9 windowLength 0 whenElapsed 101326066 maxWhenElapsed 101326066 repeatInterval 0 com.vivo.aiengine}
+      tag=*walarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=0 expectedWhenElapsed=+19h57m6s162ms expectedMaxWhenElapsed=+19h57m6s162ms whenElapsed=+19h57m6s162ms maxWhenElapsed=+19h57m6s162ms when=2026-04-18 07:00:00.006
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{fe94a8a: PendingIntentRecord{bc6f8fb com.vivo.aiengine broadcastIntent}}
+Batch{f7d6998 num=1 start=104926060 end=104926060 flgs=0x9}:
+    RTC #0: Alarm{f153371 type 1 when 1776470400000 flags 9 windowLength 0 whenElapsed 104926060 maxWhenElapsed 104926060 repeatInterval 0 android}
+      tag=*alarm*:GraphicsStatsService
+      type=1 expectedWhenElapsed=+20h57m6s156ms expectedMaxWhenElapsed=+20h57m6s156ms whenElapsed=+20h57m6s156ms maxWhenElapsed=+20h57m6s156ms when=2026-04-18 08:00:00.000
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=null
+      listener=android.app.AlarmManager$ListenerWrapper@c198556
+Batch{22275f1 num=1 start=110335945 end=110335945 flgs=0x1}:
+    ELAPSED_WAKEUP #0: Alarm{ad6e02c type 2 when 110335945 flags 1 windowLength 0 whenElapsed 110335945 maxWhenElapsed 110335945 repeatInterval 0 com.vivo.globalsearch}
+      tag=*walarm*:com.vivo.globalSearch.alarm_partial_index_update
+      type=2 expectedWhenElapsed=+22h27m16s41ms expectedMaxWhenElapsed=+22h27m16s41ms whenElapsed=+22h27m16s41ms maxWhenElapsed=+22h27m16s41ms when=+22h27m16s41ms
+      window=0 repeatInterval=0 count=0 flags=0x1
+      operation=PendingIntent{3d30af5: PendingIntentRecord{9c132d5 com.vivo.globalsearch broadcastIntent}}
+Batch{201d5d6 num=1 start=110335990 end=110335990 flgs=0x1}:
+    ELAPSED_WAKEUP #0: Alarm{30cf6fb type 2 when 110335990 flags 1 windowLength 0 whenElapsed 110335990 maxWhenElapsed 110335990 repeatInterval 0 com.vivo.globalsearch}
+      tag=*walarm*:com.vivo.globalSearch.alarm_partial_index_update
+      type=2 expectedWhenElapsed=+22h27m16s86ms expectedMaxWhenElapsed=+22h27m16s86ms whenElapsed=+22h27m16s86ms maxWhenElapsed=+22h27m16s86ms when=+22h27m16s86ms
+      window=0 repeatInterval=0 count=0 flags=0x1
+      operation=PendingIntent{e7d318: PendingIntentRecord{b6f2751 com.vivo.globalsearch broadcastIntent}}
+Batch{3737057 num=1 start=113777060 end=113777060 flgs=0x9}:
+    RTC_WAKEUP #0: Alarm{f582c4 type 0 when 1776479251000 flags 9 windowLength 0 whenElapsed 113777060 maxWhenElapsed 113777060 repeatInterval 0 android}
+      tag=*walarm*:android.intent.action.server.wifi.sla.analysisrunnable
+      type=0 expectedWhenElapsed=+23h24m37s156ms expectedMaxWhenElapsed=+23h24m37s156ms whenElapsed=+23h24m37s156ms maxWhenElapsed=+23h24m37s156ms when=2026-04-18 10:27:31.000
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{df895ad: PendingIntentRecord{140a0e2 android broadcastIntent}}
+Batch{eab8744 num=17 start=115486184 end=142762733 flgs=0x8}:
+    RTC #16: Alarm{b2a0730 type 1 when 1776480960124 flags 8 windowLength 86564875 whenElapsed 115486184 maxWhenElapsed 202051059 repeatInterval 0 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.action.intent.LOCAL_ALARM_NO_WAKUP
+      type=1 expectedWhenElapsed=+23h53m6s280ms expectedMaxWhenElapsed=+1d23h55m51s155ms whenElapsed=+23h53m6s280ms maxWhenElapsed=+1d23h55m51s155ms when=2026-04-18 10:56:00.124
+      window=+1d0h2m44s875ms repeatInterval=0 count=0 flags=0x8
+      operation=PendingIntent{e35dfa9: PendingIntentRecord{ccbe92e com.vivo.aiengine broadcastIntent}}
+    RTC #15: Alarm{b727ccf type 1 when 1776480928039 flags 8 windowLength 64800000 whenElapsed 115454099 maxWhenElapsed 180254099 repeatInterval 86400000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=+23h52m34s195ms expectedMaxWhenElapsed=+1d17h52m34s195ms whenElapsed=+23h52m34s195ms maxWhenElapsed=+1d17h52m34s195ms when=2026-04-18 10:55:28.039
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{8e0665c: PendingIntentRecord{de3cd65 com.vivo.aiengine broadcastIntent}}
+    RTC #14: Alarm{3b16a3a type 1 when 1776480743222 flags 8 windowLength 64800000 whenElapsed 115269282 maxWhenElapsed 180069282 repeatInterval 86400000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=+23h49m29s378ms expectedMaxWhenElapsed=+1d17h49m29s378ms whenElapsed=+23h49m29s378ms maxWhenElapsed=+1d17h49m29s378ms when=2026-04-18 10:52:23.222
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{3c416eb: PendingIntentRecord{e3b8c48 com.vivo.aiengine broadcastIntent}}
+    RTC #13: Alarm{bc8dae1 type 1 when 1776480107650 flags 0 windowLength 64799849 whenElapsed 114633710 maxWhenElapsed 179433559 repeatInterval 0 com.sohu.inputmethod.sogou.vivo}
+      tag=*alarm*:sogou.action.excute.for.one.day
+      type=1 expectedWhenElapsed=+23h38m53s806ms expectedMaxWhenElapsed=+1d17h38m53s655ms whenElapsed=+23h38m53s806ms maxWhenElapsed=+1d17h38m53s655ms when=2026-04-18 10:41:47.650
+      window=+17h59m59s849ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{23bf006: PendingIntentRecord{14b36c7 com.sohu.inputmethod.sogou.vivo broadcastIntent}}
+    RTC #12: Alarm{ca124f4 type 1 when 1776479296253 flags 8 windowLength 64800000 whenElapsed 113822313 maxWhenElapsed 178622313 repeatInterval 86400000 com.vivo.assistant}
+      tag=*alarm*:com.vivo.assistant.ACTON_UPDATE_PROFILE
+      type=1 expectedWhenElapsed=+23h25m22s409ms expectedMaxWhenElapsed=+1d17h25m22s409ms whenElapsed=+23h25m22s409ms maxWhenElapsed=+1d17h25m22s409ms when=2026-04-18 10:28:16.253
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{297441d: PendingIntentRecord{c970692 com.vivo.assistant broadcastIntent}}
+    RTC #11: Alarm{73a7863 type 1 when 1776479233151 flags 8 windowLength 129600000 whenElapsed 113759211 maxWhenElapsed 243359211 repeatInterval 172800000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=+23h24m19s307ms expectedMaxWhenElapsed=+2d11h24m19s307ms whenElapsed=+23h24m19s307ms maxWhenElapsed=+2d11h24m19s307ms when=2026-04-18 10:27:13.151
+      window=+1d12h0m0s0ms repeatInterval=172800000 count=0 flags=0x8
+      operation=PendingIntent{4259c60: PendingIntentRecord{be90519 com.vivo.aiengine broadcastIntent}}
+    RTC #10: Alarm{c1af9de type 1 when 1776478889000 flags 8 windowLength 64800000 whenElapsed 113415060 maxWhenElapsed 178215060 repeatInterval 86400000 com.vivo.assistant}
+      tag=*alarm*:com.vivo.assistant.race.leagues.daily
+      type=1 expectedWhenElapsed=+23h18m35s156ms expectedMaxWhenElapsed=+1d17h18m35s156ms whenElapsed=+23h18m35s156ms maxWhenElapsed=+1d17h18m35s156ms when=2026-04-18 10:21:29.000
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{f5237bf: PendingIntentRecord{fb81e8c com.vivo.assistant broadcastIntent}}
+    RTC_WAKEUP #9: Alarm{6fbd9d5 type 0 when 1776477600000 flags 8 windowLength 64800000 whenElapsed 112126060 maxWhenElapsed 176926060 repeatInterval 86400000 com.vivo.audiofx}
+      tag=*walarm*:com.vivo.audiofx.hifi.config
+      type=0 expectedWhenElapsed=+22h57m6s156ms expectedMaxWhenElapsed=+1d16h57m6s156ms whenElapsed=+22h57m6s156ms maxWhenElapsed=+1d16h57m6s156ms when=2026-04-18 10:00:00.000
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{558d5ea: PendingIntentRecord{4fc90db com.vivo.audiofx broadcastIntent}}
+    ELAPSED_WAKEUP #8: Alarm{80e9778 type 2 when 106017893 flags 0 windowLength 79447786 whenElapsed 106017893 maxWhenElapsed 185465679 repeatInterval 0 com.google.android.gms}
+      tag=*walarm*:com.google.android.gms.auth.authzen.CHECK_REGISTRATION
+      type=2 expectedWhenElapsed=+21h15m17s989ms expectedMaxWhenElapsed=+1d19h19m25s775ms whenElapsed=+21h15m17s989ms maxWhenElapsed=+1d19h19m25s775ms when=+21h15m17s989ms
+      window=+22h4m7s786ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{f2d3e51: PendingIntentRecord{2e666b6 com.google.android.gms/com.google.android.gms.auth_authzen__phone broadcastIntent}}
+    RTC_WAKEUP #7: Alarm{6295fb7 type 0 when 1776470400974 flags 8 windowLength 64800000 whenElapsed 104927034 maxWhenElapsed 169727034 repeatInterval 86400000 com.vivo.abe}
+      tag=*walarm*:com.vivo.abe.intent.action.new.UPLOAD_APP_INFO
+      type=0 expectedWhenElapsed=+20h57m7s130ms expectedMaxWhenElapsed=+1d14h57m7s130ms whenElapsed=+20h57m7s130ms maxWhenElapsed=+1d14h57m7s130ms when=2026-04-18 08:00:00.974
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{951b324: PendingIntentRecord{e366e8d com.vivo.abe broadcastIntent}}
+    RTC_WAKEUP #6: Alarm{ea3842 type 0 when 1776466779000 flags 0 windowLength 64800000 whenElapsed 101305060 maxWhenElapsed 166105060 repeatInterval 86400000 com.vivo.globalsearch}
+      tag=*walarm*:com.vivo.globalSearch.alarm_full_index_update
+      type=0 expectedWhenElapsed=+19h56m45s156ms expectedMaxWhenElapsed=+1d13h56m45s156ms whenElapsed=+19h56m45s156ms maxWhenElapsed=+1d13h56m45s156ms when=2026-04-18 06:59:39.000
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x0
+      operation=PendingIntent{5ea4053: PendingIntentRecord{788dd90 com.vivo.globalsearch broadcastIntent}}
+    RTC_WAKEUP #5: Alarm{6286689 type 0 when 1776464605929 flags 0 windowLength 74223748 whenElapsed 99131989 maxWhenElapsed 173355737 repeatInterval 0 com.vivo.Tips}
+      tag=*walarm*:com.vivo.Tips.ACTION_PRE_LOAD
+      type=0 expectedWhenElapsed=+19h20m32s85ms expectedMaxWhenElapsed=+1d15h57m35s833ms whenElapsed=+19h20m32s85ms maxWhenElapsed=+1d15h57m35s833ms when=2026-04-18 06:23:25.929
+      window=+20h37m3s748ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{567968e: PendingIntentRecord{cce8eaf com.vivo.Tips broadcastIntent}}
+    RTC #4: Alarm{dc642bc type 1 when 1776461967733 flags 8 windowLength 64800000 whenElapsed 96493793 maxWhenElapsed 161293793 repeatInterval 86400000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=+18h36m33s889ms expectedMaxWhenElapsed=+1d12h36m33s889ms whenElapsed=+18h36m33s889ms maxWhenElapsed=+1d12h36m33s889ms when=2026-04-18 05:39:27.733
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{f27e245: PendingIntentRecord{14a8d9a com.vivo.aiengine broadcastIntent}}
+    RTC #3: Alarm{2ff66cb type 1 when 1776461131427 flags 8 windowLength 64800000 whenElapsed 95657487 maxWhenElapsed 160457487 repeatInterval 86400000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=+18h22m37s583ms expectedMaxWhenElapsed=+1d12h22m37s583ms whenElapsed=+18h22m37s583ms maxWhenElapsed=+1d12h22m37s583ms when=2026-04-18 05:25:31.427
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{412cea8: PendingIntentRecord{4e95dc1 com.vivo.aiengine broadcastIntent}}
+    ELAPSED_WAKEUP #2: Alarm{4d7802d type 2 when 94162734 flags 0 windowLength 48599999 whenElapsed 94162734 maxWhenElapsed 142762733 repeatInterval 0 com.android.vending}
+      tag=*walarm*:com.google.android.finsky.scheduler.FALLBACK3
+      type=2 expectedWhenElapsed=+17h57m42s830ms expectedMaxWhenElapsed=+1d7h27m42s829ms whenElapsed=+17h57m42s830ms maxWhenElapsed=+1d7h27m42s829ms when=+17h57m42s830ms
+      window=+13h29m59s999ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{89d7962: PendingIntentRecord{cd3e443 com.android.vending broadcastIntent}}
+    RTC #1: Alarm{633e966 type 1 when 1776459600000 flags 8 windowLength 48738648 whenElapsed 94126060 maxWhenElapsed 142864708 repeatInterval 0 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.action.WAKESLEEP_CHECK
+      type=1 expectedWhenElapsed=+17h57m6s156ms expectedMaxWhenElapsed=+1d7h29m24s804ms whenElapsed=+17h57m6s156ms maxWhenElapsed=+1d7h29m24s804ms when=2026-04-18 05:00:00.000
+      window=+13h32m18s648ms repeatInterval=0 count=0 flags=0x8
+      operation=PendingIntent{1ba4a7: PendingIntentRecord{81a2d54 com.vivo.aiengine broadcastIntent}}
+    RTC #0: Alarm{496cac0 type 1 when 1776458851465 flags 8 windowLength 64800000 whenElapsed 93377525 maxWhenElapsed 158177525 repeatInterval 86400000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=+17h44m37s621ms expectedMaxWhenElapsed=+1d11h44m37s621ms whenElapsed=+17h44m37s621ms maxWhenElapsed=+1d11h44m37s621ms when=2026-04-18 04:47:31.465
+      window=+18h0m0s0ms repeatInterval=86400000 count=0 flags=0x8
+      operation=PendingIntent{67b03f9: PendingIntentRecord{92cbf3e com.vivo.aiengine broadcastIntent}}
+Batch{9d4baf3 num=1 start=115726064 end=115726064 flgs=0x9}:
+    RTC_WAKEUP #0: Alarm{b7bd3b0 type 0 when 1776481200004 flags 9 windowLength 0 whenElapsed 115726064 maxWhenElapsed 115726064 repeatInterval 0 com.vivo.aiengine}
+      tag=*walarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=0 expectedWhenElapsed=+23h57m6s160ms expectedMaxWhenElapsed=+23h57m6s160ms whenElapsed=+23h57m6s160ms maxWhenElapsed=+23h57m6s160ms when=2026-04-18 11:00:00.004
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{858f229: PendingIntentRecord{c5dc9ae com.vivo.aiengine broadcastIntent}}
+Batch{1f6134f num=1 start=131869360 end=131869360 flgs=0x9}:
+    RTC #0: Alarm{37dd2ec type 1 when 1776497343300 flags 9 windowLength 0 whenElapsed 131869360 maxWhenElapsed 131869360 repeatInterval 0 android}
+      tag=*alarm*:com.vivo.intent.action.NETWORK_ANALYSER_VDC_SCHEDULED
+      type=1 expectedWhenElapsed=+1d4h26m9s456ms expectedMaxWhenElapsed=+1d4h26m9s456ms whenElapsed=+1d4h26m9s456ms maxWhenElapsed=+1d4h26m9s456ms when=2026-04-18 15:29:03.300
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{15ee6b5: PendingIntentRecord{4b1914a android broadcastIntent}}
+Batch{dc27adc num=1 start=172854553 end=172854553 flgs=0x9}:
+    ELAPSED_WAKEUP #0: Alarm{6eb31d8 type 2 when 172854553 flags 9 windowLength 0 whenElapsed 172854553 maxWhenElapsed 172854553 repeatInterval 0 com.vivo.daemonService}
+      tag=*walarm*:com.vivo.daemonService.action.vsnowball
+      type=2 expectedWhenElapsed=+1d15h49m14s649ms expectedMaxWhenElapsed=+1d15h49m14s649ms whenElapsed=+1d15h49m14s649ms maxWhenElapsed=+1d15h49m14s649ms when=+1d15h49m14s649ms
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{643931: PendingIntentRecord{ff7816 com.vivo.daemonService broadcastIntent}}
+Batch{f6587e5 num=1 start=172861562 end=172861562 flgs=0x9}:
+    ELAPSED #0: Alarm{4cd9384 type 3 when 172861562 flags 9 windowLength 0 whenElapsed 172861562 maxWhenElapsed 172861562 repeatInterval 0 com.vivo.assistant}
+      tag=*alarm*:com.vivo.assistant.clear_notified_record_alarm
+      type=3 expectedWhenElapsed=+1d15h49m21s658ms expectedMaxWhenElapsed=+1d15h49m21s658ms whenElapsed=+1d15h49m21s658ms maxWhenElapsed=+1d15h49m21s658ms when=+1d15h49m21s658ms
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{a92376d: PendingIntentRecord{872ffa2 com.vivo.assistant broadcastIntent}}
+Batch{dc0d2ba num=1 start=202133691 end=202133691 flgs=0x9}:
+    ELAPSED_WAKEUP #0: Alarm{12a956b type 2 when 202133691 flags 9 windowLength 0 whenElapsed 202133691 maxWhenElapsed 202133691 repeatInterval 0 android}
+      tag=*walarm*:NotificationManagerService.TIMEOUT
+      type=2 expectedWhenElapsed=+1d23h57m13s787ms expectedMaxWhenElapsed=+1d23h57m13s787ms whenElapsed=+1d23h57m13s787ms maxWhenElapsed=+1d23h57m13s787ms when=+1d23h57m13s787ms
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{46a68c8: PendingIntentRecord{febbd61 android broadcastIntent}}
+Batch{5196086 num=1 start=245326060 end=245326060 flgs=0x9}:
+    RTC_WAKEUP #0: Alarm{411cf1c type 0 when 1776610800000 flags 9 windowLength 0 whenElapsed 245326060 maxWhenElapsed 245326060 repeatInterval 0 com.android.systemui}
+      tag=*walarm*:action_track_event_regularly
+      type=0 expectedWhenElapsed=+2d11h57m6s156ms expectedMaxWhenElapsed=+2d11h57m6s156ms whenElapsed=+2d11h57m6s156ms maxWhenElapsed=+2d11h57m6s156ms when=2026-04-19 23:00:00.000
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{457e725: PendingIntentRecord{d78e0fa com.android.systemui broadcastIntent}}
+Batch{4db1d47 num=1 start=245326060 end=245326060 flgs=0x9}:
+    RTC_WAKEUP #0: Alarm{15263f0 type 0 when 1776610800000 flags 9 windowLength 0 whenElapsed 245326060 maxWhenElapsed 245326060 repeatInterval 0 com.android.systemui}
+      tag=*walarm*:intent.action.track_tile_state
+      type=0 expectedWhenElapsed=+2d11h57m6s156ms expectedMaxWhenElapsed=+2d11h57m6s156ms whenElapsed=+2d11h57m6s156ms maxWhenElapsed=+2d11h57m6s156ms when=2026-04-19 23:00:00.000
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{627dd69: PendingIntentRecord{ca573ee com.android.systemui broadcastIntent}}
+Batch{214974 num=1 start=331726060 end=331726060 flgs=0x9}:
+    RTC #0: Alarm{5fee5b4 type 1 when 1776697200000 flags 9 windowLength 0 whenElapsed 331726060 maxWhenElapsed 331726060 repeatInterval 0 com.vivo.vivolight}
+      tag=*alarm*:android.vivo.action.VIVO_COLORIZED_LIGHT_COLLECT_SETTING_DATA
+      type=1 expectedWhenElapsed=+3d11h57m6s156ms expectedMaxWhenElapsed=+3d11h57m6s156ms whenElapsed=+3d11h57m6s156ms maxWhenElapsed=+3d11h57m6s156ms when=2026-04-20 23:00:00.000
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{4bcd5dd: PendingIntentRecord{37e9552 com.vivo.vivolight broadcastIntent}}
+Batch{645ce9d num=4 start=375254642 end=453973305 flgs=0x8}:
+    RTC #3: Alarm{a7ea920 type 1 when 1776740728582 flags 0 windowLength 281384493 whenElapsed 375254642 maxWhenElapsed 656639135 repeatInterval 0 com.sohu.inputmethod.sogou.vivo}
+      tag=*alarm*:sogou.action.excute.for.one.week
+      type=1 expectedWhenElapsed=+4d0h2m34s738ms expectedMaxWhenElapsed=+7d6h12m19s231ms whenElapsed=+4d0h2m34s738ms maxWhenElapsed=+7d6h12m19s231ms when=2026-04-21 11:05:28.582
+      window=+3d6h9m44s493ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{e35f2d9: PendingIntentRecord{9ccb49e com.sohu.inputmethod.sogou.vivo broadcastIntent}}
+    RTC #2: Alarm{b653b7f type 1 when 1776740085484 flags 8 windowLength 453600000 whenElapsed 374611544 maxWhenElapsed 828211544 repeatInterval 604800000 com.vivo.aiengine}
+      tag=*alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+      type=1 expectedWhenElapsed=+3d23h51m51s640ms expectedMaxWhenElapsed=+9d5h51m51s640ms whenElapsed=+3d23h51m51s640ms maxWhenElapsed=+9d5h51m51s640ms when=2026-04-21 10:54:45.484
+      window=+5d6h0m0s0ms repeatInterval=604800000 count=0 flags=0x8
+      operation=PendingIntent{575374c: PendingIntentRecord{a89e395 com.vivo.aiengine broadcastIntent}}
+    RTC_WAKEUP #1: Alarm{a4b7caa type 0 when 1776653830562 flags 8 windowLength 194400000 whenElapsed 288356622 maxWhenElapsed 482756622 repeatInterval 0 com.vivo.permissionmanager}
+      tag=*walarm*:com.vivo.permissionmanager/.service.DefaultAppNotifyIntentService
+      type=0 expectedWhenElapsed=+2d23h54m16s718ms expectedMaxWhenElapsed=+5d5h54m16s718ms whenElapsed=+2d23h54m16s718ms maxWhenElapsed=+5d5h54m16s718ms when=2026-04-20 10:57:10.562
+      window=+2d6h0m0s0ms repeatInterval=0 count=0 flags=0x8
+      operation=PendingIntent{79c109b: PendingIntentRecord{d647c38 com.vivo.permissionmanager startService}}
+    RTC #0: Alarm{cf22411 type 1 when 1776625047245 flags 0 windowLength 194400000 whenElapsed 259573305 maxWhenElapsed 453973305 repeatInterval 0 com.sohu.inputmethod.sogou.vivo}
+      tag=*alarm*:sogou.action.import.contacts
+      type=1 expectedWhenElapsed=+2d15h54m33s401ms expectedMaxWhenElapsed=+4d21h54m33s401ms whenElapsed=+2d15h54m33s401ms maxWhenElapsed=+4d21h54m33s401ms when=2026-04-20 02:57:27.245
+      window=+2d6h0m0s0ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{3cb976: PendingIntentRecord{1a11b77 com.sohu.inputmethod.sogou.vivo broadcastIntent}}
+Batch{b1aff12 num=1 start=604857093 end=604857093 flgs=0x9}:
+    RTC_WAKEUP #0: Alarm{8c3f04d type 0 when 1776970331033 flags 9 windowLength 0 whenElapsed 604857093 maxWhenElapsed 604857093 repeatInterval 0 com.vivo.upslide}
+      tag=*walarm*:vivo.intent.action.ALARM_ALERT_INFO_SAVE
+      type=0 expectedWhenElapsed=+6d15h49m17s189ms expectedMaxWhenElapsed=+6d15h49m17s189ms whenElapsed=+6d15h49m17s189ms maxWhenElapsed=+6d15h49m17s189ms when=2026-04-24 02:52:11.033
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{732f702: PendingIntentRecord{581f813 com.vivo.upslide broadcastIntent}}
+Batch{e2246e3 num=2 start=618808312 end=1058400000 flgs=0x8}:
+    ELAPSED_WAKEUP #1: Alarm{76c4449 type 2 when 618808312 flags 8 windowLength 456535554 whenElapsed 618808312 maxWhenElapsed 1075343866 repeatInterval 0 com.google.android.gms}
+      tag=*walarm*:com.google.android.gms.matchstick.register_intent_action
+      type=2 expectedWhenElapsed=+6d19h41m48s408ms expectedMaxWhenElapsed=+12d2h30m43s962ms whenElapsed=+6d19h41m48s408ms maxWhenElapsed=+12d2h30m43s962ms when=+6d19h41m48s408ms
+      window=+5d6h48m55s554ms repeatInterval=0 count=0 flags=0x8
+      operation=PendingIntent{f5d814e: PendingIntentRecord{88a026f com.google.android.gms/com.google.android.gms.matchstick startService}}
+    ELAPSED_WAKEUP #0: Alarm{5b0b7c type 2 when 604800000 flags 8 windowLength 453600000 whenElapsed 604800000 maxWhenElapsed 1058400000 repeatInterval 604800000 android}
+      tag=*walarm*:com.vivo.REPORT_REQ_LOCATION_BD
+      type=2 expectedWhenElapsed=+6d15h48m20s96ms expectedMaxWhenElapsed=+11d21h48m20s96ms whenElapsed=+6d15h48m20s96ms maxWhenElapsed=+11d21h48m20s96ms when=+6d15h48m20s96ms
+      window=+5d6h0m0s0ms repeatInterval=604800000 count=0 flags=0x8
+      operation=PendingIntent{22bdc05: PendingIntentRecord{a94645a android/LocationService broadcastIntent}}
+Batch{cc388e0 num=1 start=1199326060 end=1199326060 flgs=0x9}:
+    RTC #0: Alarm{40b6368 type 1 when 1777564800000 flags 9 windowLength 0 whenElapsed 1199326060 maxWhenElapsed 1199326060 repeatInterval 0 android}
+      tag=*alarm*:com.android.server.SlaManagementService.action.RESET_MONTH
+      type=1 expectedWhenElapsed=+13d12h57m6s156ms expectedMaxWhenElapsed=+13d12h57m6s156ms whenElapsed=+13d12h57m6s156ms maxWhenElapsed=+13d12h57m6s156ms when=2026-05-01 00:00:00.000
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{b933381: PendingIntentRecord{e246c26 android broadcastIntent}}
+Batch{35b799 num=1 start=1428248431 end=2499385687}:
+    RTC_WAKEUP #0: Alarm{5e74e14 type 0 when 1777793722371 flags 0 windowLength 1071137256 whenElapsed 1428248431 maxWhenElapsed 2499385687 repeatInterval 0 com.vivo.globalsearch}
+      tag=*walarm*:com.vivo.globalsearch.recall_notification
+      type=0 expectedWhenElapsed=+16d4h32m28s527ms expectedMaxWhenElapsed=+28d14h4m45s783ms whenElapsed=+16d4h32m28s527ms maxWhenElapsed=+28d14h4m45s783ms when=2026-05-03 15:35:22.371
+      window=+12d9h32m17s256ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{4be86bd: PendingIntentRecord{55b24b2 com.vivo.globalsearch broadcastIntent}}
+Batch{e25fa5e num=1 start=2592202719 end=2592202719 flgs=0x9}:
+    RTC_WAKEUP #0: Alarm{6f53780 type 0 when 1778957676659 flags 9 windowLength 0 whenElapsed 2592202719 maxWhenElapsed 2592202719 repeatInterval 0 com.google.android.gms}
+      tag=*walarm*:com.google.android.gms.reminders.notification.ACTION_REFRESH_ALIAS_LOCATION_REMINDERS
+      type=0 expectedWhenElapsed=+29d15h51m42s815ms expectedMaxWhenElapsed=+29d15h51m42s815ms whenElapsed=+29d15h51m42s815ms maxWhenElapsed=+29d15h51m42s815ms when=2026-05-17 02:54:36.659
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{a51d1b9: PendingIntentRecord{d2d9fe com.google.android.gms/com.google.android.gms.reminders startService}}
+Batch{b286e3f num=8 start=315360139592 end=551880088515}:
+    ELAPSED_WAKEUP #7: Alarm{364bac type 2 when 315360139592 flags 0 windowLength 236520000000 whenElapsed 315360139592 maxWhenElapsed 551880139592 repeatInterval 0 com.google.android.gms}
+      tag=*walarm*:com.google.android.gms/com.google.android.contextmanager.service.ContextManagerService
+      type=2 expectedWhenElapsed=+3649d15h50m39s688ms expectedMaxWhenElapsed=+6387d3h50m39s688ms whenElapsed=+3649d15h50m39s688ms maxWhenElapsed=+6387d3h50m39s688ms when=+3649d15h50m39s688ms
+      window=+2737d12h0m0s0ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{534d075: PendingIntentRecord{e7e980a com.google.android.gms/apkappcontext startService}}
+    ELAPSED_WAKEUP #6: Alarm{ff5f87b type 2 when 315360089064 flags 0 windowLength 236520000000 whenElapsed 315360089064 maxWhenElapsed 551880089064 repeatInterval 0 com.google.android.gms}
+      tag=*walarm*:com.google.android.gms/com.google.android.location.internal.server.GoogleLocationService
+      type=2 expectedWhenElapsed=+3649d15h49m49s160ms expectedMaxWhenElapsed=+6387d3h49m49s160ms whenElapsed=+3649d15h49m49s160ms maxWhenElapsed=+6387d3h49m49s160ms when=+3649d15h49m49s160ms
+      window=+2737d12h0m0s0ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{7927698: PendingIntentRecord{b0efef1 com.google.android.gms/com.google.android.gms.location_base startService}}
+    ELAPSED_WAKEUP #5: Alarm{6762ad6 type 2 when 315360089062 flags 0 windowLength 236520000000 whenElapsed 315360089062 maxWhenElapsed 551880089062 repeatInterval 0 com.google.android.gms}
+      tag=*walarm*:com.google.android.gms/com.google.android.location.internal.server.GoogleLocationService
+      type=2 expectedWhenElapsed=+3649d15h49m49s158ms expectedMaxWhenElapsed=+6387d3h49m49s158ms whenElapsed=+3649d15h49m49s158ms maxWhenElapsed=+6387d3h49m49s158ms when=+3649d15h49m49s158ms
+      window=+2737d12h0m0s0ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{8e1a157: PendingIntentRecord{7846444 com.google.android.gms/com.google.android.gms.location_base startService}}
+    ELAPSED_WAKEUP #4: Alarm{a83992d type 2 when 315360089060 flags 0 windowLength 236519999999 whenElapsed 315360089060 maxWhenElapsed 551880089059 repeatInterval 0 com.google.android.gms}
+      tag=*walarm*:com.google.android.gms/com.google.android.location.internal.server.GoogleLocationService
+      type=2 expectedWhenElapsed=+3649d15h49m49s156ms expectedMaxWhenElapsed=+6387d3h49m49s155ms whenElapsed=+3649d15h49m49s156ms maxWhenElapsed=+6387d3h49m49s155ms when=+3649d15h49m49s156ms
+      window=+2737d11h59m59s999ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{8821e62: PendingIntentRecord{674fbf3 com.google.android.gms/com.google.android.gms.location_base startService}}
+    ELAPSED_WAKEUP #3: Alarm{58580b0 type 2 when 315360089058 flags 0 windowLength 236520000000 whenElapsed 315360089058 maxWhenElapsed 551880089058 repeatInterval 0 com.google.android.gms}
+      tag=*walarm*:com.google.android.gms/com.google.android.location.internal.server.GoogleLocationService
+      type=2 expectedWhenElapsed=+3649d15h49m49s154ms expectedMaxWhenElapsed=+6387d3h49m49s154ms whenElapsed=+3649d15h49m49s154ms maxWhenElapsed=+6387d3h49m49s154ms when=+3649d15h49m49s154ms
+      window=+2737d12h0m0s0ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{f2d9b29: PendingIntentRecord{667beae com.google.android.gms/com.google.android.gms.location_base startService}}
+    ELAPSED_WAKEUP #2: Alarm{ed9644f type 2 when 315360089051 flags 0 windowLength 236519999999 whenElapsed 315360089051 maxWhenElapsed 551880089050 repeatInterval 0 com.google.android.gms}
+      tag=*walarm*:com.google.android.gms/com.google.android.location.internal.server.GoogleLocationService
+      type=2 expectedWhenElapsed=+3649d15h49m49s147ms expectedMaxWhenElapsed=+6387d3h49m49s146ms whenElapsed=+3649d15h49m49s147ms maxWhenElapsed=+6387d3h49m49s146ms when=+3649d15h49m49s147ms
+      window=+2737d11h59m59s999ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{339f7dc: PendingIntentRecord{95bc0e5 com.google.android.gms/com.google.android.gms.location_base startService}}
+    ELAPSED_WAKEUP #1: Alarm{6f517ba type 2 when 315360088578 flags 0 windowLength 236520000000 whenElapsed 315360088578 maxWhenElapsed 551880088578 repeatInterval 0 com.google.android.gms}
+      tag=*walarm*:com.google.android.gms/com.google.android.location.internal.GoogleLocationManagerService
+      type=2 expectedWhenElapsed=+3649d15h49m48s674ms expectedMaxWhenElapsed=+6387d3h49m48s674ms whenElapsed=+3649d15h49m48s674ms maxWhenElapsed=+6387d3h49m48s674ms when=+3649d15h49m48s674ms
+      window=+2737d12h0m0s0ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{771f66b: PendingIntentRecord{65cb5c8 com.google.android.gms/com.google.android.gms.location_base startService}}
+    ELAPSED_WAKEUP #0: Alarm{58c8661 type 2 when 315360088516 flags 0 windowLength 236519999999 whenElapsed 315360088516 maxWhenElapsed 551880088515 repeatInterval 0 com.google.android.gms}
+      tag=*walarm*:com.google.android.gms/com.google.android.location.internal.GoogleLocationManagerService
+      type=2 expectedWhenElapsed=+3649d15h49m48s612ms expectedMaxWhenElapsed=+6387d3h49m48s611ms whenElapsed=+3649d15h49m48s612ms maxWhenElapsed=+6387d3h49m48s611ms when=+3649d15h49m48s612ms
+      window=+2737d11h59m59s999ms repeatInterval=0 count=0 flags=0x0
+      operation=PendingIntent{dccf586: PendingIntentRecord{eb78e47 com.google.android.gms/com.google.android.gms.location_base startService}}
+Batch{588530c num=1 start=1776365833733 end=1776365833733 flgs=0x9}:
+    ELAPSED_WAKEUP #0: Alarm{faa279d type 2 when 1776365833733 flags 9 windowLength 0 whenElapsed 1776365833733 maxWhenElapsed 1776365833733 repeatInterval 0 com.vivo.upslide}
+      tag=*walarm*:vivo.intent.action.ALARM_ALERT_FB
+      type=2 expectedWhenElapsed=+20559d10h45m33s829ms expectedMaxWhenElapsed=+20559d10h45m33s829ms whenElapsed=+20559d10h45m33s829ms maxWhenElapsed=+20559d10h45m33s829ms when=+20559d10h45m33s829ms
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{3f2e412: PendingIntentRecord{7d4c7e3 com.vivo.upslide broadcastIntent}}
+Batch{ba13455 num=1 start=9223370260489301867 end=9223372036854775806 flgs=0x8}:
+    RTC #0: Alarm{e06a099 type 1 when 9223372036854775807 flags 8 windowLength 1776365473939 whenElapsed 9223370260489301867 maxWhenElapsed 9223372036854775806 repeatInterval 0 com.google.android.gms}
+      tag=*alarm*:com.google.android.gms.update.INSTALL_UPDATE
+      type=1 expectedWhenElapsed=+24855d3h14m7s963ms expectedMaxWhenElapsed=+24855d3h14m7s902ms whenElapsed=+24855d3h14m7s963ms maxWhenElapsed=+24855d3h14m7s902ms when=292278994-08-17 15:12:55.807
+      window=+20559d18h51m13s939ms repeatInterval=0 count=0 flags=0x8
+      operation=PendingIntent{d172f5e: PendingIntentRecord{401ff3f com.google.android.gms/apkappcontext startService}}
+Batch{535e6a num=1 start=9223372036854775807 end=9223372036854775807 flgs=0x9}:
+    ELAPSED_WAKEUP #0: Alarm{17ad55 type 2 when 9223372036854775807 flags 9 windowLength 0 whenElapsed 9223372036854775807 maxWhenElapsed 9223372036854775807 repeatInterval 0 com.google.android.gms}
+      tag=*walarm*:com.google.android.location.ALARM_WAKEUP_LOCATOR
+      type=2 expectedWhenElapsed=+24855d3h14m7s903ms expectedMaxWhenElapsed=+24855d3h14m7s903ms whenElapsed=+24855d3h14m7s903ms maxWhenElapsed=+24855d3h14m7s903ms when=+24855d3h14m7s903ms
+      window=0 repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{5a2e36a: PendingIntentRecord{5a1505b com.google.android.gms/com.google.android.gms.location_base broadcastIntent}}
+
+  Pending user blocked background alarms: 
+    none
+
+  Pending alarms per uid: [1000:108, 1002:1, u0a57:1, u0a63:3, u0a85:7, u0a100:3, u0a119:6, u0a125:1, u0a132:2, u0a146:2, u0a149:1, u0a151:1, u0a163:1, u0a164:29, u0a198:1, u0a244:1, u0a290:3, u0a314:1]
+
+  App Alarm history:
+    com.vivo.weather.provider, u0: -5m43s952ms, 
+    com.sohu.inputmethod.sogou.vivo, u0: -21m6s305ms, -28m36s101ms, 
+    com.android.providers.calendar, u0: -2h10m6s856ms, 
+    com.google.android.configupdater, u0: -7h53m36s625ms, 
+    com.xunmeng.pinduoduo, u0: -9m58s855ms, -17m58s880ms, -25m58s925ms, -33m58s972ms, -41m59s3ms, -49m59s36ms, -57m59s67ms, -1h5m59s105ms, 
+    com.bbk.launcher2, u0: -1h31m28s475ms, 
+    com.google.android.gms, u0: -2m31s166ms, -5m43s952ms, -9m19s883ms, -9m20s254ms, -33m26s260ms, 
+    com.vivo.magazine, u0: -1h41m55s156ms, -2h4m29s801ms, 
+    com.vivo.globalsearch, u0: -2m2s419ms, 
+    com.qti.ltebc, u0: -8h10m8s657ms, 
+
+  Past-due non-wakeup alarms: (none)
+    Number of delayed alarms: 656, total delay time: +6h24m31s777ms
+    Max delay time: +7m53s691ms, max non-interactive time: +8h2m37s959ms
+
+  Broadcast ref count: 0
+  PendingIntent send count: 700
+  PendingIntent finish count: 700
+  Listener send count: 331
+  Listener finish count: 331
+
+  Last allow while idle dispatch times:
+    UID u0a57: -8h10m35s692ms  Next allowed:-8h10m30s692ms (+5s0ms)
+    UID u0a171: -8h10m8s657ms  Next allowed:-8h10m3s657ms (+5s0ms)
+  mUseAllowWhileIdleShortTime: [u0a0 u0a56 u0a58 u0a63 u0a70 u0a73 u0a76 u0a77 u0a85 u0a89 u0a94 u0a100 u0a101 u0a109 u0a119 u0a123 u0a125 u0a128 u0a136 u0a146 u0a149 u0a150 u0a151 u0a158 u0a162 u0a164 u0a170 u0a179 u0a182 u0a183 u0a187 u0a192 u0a200 u0a211 u0a215 u0a221 u0a230 u0a239 u0a314 ]
+
+  Top Alarms:
+    +25s531ms running, 0 wakeups, 1 alarms: 1000:com.vivo.abe
+      *alarm*:com.vivo.behavior.alarm
+    +25s526ms running, 0 wakeups, 1 alarms: 1000:android
+      *alarm*:vivo_judgegame_timing_broadcast
+    +17s333ms running, 2 wakeups, 2 alarms: u0a164:com.google.android.gms
+      *walarm*:com.google.android.location.ALARM_WAKEUP_CACHE_UPDATER
+    +17s75ms running, 1 wakeups, 1 alarms: u0a171:com.qti.ltebc
+      *walarm*:wake_up_from_boot
+    +13s51ms running, 0 wakeups, 222 alarms: 1000:android
+      *alarm*:TIME_TICK
+    +12s67ms running, 0 wakeups, 17 alarms: 1000:android
+      *alarm*:com.android.server.action.NETWORK_STATS_POLL
+    +10s972ms running, 1 wakeups, 1 alarms: 1000:com.vivo.assistant
+      *walarm*:com.vivo.inteliengine.work_day_commute_resend_card
+    +10s933ms running, 1 wakeups, 1 alarms: u0a57:com.android.providers.calendar
+      *walarm*:android.intent.action.PROVIDER_CHANGED
+    +9s804ms running, 3 wakeups, 3 alarms: u0a164:com.google.android.gms
+      *walarm*:com.google.android.intent.action.GCM_RECONNECT
+    +9s501ms running, 0 wakeups, 1 alarms: 1000:com.vivo.abe
+      *alarm*:com.vivo.abe.uconfig.timealarm
+ 
+  Alarm Stats:
+  1000:com.vivo.abe +29s349ms running, 1 wakeups:
+    +25s531ms 0 wakes 1 alarms, last -8h10m17s868ms:
+      *alarm*:com.vivo.behavior.alarm
+    +9s501ms 0 wakes 1 alarms, last -8h10m1s48ms:
+      *alarm*:com.vivo.abe.uconfig.timealarm
+    +1s812ms 0 wakes 1 alarms, last -8h10m45s397ms:
+      *alarm*:com.vivo.abe.start_check
+    +1s620ms 0 wakes 2 alarms, last -7h1m11s738ms:
+      *alarm*:com.vivo.abe.action.reboot_detect
+    +843ms 0 wakes 6 alarms, last -6h58m37s295ms:
+      *alarm*:com.vivo.abe.action.slient_reboot
+    +296ms 0 wakes 5 alarms, last -3h41m17s114ms:
+      *alarm*:com.vivo.vmcs.action.HEART_BEAR
+    +73ms 1 wakes 1 alarms, last -3h2m52s868ms:
+      *walarm*:com.vivo.abe.intent.action.new.UPLOAD_APP_INFO
+  1000:com.vivo.pem +170ms running, 6 wakeups:
+    +79ms 2 wakes 2 alarms, last -3h41m17s114ms:
+      *walarm*:com.vivo.pem.PEM_RTC_WAKEUP
+    +64ms 4 wakes 4 alarms, last -19s912ms:
+      *walarm*:com.vivo.pem.PEM_ELAPSED_REALTIME_WAKEUP
+    +27ms 0 wakes 1 alarms, last -5m20s59ms:
+      *alarm*:com.vivo.pem.PEM_ELAPSED_REALTIME
+  1000:android +52s988ms running, 75 wakeups:
+    +25s526ms 0 wakes 1 alarms, last -8h10m17s868ms:
+      *alarm*:vivo_judgegame_timing_broadcast
+    +13s51ms 0 wakes 222 alarms, last -53s844ms:
+      *alarm*:TIME_TICK
+    +12s67ms 0 wakes 17 alarms, last -10m28s404ms:
+      *alarm*:com.android.server.action.NETWORK_STATS_POLL
+    +4s208ms 0 wakes 101 alarms, last -2m17s235ms:
+      *alarm*:*job.delay*
+    +2s394ms 64 wakes 64 alarms, last -10m28s404ms:
+      *walarm*:android.appwidget.action.APPWIDGET_UPDATE
+    +75ms 1 wakes 1 alarms, last -8h10m17s868ms:
+      *walarm*:WifiHealthMonitor Schedule Post-Boot Detection Timer
+    +72ms 4 wakes 4 alarms, last -18m26s508ms:
+      *walarm*:*job.deadline*
+    +58ms 0 wakes 1 alarms, last -3h2m52s868ms:
+      *alarm*:GraphicsStatsService
+    +55ms 2 wakes 2 alarms, last -6h2m53s855ms:
+      *walarm*:android.intent.action.auto_bright.day.mid
+    +48ms 1 wakes 1 alarms, last -4h2m53s849ms:
+      *walarm*:android.intent.action.auto_bright.day.start
+    +46ms 1 wakes 1 alarms, last -7h34m7s11ms:
+      *walarm*:JS idleness
+    +40ms 1 wakes 1 alarms, last -7h50m7s120ms:
+      *walarm*:WifiConnectivityManager Schedule Watchdog Timer
+    +29ms 1 wakes 1 alarms, last -35m22s843ms:
+      *walarm*:android.intent.action.server.wifi.sla.analysisrunnable
+  1000:com.vivo.aiengine +9s11ms running, 3 wakeups:
+    +8s905ms 0 wakes 124 alarms, last -5m7s118ms:
+      *alarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+    +323ms 0 wakes 1 alarms, last -8h0m7s120ms:
+      *alarm*:com.vivo.aiengine.action.intent.LOCAL_ALARM_NO_WAKUP
+    +106ms 0 wakes 1 alarms, last -7h8m37s528ms:
+      *alarm*:com.vivo.aiengine.CarCommute.CHECK_EVERYDAY
+    +98ms 3 wakes 3 alarms, last -2m53s843ms:
+      *walarm*:com.vivo.aiengine.intent.action.SMART_SCHEDULER
+    +8ms 0 wakes 1 alarms, last -5m58s706ms:
+      *alarm*:com.vivo.aiengine.action.WAKESLEEP_CHECK
+  1000:com.vivo.daemonService +1s493ms running, 8 wakeups:
+    +953ms 0 wakes 1 alarms, last -8h8m53s843ms:
+      *alarm*:com.vivo.daemonService.SEND_ATTRIBUTION_UPDATE_BROADCAST
+    +953ms 0 wakes 1 alarms, last -8h8m53s843ms:
+      *alarm*:com.vivo.Tips.ACTION_PRE_LOAD
+    +385ms 4 wakes 4 alarms, last -10m28s404ms:
+      *walarm*:com.bbk.updater.remote.daemonService.RESET_TIMES
+    +155ms 4 wakes 4 alarms, last -8h4m53s843ms:
+      *walarm*:android.intent.action.ALARM_KICK_NIGHT_PEARL_0
+    +46ms 0 wakes 1 alarms, last -6h8m46s148ms:
+      *alarm*:com.vivo.daemonService/.netStateStat.NetStateStatService
+  1000:com.android.bbklog +410ms running, 0 wakeups:
+    +410ms 0 wakes 2 alarms, last -2h0m6s635ms:
+      *alarm*:android.vivo.bbklog.action.pull_serverConfig
+  1000:com.vivo.permissionmanager +44ms running, 1 wakeups:
+    +44ms 1 wakes 1 alarms, last -5m43s952ms:
+      *walarm*:com.vivo.permissionmanager/.service.DefaultAppNotifyIntentService
+  1000:com.vivo.networkstate +1s80ms running, 1 wakeups:
+    +738ms 1 wakes 1 alarms, last -8h9m42s72ms:
+      *walarm*:vivo.intent.action.readmorenv
+    +342ms 0 wakes 1 alarms, last -2h31m59s992ms:
+      *alarm*:com.vivo.action.PHONE_ORIENTATION.TIME
+  1000:com.vivo.vivolight +73ms running, 1 wakeups:
+    +73ms 1 wakes 1 alarms, last -5h2m53s842ms:
+      *walarm*:android.vivo.action.VIVO_LIGHT_LIMIT_START_TIME_OUT
+  1000:com.vivo.audiofx +40ms running, 1 wakeups:
+    +40ms 1 wakes 1 alarms, last -55m7s120ms:
+      *walarm*:com.vivo.audiofx.hifi.config
+  1000:com.vivo.upslide +66ms running, 0 wakeups:
+    +66ms 0 wakes 1 alarms, last -14m36s32ms:
+      *alarm*:vivo.intent.action.ALARM_ONE_DAY_TIMER
+  1000:com.vivo.assistant +14s230ms running, 3 wakeups:
+    +10s972ms 1 wakes 1 alarms, last -8h10m34s236ms:
+      *walarm*:com.vivo.inteliengine.work_day_commute_resend_card
+    +1s717ms 0 wakes 17 alarms, last -5m43s952ms:
+      *alarm*:com.vivo.assistant.express.poll
+    +1s578ms 0 wakes 21 alarms, last -11m26s222ms:
+      *alarm*:com.vivo.assistant.lbs.per_day_loc
+    +139ms 0 wakes 1 alarms, last -33m26s260ms:
+      *alarm*:com.vivo.assistant.ACTON_UPDATE_PROFILE
+    +106ms 0 wakes 1 alarms, last -7h8m37s528ms:
+      *alarm*:com.vivo.assistant.CarCommute.CHECK_EVERYDAY
+    +106ms 0 wakes 1 alarms, last -7h8m37s528ms:
+      *alarm*:com.vivo.assistant.datasync.expire.clean
+    +91ms 0 wakes 1 alarms, last -40m7s119ms:
+      *alarm*:com.vivo.assistant.race.leagues.daily
+    +77ms 0 wakes 1 alarms, last -6h40m35s951ms:
+      *alarm*:com.vivo.assistant.process_recycle
+    +56ms 1 wakes 1 alarms, last -5h48m5s561ms:
+      *walarm*:com.vivo.assistant.update.file
+    +22ms 1 wakes 1 alarms, last -6h52m39s368ms:
+      *walarm*:com.vivo.intelliengine.per_day_anl_location
+  u0a57:com.android.providers.calendar +14s10ms running, 3 wakeups:
+    +10s933ms 1 wakes 1 alarms, last -8h10m35s692ms:
+      *walarm*:android.intent.action.PROVIDER_CHANGED
+    +7s505ms 2 wakes 2 alarms, last -2h10m6s856ms:
+      *walarm*:com.android.providers.calendar.intent.CalendarProvider2
+  u0a85:com.sohu.inputmethod.sogou.vivo +940ms running, 0 wakeups:
+    +333ms 0 wakes 1 alarms, last -21m6s305ms:
+      *alarm*:sogou.action.excute.for.one.day
+    +305ms 0 wakes 1 alarms, last -2h10m6s856ms:
+      *alarm*:com.sohu.inputmethod.sogou.vivo/lib.datamanager.pingback.AlarmReceiver
+    +275ms 0 wakes 2 alarms, last -21m6s305ms:
+      *alarm*:sogou.action.excute.for.six.hour
+    +114ms 0 wakes 1 alarms, last -28m36s101ms:
+      *alarm*:sogou.action.excute.for.half.day
+  u0a100:com.vivo.magazine +228ms running, 5 wakeups:
+    +116ms 3 wakes 3 alarms, last -1h41m55s156ms:
+      *walarm*:com.vivo.magazine.ACTION_REQUEST_UPDATE_WALLPAPER
+    +57ms 1 wakes 1 alarms, last -8h3m37s104ms:
+      *walarm*:com.vivo.magazine.ACTION_AD_AUTO
+    +55ms 1 wakes 1 alarms, last -5h2m53s842ms:
+      *walarm*:com.vivo.magazine.ACTION_MORNING
+  u0a101:com.iqoo.secure +24ms running, 1 wakeups:
+    +24ms 1 wakes 1 alarms, last -7h53m36s625ms:
+      *walarm*:com.iqoo.secure/.service.SecureService
+  u0a119:com.vivo.globalsearch +60ms running, 3 wakeups:
+    +60ms 3 wakes 3 alarms, last -2m2s419ms:
+      *walarm*:com.vivo.globalSearch.alarm_partial_index_update
+  u0a125:com.vivo.weather.provider +521ms running, 0 wakeups:
+    +521ms 0 wakes 5 alarms, last -5m43s952ms:
+      *alarm*:com.vivo.weather.update.ALARM_ALERT_ALL
+  u0a132:com.bbk.updater +671ms running, 3 wakeups:
+    +558ms 1 wakes 1 alarms, last -8h8m53s843ms:
+      *walarm*:com.bbk.updater.action.AUTO_CHECK_BOOT_FIRST
+    +113ms 2 wakes 2 alarms, last -2h21m45s992ms:
+      *walarm*:com.bbk.updater.SAL_AUTO_POLL
+  u0a146:com.vivo.pushservice +1s218ms running, 35 wakeups:
+    +1s218ms 35 wakes 35 alarms, last -35s962ms:
+      *walarm*:com.vivo.alarm.filter
+  u0a149:com.bbk.launcher2 +182ms running, 0 wakeups:
+    +182ms 0 wakes 2 alarms, last -1h31m28s475ms:
+      *alarm*:com.bbk.launcher2.random.check
+  u0a151:com.bbk.appstore +1s237ms running, 3 wakeups:
+    +1s237ms 3 wakes 3 alarms, last -2m44s266ms:
+      *walarm*:com.bbk.appstore.action.ACTION_SILENT_UPDATE_BY_ALARM
+  u0a162:com.google.android.configupdater +137ms running, 0 wakeups:
+    +137ms 0 wakes 1 alarms, last -7h53m36s625ms:
+      *alarm*:com.google.android.configupdater.DELAYED_FLAG_COMMIT
+  u0a164:com.google.android.gms +21s771ms running, 76 wakeups:
+    +17s333ms 2 wakes 2 alarms, last -8h9m42s72ms:
+      *walarm*:com.google.android.location.ALARM_WAKEUP_CACHE_UPDATER
+    +9s804ms 3 wakes 3 alarms, last -8h7m47s975ms:
+      *walarm*:com.google.android.intent.action.GCM_RECONNECT
+    +1s894ms 45 wakes 45 alarms, last -7m26s564ms:
+      *walarm*:com.google.android.gms.gcm.HEARTBEAT_ALARM
+    +1s28ms 13 wakes 13 alarms, last -33m26s260ms:
+      *walarm*:com.google.android.gms.gcm.ACTION_CHECK_QUEUE
+    +339ms 10 wakes 10 alarms, last -9m19s883ms:
+      *walarm*:CONTEXT_MANAGER_ALARM_WAKEUP
+    +209ms 0 wakes 4 alarms, last -3h30m36s736ms:
+      *alarm*:com.google.android.gms.common.operation.LOG_CORE_ANALYTICS
+    +150ms 0 wakes 1 alarms, last -7h53m36s625ms:
+      *alarm*:com.google.android.gms.gcm.TRIGGER_IDLE
+    +123ms 0 wakes 2 alarms, last -3h8m37s430ms:
+      *alarm*:com.google.android.gms.westworld.action.ALARM
+    +98ms 0 wakes 2 alarms, last -9m58s855ms:
+      *alarm*:com.google.android.gms.westworld.action.METADATA_ALARM
+    +83ms 2 wakes 2 alarms, last -5h23m26s109ms:
+      *walarm*:com.google.android.gms.matchstick.register_intent_action
+    +71ms 0 wakes 3 alarms, last -2m31s166ms:
+      *alarm*:com.google.android.gms.auth.authzen.cryptauth.DEVICE_STATE_CHECK_DELAY_COMPLETE
+    +5ms 1 wakes 1 alarms, last -8h9m39s833ms:
+      *walarm*:com.google.android.gms.drive.ApiService.RESET_AFTER_BOOT
+  u0a171:com.qti.ltebc +17s75ms running, 1 wakeups:
+    +17s75ms 1 wakes 1 alarms, last -8h10m8s657ms:
+      *walarm*:wake_up_from_boot
+  u0a244:com.xunmeng.pinduoduo +2s206ms running, 59 wakeups:
+    +2s206ms 59 wakes 59 alarms, last -9m58s855ms:
+      *walarm*:ALARM_ACTION(10704)
+  u0a290:com.tencent.mm +8s806ms running, 85 wakeups:
+    +5s42ms 0 wakes 96 alarms, last -5m7s118ms:
+      *alarm*:com.tencent.mm.TrafficStatsReceiver
+    +3s425ms 53 wakes 53 alarms, last -1m46s120ms:
+      *walarm*:ALARM_ACTION(10000)
+    +1s505ms 32 wakes 32 alarms, last -10m7s133ms:
+      *walarm*:com.tencent.mm/.booter.MMReceivers$AlarmReceiver
+
+  Stats:
+    REBATCH_ALL_ALARMS: count=570, total=695.0ms, avg=1.219ms, max calls/s=107 max dur/s=141.9ms max time=25.0ms
+    REORDER_ALARMS_FOR_STANDBY: count=333, total=100.3ms, avg=0.301ms, max calls/s=6 max dur/s=5.8ms max time=5.8ms
