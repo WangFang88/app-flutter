@@ -21,6 +21,7 @@ class _DetailScreenState extends State<DetailScreen> {
   bool _supported = false;
   bool _loading = true;
   bool _reminding = false;
+  bool _hasChanges = false;
 
   @override
   void initState() {
@@ -43,7 +44,7 @@ class _DetailScreenState extends State<DetailScreen> {
     setState(() => _reminding = true);
     await ApiService.remindOnce(widget.reminderId);
     final count = await ApiService.supporterCount(widget.reminderId);
-    if (mounted) setState(() { _supporters = count; _supported = true; _reminding = false; });
+    if (mounted) setState(() { _supporters = count; _supported = true; _reminding = false; _hasChanges = true; });
     final r = _reminder;
     if (r != null) {
       await NotificationService.scheduleReminder(
@@ -148,6 +149,10 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('提醒详情'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_rounded),
+          onPressed: () => Navigator.pop(context, _hasChanges),
+        ),
         actions: r?.authorId == widget.myUid ? [
           IconButton(icon: const Icon(Icons.edit_outlined), onPressed: _edit),
           IconButton(icon: const Icon(Icons.delete_outline), onPressed: _delete),
