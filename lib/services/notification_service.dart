@@ -30,9 +30,21 @@ class NotificationService {
       InitializationSettings(
         android: const AndroidInitializationSettings('@mipmap/ic_launcher'),
       ),
-      onDidReceiveNotificationResponse: (details) {
-        // 点击通知本身即视为已确认，停止重复
-        _pendingReminders.remove(details.id);
+      onDidReceiveNotificationResponse: (details) async {
+        final id = details.id;
+        if (id == null) return;
+        final pending = _pendingReminders[id];
+        if (pending == null) return;
+        if (details.notificationResponseType == NotificationResponseType.selectedNotification) {
+          // 点击通知本身视为已确认
+          _pendingReminders.remove(id);
+        } else {
+          // 通知触发时查询最新人数重新发送
+          int count = 0;
+          try { count = await ApiService.supporterCount(pending.reminderId); } catch (_) {}
+          final (body, importance, priority) = _intensity(count, pending.scheduledAt);
+          await _notif.show(id, pending.title, body, _buildDetails(importance, priority));
+        }
       },
       onDidReceiveBackgroundNotificationResponse: onBackgroundNotificationResponse,
     );
