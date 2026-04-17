@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'data/session_store.dart';
 import 'services/notification_service.dart';
@@ -13,6 +14,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SessionStore.load();
   await NotificationService.init();
+  // 每2分钟重复未确认的通知
+  Timer.periodic(const Duration(minutes: 2), (_) {
+    NotificationService.reshowAllPending();
+  });
   runApp(const ReminderApp());
 }
 

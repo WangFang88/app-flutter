@@ -7,16 +7,32 @@ import 'package:timezone/data/latest.dart' as tz_data;
 final _notif = FlutterLocalNotificationsPlugin();
 const _channel = MethodChannel('reminder_app/battery');
 
+// 存储待重复的通知信息
+final Map<int, _PendingReminder> _pendingReminders = {};
+
+class _PendingReminder {
+  final String title;
+  final String body;
+  final Importance importance;
+  final Priority priority;
+  _PendingReminder(this.title, this.body, this.importance, this.priority);
+}
+
 class NotificationService {
   static Future<void> init() async {
     tz_data.initializeTimeZones();
     tz.setLocalLocation(tz.getLocation('Asia/Shanghai'));
     await _notif.initialize(
-      const InitializationSettings(
-        android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+      InitializationSettings(
+        android: const AndroidInitializationSettings('@mipmap/ic_launcher'),
       ),
+      onDidReceiveNotificationResponse: (details) {
+        if (details.actionId == 'confirm') {
+          _pendingReminders.remove(details.id);
+          _notif.cancel(details.id!);
+        }
+      },
     );
-    // 创建高优先级通知渠道
     await _notif
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
@@ -48,51 +64,55 @@ class NotificationService {
     if (delay.isNegative) return;
 
     final (body, importance, priority) = _intensity(supporterCount, scheduledAt);
+    final id = reminderId.hashCode;
+    _pendingReminders[id] = _PendingReminder(title, body, importance, priority);
 
     await _notif.zonedSchedule(
-      reminderId.hashCode,
+      id,
       title,
       body,
       tz.TZDateTime.from(scheduledAt, tz.local),
-      NotificationDetails(
-        android: AndroidNotificationDetails(
-          'reminder_high_channel',
-          '提醒通知',
-          importance: importance,
-          priority: priority,
-          enableVibration: true,
-          ongoing: true,
-          autoCancel: false,
-          actions: const [
-            AndroidNotificationAction('confirm', '确定', cancelNotification: true),
-          ],
-        ),
-      ),
+      _buildDetails(importance, priority),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
     );
   }
 
-  static Future<void> cancelReminder(String reminderId) async {
-    await _notif.cancel(reminderId.hashCode);
+  /// 重新发送通知（用于重复提醒）
+  static Future<void> reshowIfPending(int id) async {
+    final pending = _pendingReminders[id];
+    if (pending == null) return;
+    await _notif.show(id, pending.title, pending.body, _buildDetails(pending.importance, pending.priority));
   }
 
-  /// 立即发一条测试通知，用于验证权限是否正常
-  static Future<void> showTestNotification() async {
-    await _notif.show(
-      0,
-      '通知测试',
-      '通知功能正常！',
-      const NotificationDetails(
-        android: AndroidNotificationDetails(
-          'reminder_high_channel',
-          '提醒通知',
-          importance: Importance.max,
-          priority: Priority.max,
-        ),
+  static Future<void> reshowAllPending() async {
+    for (final id in _pendingReminders.keys.toList()) {
+      await reshowIfPending(id);
+    }
+  }
+
+  static NotificationDetails _buildDetails(Importance importance, Priority priority) {
+    return NotificationDetails(
+      android: AndroidNotificationDetails(
+        'reminder_high_channel',
+        '提醒通知',
+        importance: importance,
+        priority: priority,
+        enableVibration: true,
+        ongoing: true,
+        autoCancel: false,
+        actions: const [
+          AndroidNotificationAction('confirm', '确定', cancelNotification: true),
+        ],
       ),
     );
+  }
+
+  static Future<void> cancelReminder(String reminderId) async {
+    final id = reminderId.hashCode;
+    _pendingReminders.remove(id);
+    await _notif.cancel(id);
   }
 
   static (String, Importance, Priority) _intensity(int count, DateTime scheduledAt) {
