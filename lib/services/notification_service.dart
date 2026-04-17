@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
@@ -136,6 +137,12 @@ class NotificationService {
         : importance == Importance.high
             ? '重要提醒'
             : '普通提醒';
+    // 用震动模式区分强度
+    final vibrationPattern = importance == Importance.max
+        ? Int64List.fromList([0, 300, 200, 300, 200, 300]) // 连续震动
+        : importance == Importance.high
+            ? Int64List.fromList([0, 500, 300, 500]) // 两次震动
+            : null; // 无震动
     return NotificationDetails(
       android: AndroidNotificationDetails(
         channelId,
@@ -143,6 +150,7 @@ class NotificationService {
         importance: importance,
         priority: priority,
         enableVibration: importance != Importance.defaultImportance,
+        vibrationPattern: vibrationPattern,
         autoCancel: true,
       ),
     );
