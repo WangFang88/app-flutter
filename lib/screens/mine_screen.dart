@@ -81,14 +81,38 @@ class _MineScreenState extends State<MineScreen> with AutomaticKeepAliveClientMi
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                     Text('我的提醒', style: Theme.of(context).textTheme.headlineMedium),
-                    IconButton(
-                      icon: const Icon(Icons.logout_rounded, size: 20),
-                      onPressed: () async {
-                        await SessionStore.clear();
-                        widget.onLogout();
-                      },
-                      tooltip: '退出登录',
-                    ),
+                    Row(children: [
+                      if (_items.isNotEmpty)
+                        IconButton(
+                          icon: const Icon(Icons.delete_sweep_rounded, size: 20),
+                          onPressed: () async {
+                            final ok = await showDialog<bool>(
+                              context: context,
+                              builder: (ctx) => AlertDialog(
+                                title: const Text('清空提醒'),
+                                content: const Text('确定要删除所有提醒吗？'),
+                                actions: [
+                                  TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('取消')),
+                                  TextButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('清空', style: TextStyle(color: Colors.red))),
+                                ],
+                              ),
+                            );
+                            if (ok == true) {
+                              await ApiService.deleteAllMyReminders();
+                              _load();
+                            }
+                          },
+                          tooltip: '清空提醒',
+                        ),
+                      IconButton(
+                        icon: const Icon(Icons.logout_rounded, size: 20),
+                        onPressed: () async {
+                          await SessionStore.clear();
+                          widget.onLogout();
+                        },
+                        tooltip: '退出登录',
+                      ),
+                    ]),
                   ]),
                   Text('共 ${_items.length} 个提醒', style: Theme.of(context).textTheme.bodyMedium),
                 ]),

@@ -154,6 +154,14 @@ public class ReminderController {
         return ResponseEntity.ok(toDto(reminder));
     }
 
+    @DeleteMapping("/mine/all")
+    @Transactional
+    public ResponseEntity<?> deleteAllMyReminders(Authentication auth) {
+        String userId = (String) auth.getPrincipal();
+        reminderRepository.deleteByAuthorId(userId);
+        return ResponseEntity.ok(single("ok", true));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteReminder(Authentication auth, @PathVariable String id) {
         String userId = (String) auth.getPrincipal();

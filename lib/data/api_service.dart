@@ -81,6 +81,10 @@ class ApiService {
     );
   }
 
+  static Future<void> deleteAllMyReminders() async {
+    await http.delete(Uri.parse('$baseUrl/reminders/mine/all'), headers: _headers);
+  }
+
   static Future<void> deleteReminder(String id) async {
     await http.delete(Uri.parse('$baseUrl/reminders/$id'), headers: _headers);
   }
