@@ -11,11 +11,24 @@ class StatsScreen extends StatefulWidget {
 class _StatsScreenState extends State<StatsScreen> {
   int _published = 0;
   int _totalClicks = 0;
+  List<int> _hourlyData = List.filled(24, 0);
 
   @override
   void initState() { super.initState(); _load(); }
 
-  Future<void> _load() async { setState(() {}); }
+  Future<void> _load() async {
+    try {
+      final stats = await ApiService.getMyStats();
+      if (mounted) setState(() {
+        _published = stats['publishedWithReminds'] ?? 0;
+        _totalClicks = stats['totalRemindClicks'] ?? 0;
+        final hourly = stats['remindEventByHour'] as List<dynamic>?;
+        if (hourly != null) {
+          _hourlyData = hourly.map((e) => (e as num).toInt()).toList();
+        }
+      });
+    } catch (_) {}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +48,9 @@ class _StatsScreenState extends State<StatsScreen> {
               Expanded(child: _MetricCard(label: '提醒总人次', value: '$_totalClicks', icon: Icons.people_rounded)),
             ]),
             const SizedBox(height: 28),
-            Text('每日活跃', style: Theme.of(context).textTheme.titleMedium),
+            Text('每小时活跃', style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: 16),
-            _BarChart(isDark: isDark),
+            _BarChart(isDark: isDark, data: _hourlyData),
           ]),
         ),
       ),
@@ -78,13 +91,16 @@ class _MetricCard extends StatelessWidget {
 
 class _BarChart extends StatelessWidget {
   final bool isDark;
-  const _BarChart({required this.isDark});
+  final List<int> data;
+  const _BarChart({required this.isDark, required this.data});
 
   @override
   Widget build(BuildContext context) {
-    final data = [3, 7, 5, 12, 8, 15, 10];
-    final days = ['一', '二', '三', '四', '五', '六', '日'];
-    final maxVal = data.reduce((a, b) => a > b ? a : b).toDouble();
+    // 显示8个时间段：0,3,6,9,12,15,18,21时
+    final slots = List.generate(8, (i) => i * 3);
+    final values = slots.map((h) => data.length > h ? data[h] : 0).toList();
+    final maxVal = values.reduce((a, b) => a > b ? a : b).toDouble();
+    final labels = slots.map((h) => '${h}时').toList();
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -97,14 +113,15 @@ class _BarChart extends StatelessWidget {
           height: 140,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
-            children: List.generate(data.length, (i) => Expanded(
+            children: List.generate(values.length, (i) => Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4),
                 child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-                  Text('${data[i]}', style: TextStyle(fontSize: 10, color: isDark ? Colors.white54 : Colors.grey)),
+                  if (values[i] > 0)
+                    Text('${values[i]}', style: TextStyle(fontSize: 10, color: isDark ? Colors.white54 : Colors.grey)),
                   const SizedBox(height: 4),
                   Container(
-                    height: 100 * data[i] / maxVal,
+                    height: maxVal > 0 ? 100 * values[i] / maxVal : 4,
                     decoration: BoxDecoration(
                       gradient: gradientPurple,
                       borderRadius: BorderRadius.circular(8),
@@ -117,9 +134,9 @@ class _BarChart extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        Row(children: List.generate(days.length, (i) => Expanded(
-          child: Center(child: Text(days[i],
-              style: TextStyle(fontSize: 11, color: isDark ? Colors.white38 : Colors.grey))),
+        Row(children: List.generate(labels.length, (i) => Expanded(
+          child: Center(child: Text(labels[i],
+              style: TextStyle(fontSize: 10, color: isDark ? Colors.white38 : Colors.grey))),
         ))),
       ]),
     );

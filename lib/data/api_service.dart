@@ -103,4 +103,9 @@ class ApiService {
     final r = await http.post(Uri.parse('$baseUrl/reminders/$id/remind'), headers: _headers);
     return jsonDecode(r.body)['created'] ?? false;
   }
+
+  static Future<Map<String, dynamic>> getMyStats() async {
+    final r = await http.get(Uri.parse('$baseUrl/stats/my'), headers: _headers);
+    return jsonDecode(r.body) as Map<String, dynamic>;
+  }
 }
