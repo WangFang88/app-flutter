@@ -109,8 +109,7 @@ class NotificationService {
         importance: importance,
         priority: priority,
         enableVibration: true,
-        ongoing: true,
-        autoCancel: false,
+        autoCancel: true,
         actions: const [
           AndroidNotificationAction('confirm', '确定', cancelNotification: true),
         ],
