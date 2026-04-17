@@ -52,8 +52,28 @@ class NotificationService {
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(const AndroidNotificationChannel(
+          'reminder_low_channel',
+          '普通提醒',
+          importance: Importance.defaultImportance,
+          enableVibration: false,
+          playSound: true,
+        ));
+    await _notif
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(const AndroidNotificationChannel(
+          'reminder_medium_channel',
+          '重要提醒',
+          importance: Importance.high,
+          enableVibration: true,
+          playSound: true,
+        ));
+    await _notif
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(const AndroidNotificationChannel(
           'reminder_high_channel',
-          '提醒通知',
+          '紧急提醒',
           importance: Importance.max,
           enableVibration: true,
           playSound: true,
@@ -106,13 +126,23 @@ class NotificationService {
   }
 
   static NotificationDetails _buildDetails(Importance importance, Priority priority) {
+    final channelId = importance == Importance.max
+        ? 'reminder_high_channel'
+        : importance == Importance.high
+            ? 'reminder_medium_channel'
+            : 'reminder_low_channel';
+    final channelName = importance == Importance.max
+        ? '紧急提醒'
+        : importance == Importance.high
+            ? '重要提醒'
+            : '普通提醒';
     return NotificationDetails(
       android: AndroidNotificationDetails(
-        'reminder_high_channel',
-        '提醒通知',
+        channelId,
+        channelName,
         importance: importance,
         priority: priority,
-        enableVibration: true,
+        enableVibration: importance != Importance.defaultImportance,
         autoCancel: true,
       ),
     );
