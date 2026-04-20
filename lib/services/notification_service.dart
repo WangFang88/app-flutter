@@ -6,6 +6,11 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz_data;
 import '../data/api_service.dart';
 
+// 系统铃声 URI（Android 内置）
+const _soundLow    = 'content://settings/system/notification_sound';   // 默认通知音
+const _soundMedium = 'content://settings/system/ringtone';             // 默认来电铃声
+const _soundHigh   = 'content://settings/system/alarm_alert';          // 默认闹钟铃声
+
 final _notif = FlutterLocalNotificationsPlugin();
 const _channel = MethodChannel('reminder_app/battery');
 
@@ -49,37 +54,30 @@ class NotificationService {
       },
       onDidReceiveBackgroundNotificationResponse: onBackgroundNotificationResponse,
     );
-    await _notif
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
-        ?.createNotificationChannel(const AndroidNotificationChannel(
-          'reminder_low_channel',
-          '普通提醒',
-          importance: Importance.defaultImportance,
-          enableVibration: false,
-          playSound: true,
-        ));
-    await _notif
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
-        ?.createNotificationChannel(const AndroidNotificationChannel(
-          'reminder_medium_channel',
-          '重要提醒',
-          importance: Importance.high,
-          enableVibration: true,
-          playSound: true,
-        ));
-    await _notif
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
-        ?.createNotificationChannel(const AndroidNotificationChannel(
-          'reminder_high_channel',
-          '紧急提醒',
-          importance: Importance.max,
-          enableVibration: true,
-          playSound: true,
-          showBadge: true,
-        ));
+    final androidPlugin = _notif.resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>();
+    await androidPlugin?.createNotificationChannel(const AndroidNotificationChannel(
+      'reminder_low_channel', '普通提醒',
+      importance: Importance.defaultImportance,
+      enableVibration: false,
+      playSound: true,
+      sound: UriAndroidNotificationSound(_soundLow),
+    ));
+    await androidPlugin?.createNotificationChannel(const AndroidNotificationChannel(
+      'reminder_medium_channel', '重要提醒',
+      importance: Importance.high,
+      enableVibration: true,
+      playSound: true,
+      sound: UriAndroidNotificationSound(_soundMedium),
+    ));
+    await androidPlugin?.createNotificationChannel(const AndroidNotificationChannel(
+      'reminder_high_channel', '紧急提醒',
+      importance: Importance.max,
+      enableVibration: true,
+      playSound: true,
+      showBadge: true,
+      sound: UriAndroidNotificationSound(_soundHigh),
+    ));
     await _notif
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
@@ -127,29 +125,20 @@ class NotificationService {
   }
 
   static NotificationDetails _buildDetails(Importance importance, Priority priority) {
-    final channelId = importance == Importance.max
-        ? 'reminder_high_channel'
+    final (channelId, channelName, soundUri, vibrationPattern) = importance == Importance.max
+        ? ('reminder_high_channel', '紧急提醒', _soundHigh,
+            Int64List.fromList([0, 300, 200, 300, 200, 300]))
         : importance == Importance.high
-            ? 'reminder_medium_channel'
-            : 'reminder_low_channel';
-    final channelName = importance == Importance.max
-        ? '紧急提醒'
-        : importance == Importance.high
-            ? '重要提醒'
-            : '普通提醒';
-    // 用震动模式区分强度
-    final vibrationPattern = importance == Importance.max
-        ? Int64List.fromList([0, 300, 200, 300, 200, 300]) // 连续震动
-        : importance == Importance.high
-            ? Int64List.fromList([0, 500, 300, 500]) // 两次震动
-            : null; // 无震动
+            ? ('reminder_medium_channel', '重要提醒', _soundMedium,
+                Int64List.fromList([0, 500, 300, 500]))
+            : ('reminder_low_channel', '普通提醒', _soundLow, null);
     return NotificationDetails(
       android: AndroidNotificationDetails(
-        channelId,
-        channelName,
+        channelId, channelName,
         importance: importance,
         priority: priority,
-        enableVibration: importance != Importance.defaultImportance,
+        sound: UriAndroidNotificationSound(soundUri),
+        enableVibration: vibrationPattern != null,
         vibrationPattern: vibrationPattern,
         autoCancel: true,
       ),
