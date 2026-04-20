@@ -56,22 +56,23 @@ class NotificationService {
     );
     final androidPlugin = _notif.resolvePlatformSpecificImplementation<
         AndroidFlutterLocalNotificationsPlugin>();
-    await androidPlugin?.createNotificationChannel(const AndroidNotificationChannel(
-      'reminder_low_channel', '普通提醒',
+    // 每种强度用独立渠道+独立声音，渠道ID含声音标识避免缓存问题
+    await androidPlugin?.createNotificationChannel(AndroidNotificationChannel(
+      'reminder_low_v2', '普通提醒',
       importance: Importance.defaultImportance,
       enableVibration: false,
       playSound: true,
       sound: UriAndroidNotificationSound(_soundLow),
     ));
-    await androidPlugin?.createNotificationChannel(const AndroidNotificationChannel(
-      'reminder_medium_channel', '重要提醒',
+    await androidPlugin?.createNotificationChannel(AndroidNotificationChannel(
+      'reminder_medium_v2', '重要提醒',
       importance: Importance.high,
       enableVibration: true,
       playSound: true,
       sound: UriAndroidNotificationSound(_soundMedium),
     ));
-    await androidPlugin?.createNotificationChannel(const AndroidNotificationChannel(
-      'reminder_high_channel', '紧急提醒',
+    await androidPlugin?.createNotificationChannel(AndroidNotificationChannel(
+      'reminder_high_v2', '紧急提醒',
       importance: Importance.max,
       enableVibration: true,
       playSound: true,
@@ -126,12 +127,12 @@ class NotificationService {
 
   static NotificationDetails _buildDetails(Importance importance, Priority priority) {
     final (channelId, channelName, soundUri, vibrationPattern) = importance == Importance.max
-        ? ('reminder_high_channel', '紧急提醒', _soundHigh,
+        ? ('reminder_high_v2', '紧急提醒', _soundHigh,
             Int64List.fromList([0, 300, 200, 300, 200, 300]))
         : importance == Importance.high
-            ? ('reminder_medium_channel', '重要提醒', _soundMedium,
+            ? ('reminder_medium_v2', '重要提醒', _soundMedium,
                 Int64List.fromList([0, 500, 300, 500]))
-            : ('reminder_low_channel', '普通提醒', _soundLow, null);
+            : ('reminder_low_v2', '普通提醒', _soundLow, null);
     return NotificationDetails(
       android: AndroidNotificationDetails(
         channelId, channelName,
