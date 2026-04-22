@@ -13,7 +13,9 @@ import 'screens/stats_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SessionStore.load();
-  await NotificationService.init();
+  try {
+    await NotificationService.init();
+  } catch (_) {}
   // 每2分钟重复未确认的通知
   Timer.periodic(const Duration(minutes: 2), (_) {
     NotificationService.reshowAllPending();

@@ -33,8 +33,9 @@ class NotificationService {
     tz_data.initializeTimeZones();
     tz.setLocalLocation(tz.getLocation('Asia/Shanghai'));
     await _notif.initialize(
-      InitializationSettings(
-        android: const AndroidInitializationSettings('@mipmap/ic_launcher'),
+      const InitializationSettings(
+        android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+        iOS: DarwinInitializationSettings(),
       ),
       onDidReceiveNotificationResponse: (details) async {
         final id = details.id;
