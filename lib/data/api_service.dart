@@ -4,7 +4,10 @@ import 'session_store.dart';
 import 'models.dart';
 
 class ApiService {
-  static const baseUrl = 'http://192.168.124.14:8080';
+  static const baseUrl = String.fromEnvironment(
+    'API_BASE_URL',
+    defaultValue: 'http://192.168.124.14:8080',
+  );
 
   static Map<String, String> get _headers => {
         'Content-Type': 'application/json',
