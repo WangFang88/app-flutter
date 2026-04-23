@@ -6,10 +6,10 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz_data;
 import '../data/api_service.dart';
 
-// 系统铃声 URI（Android 内置）
-const _soundLow    = 'content://settings/system/notification_sound';   // 默认通知音
-const _soundMedium = 'content://settings/system/ringtone';             // 默认来电铃声
-const _soundHigh   = 'content://settings/system/alarm_alert';          // 默认闹钟铃声
+// Android 自定义声音（放在 android/app/src/main/res/raw/）
+const _soundLow = RawResourceAndroidNotificationSound('reminder_low');
+const _soundMedium = RawResourceAndroidNotificationSound('reminder_medium');
+const _soundHigh = RawResourceAndroidNotificationSound('reminder_high');
 
 final _notif = FlutterLocalNotificationsPlugin();
 const _channel = MethodChannel('reminder_app/battery');
@@ -62,24 +62,27 @@ class NotificationService {
     final androidPlugin = _notif.resolvePlatformSpecificImplementation<
         AndroidFlutterLocalNotificationsPlugin>();
     // 每种强度用独立渠道+独立声音，渠道ID含声音标识避免缓存问题
-    await androidPlugin?.createNotificationChannel(const AndroidNotificationChannel(
-      'reminder_low_v2', '普通提醒',
+    await androidPlugin?.createNotificationChannel(AndroidNotificationChannel(
+      'reminder_low_v3', '普通提醒',
       importance: Importance.defaultImportance,
       enableVibration: false,
       playSound: true,
+      sound: _soundLow,
     ));
-    await androidPlugin?.createNotificationChannel(const AndroidNotificationChannel(
-      'reminder_medium_v2', '重要提醒',
+    await androidPlugin?.createNotificationChannel(AndroidNotificationChannel(
+      'reminder_medium_v3', '重要提醒',
       importance: Importance.high,
       enableVibration: true,
       playSound: true,
+      sound: _soundMedium,
     ));
-    await androidPlugin?.createNotificationChannel(const AndroidNotificationChannel(
-      'reminder_high_v2', '紧急提醒',
+    await androidPlugin?.createNotificationChannel(AndroidNotificationChannel(
+      'reminder_high_v3', '紧急提醒',
       importance: Importance.max,
       enableVibration: true,
       playSound: true,
       showBadge: true,
+      sound: _soundHigh,
     ));
     await _notif
         .resolvePlatformSpecificImplementation<
@@ -141,18 +144,19 @@ class NotificationService {
   }
 
   static NotificationDetails _buildDetails(Importance importance, Priority priority) {
-    final (channelId, channelName, vibrationPattern) = importance == Importance.max
-        ? ('reminder_high_v2', '紧急提醒',
+    final (channelId, channelName, sound, vibrationPattern) = importance == Importance.max
+        ? ('reminder_high_v3', '紧急提醒', _soundHigh,
             Int64List.fromList([0, 300, 200, 300, 200, 300]))
         : importance == Importance.high
-            ? ('reminder_medium_v2', '重要提醒',
+            ? ('reminder_medium_v3', '重要提醒', _soundMedium,
                 Int64List.fromList([0, 500, 300, 500]))
-            : ('reminder_low_v2', '普通提醒', null);
+            : ('reminder_low_v3', '普通提醒', _soundLow, null);
     return NotificationDetails(
       android: AndroidNotificationDetails(
         channelId, channelName,
         importance: importance,
         priority: priority,
+        sound: sound,
         enableVibration: vibrationPattern != null,
         vibrationPattern: vibrationPattern,
         autoCancel: true,
