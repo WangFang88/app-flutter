@@ -16,6 +16,8 @@ const _channel = MethodChannel('reminder_app/battery');
 
 final Map<int, _PendingReminder> _pendingReminders = {};
 
+int _notificationIdOf(String reminderId) => reminderId.hashCode & 0x7fffffff;
+
 @pragma('vm:entry-point')
 void onBackgroundNotificationResponse(NotificationResponse details) {
   _pendingReminders.remove(details.id);
@@ -84,6 +86,10 @@ class NotificationService {
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.requestNotificationsPermission();
+    await _notif
+        .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>()
+        ?.requestPermissions(alert: true, badge: true, sound: true);
     if (Platform.isAndroid) {
       try {
         await _channel.invokeMethod('requestIgnoreBatteryOptimizations');
@@ -97,16 +103,20 @@ class NotificationService {
     required DateTime scheduledAt,
     int supporterCount = 0,
   }) async {
-    final delay = scheduledAt.difference(DateTime.now());
+    final now = DateTime.now();
+    final delay = scheduledAt.difference(now);
     if (delay.isNegative) return;
+    final targetTime = delay < const Duration(seconds: 5)
+        ? now.add(const Duration(seconds: 5))
+        : scheduledAt;
 
-    final id = reminderId.hashCode;
-    _pendingReminders[id] = _PendingReminder(reminderId, title, scheduledAt);
+    final id = _notificationIdOf(reminderId);
+    _pendingReminders[id] = _PendingReminder(reminderId, title, targetTime);
 
-    final (body, importance, priority) = _intensity(supporterCount, scheduledAt);
+    final (body, importance, priority) = _intensity(supporterCount, targetTime);
     await _notif.zonedSchedule(
       id, title, body,
-      tz.TZDateTime.from(scheduledAt, tz.local),
+      tz.TZDateTime.from(targetTime, tz.local),
       _buildDetails(importance, priority),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
@@ -148,7 +158,7 @@ class NotificationService {
   }
 
   static Future<void> cancelReminder(String reminderId) async {
-    final id = reminderId.hashCode;
+    final id = _notificationIdOf(reminderId);
     _pendingReminders.remove(id);
     await _notif.cancel(id);
   }
