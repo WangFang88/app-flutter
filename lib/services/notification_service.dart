@@ -11,6 +11,11 @@ const _soundLow = RawResourceAndroidNotificationSound('reminder_low');
 const _soundMedium = RawResourceAndroidNotificationSound('reminder_medium');
 const _soundHigh = RawResourceAndroidNotificationSound('reminder_high');
 
+// iOS 自定义声音（放在 ios/Runner，并加入 Copy Bundle Resources）
+const _iosSoundLow = 'reminder_low.caf';
+const _iosSoundMedium = 'reminder_medium.caf';
+const _iosSoundHigh = 'reminder_high.caf';
+
 final _notif = FlutterLocalNotificationsPlugin();
 const _channel = MethodChannel('reminder_app/battery');
 
@@ -144,13 +149,13 @@ class NotificationService {
   }
 
   static NotificationDetails _buildDetails(Importance importance, Priority priority) {
-    final (channelId, channelName, sound, vibrationPattern) = importance == Importance.max
-        ? ('reminder_high_v3', '紧急提醒', _soundHigh,
+    final (channelId, channelName, sound, iosSound, vibrationPattern) = importance == Importance.max
+        ? ('reminder_high_v3', '紧急提醒', _soundHigh, _iosSoundHigh,
             Int64List.fromList([0, 300, 200, 300, 200, 300]))
         : importance == Importance.high
-            ? ('reminder_medium_v3', '重要提醒', _soundMedium,
+            ? ('reminder_medium_v3', '重要提醒', _soundMedium, _iosSoundMedium,
                 Int64List.fromList([0, 500, 300, 500]))
-            : ('reminder_low_v3', '普通提醒', _soundLow, null);
+            : ('reminder_low_v3', '普通提醒', _soundLow, _iosSoundLow, null);
     return NotificationDetails(
       android: AndroidNotificationDetails(
         channelId, channelName,
@@ -161,10 +166,11 @@ class NotificationService {
         vibrationPattern: vibrationPattern,
         autoCancel: true,
       ),
-      iOS: const DarwinNotificationDetails(
+      iOS: DarwinNotificationDetails(
         presentAlert: true,
         presentBadge: true,
         presentSound: true,
+        sound: iosSound,
       ),
     );
   }
