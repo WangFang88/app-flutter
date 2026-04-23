@@ -15,6 +15,7 @@ final _notif = FlutterLocalNotificationsPlugin();
 const _channel = MethodChannel('reminder_app/battery');
 
 final Map<int, _PendingReminder> _pendingReminders = {};
+bool _initialized = false;
 
 int _notificationIdOf(String reminderId) => reminderId.hashCode & 0x7fffffff;
 
@@ -32,6 +33,7 @@ class _PendingReminder {
 
 class NotificationService {
   static Future<void> init() async {
+    if (_initialized) return;
     tz_data.initializeTimeZones();
     tz.setLocalLocation(tz.getLocation('Asia/Shanghai'));
     await _notif.initialize(
@@ -60,27 +62,24 @@ class NotificationService {
     final androidPlugin = _notif.resolvePlatformSpecificImplementation<
         AndroidFlutterLocalNotificationsPlugin>();
     // 每种强度用独立渠道+独立声音，渠道ID含声音标识避免缓存问题
-    await androidPlugin?.createNotificationChannel(AndroidNotificationChannel(
+    await androidPlugin?.createNotificationChannel(const AndroidNotificationChannel(
       'reminder_low_v2', '普通提醒',
       importance: Importance.defaultImportance,
       enableVibration: false,
       playSound: true,
-      sound: UriAndroidNotificationSound(_soundLow),
     ));
-    await androidPlugin?.createNotificationChannel(AndroidNotificationChannel(
+    await androidPlugin?.createNotificationChannel(const AndroidNotificationChannel(
       'reminder_medium_v2', '重要提醒',
       importance: Importance.high,
       enableVibration: true,
       playSound: true,
-      sound: UriAndroidNotificationSound(_soundMedium),
     ));
-    await androidPlugin?.createNotificationChannel(AndroidNotificationChannel(
+    await androidPlugin?.createNotificationChannel(const AndroidNotificationChannel(
       'reminder_high_v2', '紧急提醒',
       importance: Importance.max,
       enableVibration: true,
       playSound: true,
       showBadge: true,
-      sound: UriAndroidNotificationSound(_soundHigh),
     ));
     await _notif
         .resolvePlatformSpecificImplementation<
@@ -96,6 +95,7 @@ class NotificationService {
         await _channel.invokeMethod('requestIgnoreBatteryOptimizations');
       } catch (_) {}
     }
+    _initialized = true;
   }
 
   static Future<void> scheduleReminder({
@@ -104,6 +104,9 @@ class NotificationService {
     required DateTime scheduledAt,
     int supporterCount = 0,
   }) async {
+    if (!_initialized) {
+      await init();
+    }
     final now = DateTime.now();
     final delay = scheduledAt.difference(now);
     if (delay.isNegative) return;
@@ -138,22 +141,26 @@ class NotificationService {
   }
 
   static NotificationDetails _buildDetails(Importance importance, Priority priority) {
-    final (channelId, channelName, soundUri, vibrationPattern) = importance == Importance.max
-        ? ('reminder_high_v2', '紧急提醒', _soundHigh,
+    final (channelId, channelName, vibrationPattern) = importance == Importance.max
+        ? ('reminder_high_v2', '紧急提醒',
             Int64List.fromList([0, 300, 200, 300, 200, 300]))
         : importance == Importance.high
-            ? ('reminder_medium_v2', '重要提醒', _soundMedium,
+            ? ('reminder_medium_v2', '重要提醒',
                 Int64List.fromList([0, 500, 300, 500]))
-            : ('reminder_low_v2', '普通提醒', _soundLow, null);
+            : ('reminder_low_v2', '普通提醒', null);
     return NotificationDetails(
       android: AndroidNotificationDetails(
         channelId, channelName,
         importance: importance,
         priority: priority,
-        sound: UriAndroidNotificationSound(soundUri),
         enableVibration: vibrationPattern != null,
         vibrationPattern: vibrationPattern,
         autoCancel: true,
+      ),
+      iOS: const DarwinNotificationDetails(
+        presentAlert: true,
+        presentBadge: true,
+        presentSound: true,
       ),
     );
   }
