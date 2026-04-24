@@ -7,6 +7,8 @@ import com.eatthepath.pushy.apns.auth.ApnsSigningKey;
 import com.eatthepath.pushy.apns.util.SimpleApnsPayloadBuilder;
 import com.eatthepath.pushy.apns.util.SimpleApnsPushNotification;
 import com.reminder.entity.DeviceToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ import java.util.Map;
 
 @Service
 public class ApnsPushService {
+    private static final Logger log = LoggerFactory.getLogger(ApnsPushService.class);
+
     @Value("${apns.enabled:false}")
     private boolean enabled;
 
@@ -38,13 +42,20 @@ public class ApnsPushService {
 
     @PostConstruct
     public void init() throws Exception {
-        if (!enabled || teamId.isEmpty() || keyId.isEmpty() || privateKeyPath.isEmpty()) {
+        if (!enabled) {
+            log.info("APNs is disabled via configuration");
+            return;
+        }
+        if (teamId.isEmpty() || keyId.isEmpty() || privateKeyPath.isEmpty()) {
+            log.warn("APNs is enabled but configuration is incomplete. teamIdPresent={}, keyIdPresent={}, privateKeyPathPresent={}",
+                !teamId.isEmpty(), !keyId.isEmpty(), !privateKeyPath.isEmpty());
             return;
         }
         client = new ApnsClientBuilder()
             .setApnsServer(useSandbox ? ApnsClientBuilder.DEVELOPMENT_APNS_HOST : ApnsClientBuilder.PRODUCTION_APNS_HOST)
             .setSigningKey(ApnsSigningKey.loadFromPkcs8File(new File(privateKeyPath), teamId, keyId))
             .build();
+        log.info("APNs client initialized. sandbox={}, bundleId={}, keyPath={}", useSandbox, bundleId, privateKeyPath);
     }
 
     public boolean isEnabled() {
@@ -67,8 +78,13 @@ public class ApnsPushService {
             String token = com.eatthepath.pushy.apns.util.TokenUtil.sanitizeTokenString(deviceToken.getToken());
             SimpleApnsPushNotification notification = new SimpleApnsPushNotification(token, bundleId, payload);
             PushNotificationResponse<SimpleApnsPushNotification> response = client.sendNotification(notification).get();
+            if (!response.isAccepted()) {
+                log.warn("APNs rejected token for user {}. reason={}, invalidationTimestamp={}",
+                    deviceToken.getUserId(), response.getRejectionReason(), response.getTokenInvalidationTimestamp());
+            }
             return response.isAccepted();
         } catch (Exception e) {
+            log.warn("APNs send failed for user {}: {}", deviceToken.getUserId(), e.toString());
             return false;
         }
     }

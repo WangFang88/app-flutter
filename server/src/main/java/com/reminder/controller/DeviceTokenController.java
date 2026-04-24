@@ -3,6 +3,8 @@ package com.reminder.controller;
 import com.reminder.entity.DeviceToken;
 import com.reminder.repository.DeviceTokenRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,8 @@ import java.util.UUID;
 @RequestMapping("/devices/tokens")
 @RequiredArgsConstructor
 public class DeviceTokenController {
+    private static final Logger log = LoggerFactory.getLogger(DeviceTokenController.class);
+
     private final DeviceTokenRepository deviceTokenRepository;
 
     @PostMapping
@@ -40,6 +44,7 @@ public class DeviceTokenController {
         deviceToken.setEnabled(true);
         deviceToken.setLastSeenAt(System.currentTimeMillis());
         deviceTokenRepository.save(deviceToken);
+        log.info("Registered device token for user {} on platform {} with environment {}", userId, platform, environment);
         return ResponseEntity.ok(single("ok", true));
     }
 
