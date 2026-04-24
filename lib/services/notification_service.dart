@@ -88,7 +88,15 @@ class NotificationService {
           int count = 0;
           try { count = await ApiService.supporterCount(pending.reminderId); } catch (_) {}
           final (body, importance, priority) = _intensity(count, pending.scheduledAt);
-          await _notif.show(id, pending.title, body, _buildDetails(importance, priority));
+          final details = _buildDetails(importance, priority);
+          await _notif.show(id, pending.title, body, details);
+          await _scheduleRepeats(
+            pending.reminderId,
+            pending.title,
+            DateTime.now(),
+            details,
+            body,
+          );
         }
       },
       onDidReceiveBackgroundNotificationResponse: onBackgroundNotificationResponse,

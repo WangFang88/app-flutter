@@ -70,6 +70,7 @@ class _DetailScreenState extends State<DetailScreen> {
     );
     if (ok == true) {
       await ApiService.deleteReminder(widget.reminderId);
+      await NotificationService.cancelReminder(widget.reminderId);
       if (mounted) Navigator.pop(context, true);
     }
   }
