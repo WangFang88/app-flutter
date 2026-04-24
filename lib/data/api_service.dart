@@ -11,6 +11,7 @@ class ApiService {
 
   static Map<String, String> get _headers => {
         'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true',
         if (SessionStore.token != null)
           'Authorization': 'Bearer ${SessionStore.token}',
       };
