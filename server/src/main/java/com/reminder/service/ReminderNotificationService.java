@@ -26,7 +26,7 @@ public class ReminderNotificationService {
         if (Boolean.FALSE.equals(reminder.getIosRepeatActive()) && reminder.getIosInitialPushedAt() != null) {
             return;
         }
-        int supporterCount = supporterRepository.countByReminderId(reminder.getId());
+        long supporterCount = supporterRepository.countByReminderId(reminder.getId());
         String timeStr = formatTime(reminder.getScheduledAt());
         String body;
         String sound;

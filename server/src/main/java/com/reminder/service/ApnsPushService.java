@@ -4,7 +4,7 @@ import com.eatthepath.pushy.apns.ApnsClient;
 import com.eatthepath.pushy.apns.ApnsClientBuilder;
 import com.eatthepath.pushy.apns.PushNotificationResponse;
 import com.eatthepath.pushy.apns.auth.ApnsSigningKey;
-import com.eatthepath.pushy.apns.util.ApnsPayloadBuilder;
+import com.eatthepath.pushy.apns.util.SimpleApnsPayloadBuilder;
 import com.eatthepath.pushy.apns.util.SimpleApnsPushNotification;
 import com.reminder.entity.DeviceToken;
 import org.springframework.beans.factory.annotation.Value;
@@ -56,14 +56,14 @@ public class ApnsPushService {
             return false;
         }
         try {
-            ApnsPayloadBuilder payloadBuilder = new ApnsPayloadBuilder();
+            SimpleApnsPayloadBuilder payloadBuilder = new SimpleApnsPayloadBuilder();
             payloadBuilder.setAlertTitle(title);
             payloadBuilder.setAlertBody(body);
             payloadBuilder.setSoundFileName(sound);
             for (Map.Entry<String, Object> entry : payloadData.entrySet()) {
                 payloadBuilder.addCustomProperty(entry.getKey(), entry.getValue());
             }
-            String payload = payloadBuilder.buildWithDefaultMaximumLength();
+            String payload = payloadBuilder.build();
             String token = com.eatthepath.pushy.apns.util.TokenUtil.sanitizeTokenString(deviceToken.getToken());
             SimpleApnsPushNotification notification = new SimpleApnsPushNotification(token, bundleId, payload);
             PushNotificationResponse<SimpleApnsPushNotification> response = client.sendNotification(notification).get();
