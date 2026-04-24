@@ -43,6 +43,29 @@ class _PendingReminder {
 }
 
 class NotificationService {
+  static Future<void> _scheduleRepeats(
+    String reminderId,
+    String title,
+    DateTime fromTime,
+    NotificationDetails details,
+    String body,
+  ) async {
+    for (var i = 1; i <= _repeatCount; i++) {
+      final repeatId = _notificationRepeatIdOf(reminderId, i);
+      await _notif.cancel(repeatId);
+      await _notif.zonedSchedule(
+        repeatId,
+        title,
+        body,
+        tz.TZDateTime.from(fromTime.add(_repeatInterval * i), tz.local),
+        details,
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+      );
+    }
+  }
+
   static Future<void> init() async {
     if (_initialized) return;
     tz_data.initializeTimeZones();
@@ -141,19 +164,7 @@ class NotificationService {
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
     );
-    for (var i = 1; i <= _repeatCount; i++) {
-      final repeatId = _notificationRepeatIdOf(reminderId, i);
-      await _notif.zonedSchedule(
-        repeatId,
-        title,
-        body,
-        tz.TZDateTime.from(targetTime.add(_repeatInterval * i), tz.local),
-        details,
-        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-      );
-    }
+    await _scheduleRepeats(reminderId, title, targetTime, details, body);
   }
 
   static Future<void> reshowAllPending() async {
@@ -164,7 +175,15 @@ class NotificationService {
         count = await ApiService.supporterCount(pending.reminderId);
       } catch (_) {}
       final (body, importance, priority) = _intensity(count, pending.scheduledAt);
-      await _notif.show(entry.key, pending.title, body, _buildDetails(importance, priority));
+      final details = _buildDetails(importance, priority);
+      await _notif.show(entry.key, pending.title, body, details);
+      await _scheduleRepeats(
+        pending.reminderId,
+        pending.title,
+        DateTime.now(),
+        details,
+        body,
+      );
     }
   }
 
