@@ -21,12 +21,18 @@ const _channel = MethodChannel('reminder_app/battery');
 
 final Map<int, _PendingReminder> _pendingReminders = {};
 bool _initialized = false;
+const _repeatInterval = Duration(minutes: 2);
+const _repeatCount = 30;
 
 int _notificationIdOf(String reminderId) => reminderId.hashCode & 0x7fffffff;
+int _notificationRepeatIdOf(String reminderId, int index) =>
+    ((_notificationIdOf(reminderId) + index + 1) & 0x7fffffff);
 
 @pragma('vm:entry-point')
 void onBackgroundNotificationResponse(NotificationResponse details) {
-  _pendingReminders.remove(details.id);
+  final id = details.id;
+  if (id == null) return;
+  _pendingReminders.remove(id);
 }
 
 class _PendingReminder {
@@ -53,7 +59,7 @@ class NotificationService {
         if (pending == null) return;
         if (details.notificationResponseType == NotificationResponseType.selectedNotification) {
           // 点击通知本身视为已确认
-          _pendingReminders.remove(id);
+          await cancelReminder(pending.reminderId);
         } else {
           // 通知触发时查询最新人数重新发送
           int count = 0;
@@ -126,14 +132,28 @@ class NotificationService {
     _pendingReminders[id] = _PendingReminder(reminderId, title, targetTime);
 
     final (body, importance, priority) = _intensity(supporterCount, targetTime);
+    final details = _buildDetails(importance, priority);
     await _notif.zonedSchedule(
       id, title, body,
       tz.TZDateTime.from(targetTime, tz.local),
-      _buildDetails(importance, priority),
+      details,
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
     );
+    for (var i = 1; i <= _repeatCount; i++) {
+      final repeatId = _notificationRepeatIdOf(reminderId, i);
+      await _notif.zonedSchedule(
+        repeatId,
+        title,
+        body,
+        tz.TZDateTime.from(targetTime.add(_repeatInterval * i), tz.local),
+        details,
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+      );
+    }
   }
 
   static Future<void> reshowAllPending() async {
@@ -179,6 +199,9 @@ class NotificationService {
     final id = _notificationIdOf(reminderId);
     _pendingReminders.remove(id);
     await _notif.cancel(id);
+    for (var i = 1; i <= _repeatCount; i++) {
+      await _notif.cancel(_notificationRepeatIdOf(reminderId, i));
+    }
   }
 
   static (String, Importance, Priority) _intensity(int count, DateTime scheduledAt) {
