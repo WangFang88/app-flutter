@@ -7,6 +7,7 @@ import com.reminder.entity.Supporter;
 import com.reminder.repository.AcknowledgementRepository;
 import com.reminder.repository.ReminderRepository;
 import com.reminder.repository.SupporterRepository;
+import com.reminder.service.ReminderNotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ public class ReminderController {
     private final ReminderRepository reminderRepository;
     private final SupporterRepository supporterRepository;
     private final AcknowledgementRepository acknowledgementRepository;
+    private final ReminderNotificationService reminderNotificationService;
 
     @GetMapping("/public")
     public ResponseEntity<?> getPublicReminders() {
@@ -111,6 +113,9 @@ public class ReminderController {
             supporter.setUserId(userId);
             supporter.setRemindedAt(System.currentTimeMillis());
             supporterRepository.save(supporter);
+            if (reminder.getScheduledAt() <= System.currentTimeMillis()) {
+                reminderNotificationService.sendReminderUpdate(reminder);
+            }
         }
         return ResponseEntity.ok(single("created", !alreadyExists));
     }
@@ -123,6 +128,12 @@ public class ReminderController {
         ack.setUserId(userId);
         ack.setAcknowledgedAt(System.currentTimeMillis());
         acknowledgementRepository.save(ack);
+        Reminder reminder = reminderRepository.findById(id).orElse(null);
+        if (reminder != null && userId.equals(reminder.getAuthorId())) {
+            reminder.setIosRepeatActive(false);
+            reminder.setIosRepeatStoppedAt(System.currentTimeMillis());
+            reminderRepository.save(reminder);
+        }
         return ResponseEntity.ok(single("ok", true));
     }
 
@@ -173,6 +184,8 @@ public class ReminderController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err("Not your reminder"));
         }
 
+        reminder.setIosRepeatActive(false);
+        reminder.setIosRepeatStoppedAt(System.currentTimeMillis());
         reminderRepository.deleteById(id);
         return ResponseEntity.ok(single("ok", true));
     }

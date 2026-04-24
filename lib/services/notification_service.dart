@@ -18,6 +18,7 @@ const _iosSoundHigh = 'reminder_high.caf';
 
 final _notif = FlutterLocalNotificationsPlugin();
 const _channel = MethodChannel('reminder_app/battery');
+const _pushChannel = MethodChannel('reminder_app/push');
 
 final Map<int, _PendingReminder> _pendingReminders = {};
 bool _initialized = false;
@@ -70,6 +71,18 @@ class NotificationService {
     if (_initialized) return;
     tz_data.initializeTimeZones();
     tz.setLocalLocation(tz.getLocation('Asia/Shanghai'));
+    if (Platform.isIOS) {
+      _pushChannel.setMethodCallHandler((call) async {
+        if (call.method == 'onApnsToken') {
+          final token = (call.arguments as String?)?.trim();
+          if (token != null && token.isNotEmpty) {
+            try {
+              await ApiService.registerDeviceToken(token: token, platform: 'ios');
+            } catch (_) {}
+          }
+        }
+      });
+    }
     await _notif.initialize(
       const InitializationSettings(
         android: AndroidInitializationSettings('@mipmap/ic_launcher'),
@@ -135,6 +148,11 @@ class NotificationService {
         .resolvePlatformSpecificImplementation<
             IOSFlutterLocalNotificationsPlugin>()
         ?.requestPermissions(alert: true, badge: true, sound: true);
+    if (Platform.isIOS) {
+      try {
+        await _pushChannel.invokeMethod('registerForRemoteNotifications');
+      } catch (_) {}
+    }
     if (Platform.isAndroid) {
       try {
         await _channel.invokeMethod('requestIgnoreBatteryOptimizations');
@@ -151,6 +169,9 @@ class NotificationService {
   }) async {
     if (!_initialized) {
       await init();
+    }
+    if (Platform.isIOS) {
+      return;
     }
     final now = DateTime.now();
     final delay = scheduledAt.difference(now);
@@ -176,6 +197,9 @@ class NotificationService {
   }
 
   static Future<void> reshowAllPending() async {
+    if (Platform.isIOS) {
+      return;
+    }
     for (final entry in _pendingReminders.entries.toList()) {
       final pending = entry.value;
       int count = 0;
@@ -223,6 +247,9 @@ class NotificationService {
   }
 
   static Future<void> cancelReminder(String reminderId) async {
+    if (Platform.isIOS) {
+      return;
+    }
     final id = _notificationIdOf(reminderId);
     _pendingReminders.remove(id);
     await _notif.cancel(id);

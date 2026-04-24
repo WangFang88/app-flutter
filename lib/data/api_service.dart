@@ -111,4 +111,25 @@ class ApiService {
     final r = await http.get(Uri.parse('$baseUrl/stats/my'), headers: _headers);
     return jsonDecode(r.body) as Map<String, dynamic>;
   }
+
+  static Future<void> registerDeviceToken({
+    required String token,
+    required String platform,
+    String environment = 'production',
+  }) async {
+    await http.post(
+      Uri.parse('$baseUrl/devices/tokens'),
+      headers: _headers,
+      body: jsonEncode({
+        'token': token,
+        'platform': platform,
+        'environment': environment,
+      }),
+    );
+  }
+
+  static Future<void> acknowledgeReminder(String id) async {
+    await http.post(Uri.parse('$baseUrl/reminders/$id/acknowledge'), headers: _headers);
+  }
 }
+

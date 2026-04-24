@@ -8,5 +8,6 @@ public interface ReminderRepository extends JpaRepository<Reminder, String> {
     List<Reminder> findByIsPublicTrueOrderByScheduledAtAsc();
     List<Reminder> findByAuthorIdOrderByScheduledAtDesc(String authorId);
     List<Reminder> findByAuthorId(String authorId);
+    List<Reminder> findByScheduledAtLessThanEqual(Long scheduledAt);
     void deleteByAuthorId(String authorId);
 }
