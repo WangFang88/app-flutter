@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../data/api_service.dart';
+import '../services/notification_service.dart';
 import '../widgets/common_widgets.dart';
 import '../theme/app_theme.dart';
 
@@ -47,6 +48,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
         }
         await ApiService.loginEmail(_emailCtrl.text.trim(), _passCtrl.text);
       }
+      await NotificationService.registerLatestIosToken();
       widget.onLoggedIn();
     } catch (e) {
       setState(() { _err = e.toString(); });

@@ -22,6 +22,7 @@ const _pushChannel = MethodChannel('reminder_app/push');
 
 final Map<int, _PendingReminder> _pendingReminders = {};
 bool _initialized = false;
+String? _latestApnsToken;
 const _repeatInterval = Duration(minutes: 2);
 const _repeatCount = 30;
 
@@ -44,6 +45,15 @@ class _PendingReminder {
 }
 
 class NotificationService {
+  static Future<void> registerLatestIosToken() async {
+    if (!Platform.isIOS) return;
+    final token = _latestApnsToken;
+    if (token == null || token.isEmpty) return;
+    try {
+      await ApiService.registerDeviceToken(token: token, platform: 'ios');
+    } catch (_) {}
+  }
+
   static Future<void> _scheduleRepeats(
     String reminderId,
     String title,
@@ -76,6 +86,7 @@ class NotificationService {
         if (call.method == 'onApnsToken') {
           final token = (call.arguments as String?)?.trim();
           if (token != null && token.isNotEmpty) {
+            _latestApnsToken = token;
             try {
               await ApiService.registerDeviceToken(token: token, platform: 'ios');
             } catch (_) {}
