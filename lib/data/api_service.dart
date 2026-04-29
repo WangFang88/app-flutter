@@ -51,12 +51,16 @@ class ApiService {
 
   static Future<List<Reminder>> getPublicReminders() async {
     final r = await http.get(Uri.parse('$baseUrl/reminders/public'), headers: _headers);
-    return (jsonDecode(r.body) as List).map((e) => Reminder.fromJson(e)).toList();
+    final body = jsonDecode(r.body);
+    if (body is! List) return [];
+    return body.map((e) => Reminder.fromJson(e)).toList();
   }
 
   static Future<List<Reminder>> getMyReminders() async {
     final r = await http.get(Uri.parse('$baseUrl/reminders/mine'), headers: _headers);
-    return (jsonDecode(r.body) as List).map((e) => Reminder.fromJson(e)).toList();
+    final body = jsonDecode(r.body);
+    if (body is! List) return [];
+    return body.map((e) => Reminder.fromJson(e)).toList();
   }
 
   static Future<Reminder> getReminder(String id) async {
