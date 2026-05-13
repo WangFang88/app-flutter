@@ -6,7 +6,7 @@ import 'models.dart';
 class ApiService {
   static const baseUrl = String.fromEnvironment(
     'API_BASE_URL',
-    defaultValue: 'http://192.168.124.14:8080',
+    defaultValue: 'https://sculptor-magnitude-blinker.ngrok-free.dev',
   );
 
   static Map<String, String> get _headers => {
