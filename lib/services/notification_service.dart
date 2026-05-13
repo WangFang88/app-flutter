@@ -181,9 +181,6 @@ class NotificationService {
     if (!_initialized) {
       await init();
     }
-    if (Platform.isIOS) {
-      return;
-    }
     final now = DateTime.now();
     final delay = scheduledAt.difference(now);
     if (delay.isNegative) return;
@@ -208,9 +205,6 @@ class NotificationService {
   }
 
   static Future<void> reshowAllPending() async {
-    if (Platform.isIOS) {
-      return;
-    }
     for (final entry in _pendingReminders.entries.toList()) {
       final pending = entry.value;
       int count = 0;
@@ -258,9 +252,6 @@ class NotificationService {
   }
 
   static Future<void> cancelReminder(String reminderId) async {
-    if (Platform.isIOS) {
-      return;
-    }
     final id = _notificationIdOf(reminderId);
     _pendingReminders.remove(id);
     await _notif.cancel(id);
