@@ -106,6 +106,9 @@ class NotificationService {
         if (pending == null) return;
         if (details.notificationResponseType == NotificationResponseType.selectedNotification) {
           // 点击通知本身视为已确认
+          try {
+            await ApiService.acknowledgeReminder(pending.reminderId);
+          } catch (_) {}
           await cancelReminder(pending.reminderId);
         } else {
           // 通知触发时查询最新人数重新发送
