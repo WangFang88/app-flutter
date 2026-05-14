@@ -74,7 +74,11 @@ class ApiService {
       headers: _headers,
       body: jsonEncode({'title': title, 'scheduledAt': scheduledAt, 'isPublic': isPublic}),
     );
-    return jsonDecode(r.body)['id'];
+    if (r.statusCode != 200) throw Exception('Failed to create reminder');
+    final body = jsonDecode(r.body);
+    final id = body['id'];
+    if (id == null) throw Exception('No id in response');
+    return id as String;
   }
 
   static Future<void> updateReminder(String id, {String? title, int? scheduledAt, bool? isPublic}) async {
