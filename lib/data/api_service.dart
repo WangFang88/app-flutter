@@ -74,7 +74,14 @@ class ApiService {
       headers: _headers,
       body: jsonEncode({'title': title, 'scheduledAt': scheduledAt, 'isPublic': isPublic}),
     );
-    if (r.statusCode != 200) throw Exception('Failed to create reminder');
+    if (r.statusCode != 200) {
+      try {
+        final error = jsonDecode(r.body)['error'];
+        throw Exception(error ?? 'Failed to create reminder');
+      } catch (_) {
+        throw Exception('Failed to create reminder (${r.statusCode})');
+      }
+    }
     final body = jsonDecode(r.body);
     final id = body['id'];
     if (id == null) throw Exception('No id in response');
