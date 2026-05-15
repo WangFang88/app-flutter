@@ -11,6 +11,9 @@ import UIKit
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     let result = super.application(application, didFinishLaunchingWithOptions: launchOptions)
+
+    UNUserNotificationCenter.current().delegate = self
+
     if let controller = window?.rootViewController as? FlutterViewController {
       pushChannel = FlutterMethodChannel(name: pushChannelName, binaryMessenger: controller.binaryMessenger)
       pushChannel?.setMethodCallHandler { [weak self] call, result in
