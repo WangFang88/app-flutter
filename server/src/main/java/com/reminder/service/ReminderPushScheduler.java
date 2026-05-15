@@ -30,11 +30,16 @@ public class ReminderPushScheduler {
             if (acknowledgementRepository.existsByReminderIdAndUserId(reminder.getId(), reminder.getAuthorId())) {
                 reminder.setIosRepeatActive(false);
                 reminder.setIosRepeatStoppedAt(now);
+                reminderRepository.save(reminder);
+                continue;
+            }
+            if (Boolean.FALSE.equals(reminder.getIosRepeatActive())) {
                 continue;
             }
             if (reminder.getIosRepeatSentCount() != null && reminder.getIosRepeatSentCount() >= 30) {
                 reminder.setIosRepeatActive(false);
                 reminder.setIosRepeatStoppedAt(now);
+                reminderRepository.save(reminder);
                 continue;
             }
             if (reminder.getIosRepeatLastSentAt() != null && now - reminder.getIosRepeatLastSentAt() < 120000L) {
