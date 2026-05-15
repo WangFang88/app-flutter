@@ -38,6 +38,13 @@ import UIKit
     super.application(application, didFailToRegisterForRemoteNotificationsWithError: error)
   }
 
+  override func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+    if let reminderId = response.notification.request.content.userInfo["reminderId"] as? String {
+      pushChannel?.invokeMethod("onNotificationTap", arguments: reminderId)
+    }
+    completionHandler()
+  }
+
   func didInitializeImplicitFlutterEngine(_ engineBridge: FlutterImplicitEngineBridge) {
     GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
   }

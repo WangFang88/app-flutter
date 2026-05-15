@@ -91,6 +91,13 @@ class NotificationService {
               await ApiService.registerDeviceToken(token: token, platform: 'ios');
             } catch (_) {}
           }
+        } else if (call.method == 'onNotificationTap') {
+          final reminderId = call.arguments as String?;
+          if (reminderId != null) {
+            try {
+              await ApiService.acknowledgeReminder(reminderId);
+            } catch (_) {}
+          }
         }
       });
     }
