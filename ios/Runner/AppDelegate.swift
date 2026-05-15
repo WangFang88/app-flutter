@@ -42,8 +42,12 @@ import UIKit
   }
 
   override func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+    NSLog("📱 Notification tapped, userInfo: \(response.notification.request.content.userInfo)")
     if let reminderId = response.notification.request.content.userInfo["reminderId"] as? String {
+      NSLog("📱 Found reminderId: \(reminderId), pushChannel: \(String(describing: pushChannel))")
       pushChannel?.invokeMethod("onNotificationTap", arguments: reminderId)
+    } else {
+      NSLog("📱 No reminderId found in userInfo")
     }
     completionHandler()
   }
