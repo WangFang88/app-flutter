@@ -9,6 +9,8 @@ import com.reminder.repository.ReminderRepository;
 import com.reminder.repository.SupporterRepository;
 import com.reminder.service.ReminderNotificationService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/reminders")
 @RequiredArgsConstructor
 public class ReminderController {
+    private static final Logger log = LoggerFactory.getLogger(ReminderController.class);
 
     private final ReminderRepository reminderRepository;
     private final SupporterRepository supporterRepository;
@@ -123,16 +126,19 @@ public class ReminderController {
     @PostMapping("/{id}/acknowledge")
     public ResponseEntity<?> acknowledgeReminder(Authentication auth, @PathVariable String id) {
         String userId = (String) auth.getPrincipal();
+        log.info("Acknowledge request: reminderId={}, userId={}", id, userId);
         Acknowledgement ack = new Acknowledgement();
         ack.setReminderId(id);
         ack.setUserId(userId);
         ack.setAcknowledgedAt(System.currentTimeMillis());
         acknowledgementRepository.save(ack);
+        log.info("Saved acknowledgement: reminderId={}, userId={}", id, userId);
         Reminder reminder = reminderRepository.findById(id).orElse(null);
         if (reminder != null && userId.equals(reminder.getAuthorId())) {
             reminder.setIosRepeatActive(false);
             reminder.setIosRepeatStoppedAt(System.currentTimeMillis());
             reminderRepository.save(reminder);
+            log.info("Stopped iOS repeat for reminder {}: iosRepeatActive=false", id);
         }
         return ResponseEntity.ok(single("ok", true));
     }
