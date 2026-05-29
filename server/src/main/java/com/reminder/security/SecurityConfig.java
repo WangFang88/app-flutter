@@ -33,6 +33,7 @@ public class SecurityConfig {
             .and()
             .authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
+                .antMatchers("/stats/public").permitAll()
                 .anyRequest().authenticated()
             .and()
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

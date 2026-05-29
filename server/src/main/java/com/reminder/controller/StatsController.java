@@ -2,8 +2,10 @@ package com.reminder.controller;
 
 import com.reminder.entity.Reminder;
 import com.reminder.entity.Supporter;
+import com.reminder.entity.User;
 import com.reminder.repository.ReminderRepository;
 import com.reminder.repository.SupporterRepository;
+import com.reminder.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -18,6 +20,7 @@ public class StatsController {
 
     private final ReminderRepository reminderRepository;
     private final SupporterRepository supporterRepository;
+    private final UserRepository userRepository;
 
     @GetMapping("/my")
     public ResponseEntity<?> getMyStats(Authentication auth) {
@@ -27,8 +30,7 @@ public class StatsController {
         int publishedWithReminds = 0;
         int totalRemindClicks = 0;
         List<Map<String, Object>> whoReminded = new ArrayList<>();
-        int[] remindEventByHour = new int[24];
-        int[] scheduledReminderByHour = new int[24];
+        List<Long> scheduledAts = new ArrayList<>();
 
         for (Reminder reminder : myReminders) {
             List<Supporter> supporters = supporterRepository.findByReminderId(reminder.getId());
@@ -37,31 +39,56 @@ public class StatsController {
             publishedWithReminds++;
             totalRemindClicks += supporters.size();
 
-            Calendar cal = Calendar.getInstance();
-            cal.setTimeInMillis(reminder.getScheduledAt());
-            scheduledReminderByHour[cal.get(Calendar.HOUR_OF_DAY)]++;
+            scheduledAts.add(reminder.getScheduledAt());
 
             for (Supporter supporter : supporters) {
-                cal.setTimeInMillis(supporter.getRemindedAt());
-                remindEventByHour[cal.get(Calendar.HOUR_OF_DAY)]++;
 
                 Map<String, Object> event = new HashMap<>();
                 event.put("reminderId", reminder.getId());
                 event.put("userId", supporter.getUserId());
                 event.put("at", supporter.getRemindedAt());
+                event.put("reminderTitle", reminder.getTitle());
                 whoReminded.add(event);
             }
         }
 
         whoReminded.sort((a, b) -> Long.compare((Long) b.get("at"), (Long) a.get("at")));
 
+        Set<String> userIds = new HashSet<>();
+        for (Map<String, Object> event : whoReminded) {
+            userIds.add((String) event.get("userId"));
+        }
+        Map<String, String> userLabelMap = new HashMap<>();
+        for (User user : userRepository.findAllById(userIds)) {
+            userLabelMap.put(user.getId(), user.getDisplayLabel());
+        }
+        for (Map<String, Object> event : whoReminded) {
+            event.put("userLabel", userLabelMap.getOrDefault(event.get("userId"), "匿名用户"));
+        }
+
         Map<String, Object> result = new HashMap<>();
         result.put("publishedWithReminds", publishedWithReminds);
         result.put("totalRemindClicks", totalRemindClicks);
         result.put("whoReminded", whoReminded);
-        result.put("remindEventByHour", remindEventByHour);
-        result.put("scheduledReminderByHour", scheduledReminderByHour);
+        result.put("scheduledAts", scheduledAts);
+        return ResponseEntity.ok(result);
+    }
 
+    @GetMapping("/public")
+    public ResponseEntity<?> getPublicStats() {
+        List<Reminder> publicReminders = reminderRepository.findByIsPublicTrueOrderByScheduledAtAsc();
+
+        List<Long> scheduledAts = new ArrayList<>();
+        List<Integer> supporterCounts = new ArrayList<>();
+
+        for (Reminder reminder : publicReminders) {
+            scheduledAts.add(reminder.getScheduledAt());
+            supporterCounts.add((int) supporterRepository.countByReminderId(reminder.getId()));
+        }
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("scheduledAts", scheduledAts);
+        result.put("supporterCounts", supporterCounts);
         return ResponseEntity.ok(result);
     }
 }

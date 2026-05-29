@@ -36,11 +36,12 @@ class _DetailScreenState extends State<DetailScreen> {
       final count = await ApiService.supporterCount(widget.reminderId);
       final has = await ApiService.hasSupported(widget.reminderId, widget.myUid);
       if (mounted) setState(() { _reminder = r; _supporters = count; _supported = has; });
-      // 如果是作者打开详情页，自动 acknowledge 停止重复推送
-      if (r.authorId == widget.myUid) {
+      // 如果是作者打开详情页且提醒时间已到，自动 acknowledge 停止重复推送
+      if (r.authorId == widget.myUid && r.scheduledAtMillis <= DateTime.now().millisecondsSinceEpoch) {
         try {
           await ApiService.acknowledgeReminder(widget.reminderId);
         } catch (_) {}
+        await NotificationService.cancelReminder(widget.reminderId);
       }
     } catch (_) {}
     if (mounted) setState(() => _loading = false);
@@ -58,6 +59,7 @@ class _DetailScreenState extends State<DetailScreen> {
         title: r.title,
         scheduledAt: DateTime.fromMillisecondsSinceEpoch(r.scheduledAtMillis),
         supporterCount: count,
+        authorId: widget.myUid,
       );
     }
   }

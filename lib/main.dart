@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'data/session_store.dart';
 import 'services/notification_service.dart';
@@ -16,10 +15,6 @@ void main() async {
   try {
     await NotificationService.init();
   } catch (_) {}
-  // 每2分钟重复未确认的通知
-  Timer.periodic(const Duration(minutes: 2), (_) {
-    NotificationService.reshowAllPending();
-  });
   runApp(const ReminderApp());
 }
 
@@ -104,7 +99,7 @@ class _MainShellState extends State<MainShell> {
     _screens ??= [
       FeedScreen(uid: widget.uid, onOpenDetail: _openDetail, onCreateNew: _openCreate, refreshNotifier: _refreshNotifier),
       MineScreen(uid: widget.uid, onOpenDetail: _openDetail, onCreateNew: _openCreate, onLogout: widget.onLogout, refreshNotifier: _refreshNotifier),
-      const StatsScreen(),
+      StatsScreen(refreshNotifier: _refreshNotifier),
     ];
     return Scaffold(
       body: IndexedStack(

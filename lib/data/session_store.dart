@@ -31,8 +31,10 @@ class SessionStore {
     _userId = null;
     _email = null;
     final p = await SharedPreferences.getInstance();
-    await p.clear();
-  }
+    await p.remove(_keyToken);
+    await p.remove(_keyUserId);
+    await p.remove(_keyEmail);
+}
 
   static String? get token => _token;
   static String? get userId => _userId;

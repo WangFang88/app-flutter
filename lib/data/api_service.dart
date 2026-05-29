@@ -6,7 +6,7 @@ import 'models.dart';
 class ApiService {
   static const baseUrl = String.fromEnvironment(
     'API_BASE_URL',
-    defaultValue: 'http://192.168.124.14:8080',
+    defaultValue: 'http://10.0.2.2:8080',
   );
 
   static Map<String, String> get _headers => {
@@ -126,6 +126,12 @@ class ApiService {
   static Future<Map<String, dynamic>> getMyStats() async {
     final r = await http.get(Uri.parse('$baseUrl/stats/my'), headers: _headers);
     return jsonDecode(r.body) as Map<String, dynamic>;
+  }
+
+  static Future<PublicStats> getPublicStats() async {
+    final r = await http.get(Uri.parse('$baseUrl/stats/public'), headers: _headers);
+    if (r.statusCode != 200) throw Exception('Failed to load public stats');
+    return PublicStats.fromJson(jsonDecode(r.body));
   }
 
   static Future<void> registerDeviceToken({

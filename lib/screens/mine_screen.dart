@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../data/api_service.dart';
 import '../data/models.dart';
 import '../data/session_store.dart';
+import '../services/notification_service.dart';
 import '../widgets/common_widgets.dart';
 import '../theme/app_theme.dart';
 
@@ -47,6 +48,17 @@ class _MineScreenState extends State<MineScreen> with AutomaticKeepAliveClientMi
       final items = await ApiService.getMyReminders();
       final counts = <String, int>{};
       for (final r in items) { counts[r.id] = await ApiService.supporterCount(r.id); }
+      // 清理已删除/已确认的提醒的本地通知
+      await NotificationService.cleanupStale(items.map((r) => r.id).toList(), widget.uid);
+      // 恢复系统级通知（包括服务器上有但本地未调度的提醒）
+      await NotificationService.rescheduleAll(
+        serverReminders: items.map((r) => (
+          id: r.id,
+          title: r.title,
+          scheduledAt: DateTime.fromMillisecondsSinceEpoch(r.scheduledAtMillis),
+          authorId: r.authorId,
+        )).toList(),
+      );
       if (mounted) setState(() { _items = items; _counts = counts; });
     } catch (_) {}
     if (mounted) setState(() { _loading = false; _initialized = true; });
@@ -107,6 +119,7 @@ class _MineScreenState extends State<MineScreen> with AutomaticKeepAliveClientMi
                       IconButton(
                         icon: const Icon(Icons.logout_rounded, size: 20),
                         onPressed: () async {
+                          await NotificationService.resetForLogout();
                           await SessionStore.clear();
                           widget.onLogout();
                         },

@@ -67,6 +67,7 @@ class _CreateScreenState extends State<CreateScreen> {
         reminderId: id,
         title: _titleCtrl.text.trim(),
         scheduledAt: _selectedTime,
+        authorId: widget.uid,
       );
       widget.onDone();
     } catch (e) {
