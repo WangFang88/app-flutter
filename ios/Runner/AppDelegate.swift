@@ -12,7 +12,11 @@ import UIKit
   override func userNotificationCenter(_ center: UNUserNotificationCenter,
                                        willPresent notification: UNNotification,
                                        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-    completionHandler([.banner, .sound, .badge])
+    if #available(iOS 14.0, *) {
+      completionHandler([.banner, .sound, .badge])
+    } else {
+      completionHandler([.alert, .sound, .badge])
+    }
   }
 
   override func application(
