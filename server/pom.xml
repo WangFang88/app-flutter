@@ -75,6 +75,12 @@
             <artifactId>pushy</artifactId>
             <version>0.15.4</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>72.1</version>
+        </dependency>
     </dependencies>
 
     <build>

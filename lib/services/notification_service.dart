@@ -31,6 +31,9 @@ final _repeatCount = _validityPeriod.inMinutes ~/ _repeatInterval.inMinutes; // 
 const _ackActionId = 'ack_reminder';
 const _ackCategory = 'reminder_ack';
 
+String? _pendingNavigationReminderId;
+void Function(String reminderId)? _onNavigateToDetail;
+
 int _notificationIdOf(String reminderId) => reminderId.hashCode & 0x7fffffff;
 int _notificationRepeatIdOf(String reminderId, int index) =>
     ((_notificationIdOf(reminderId) + index + 1) & 0x7fffffff);
@@ -44,10 +47,13 @@ Future<void> onBackgroundNotificationResponse(NotificationResponse details) asyn
   final reminderId = details.payload;
   if (reminderId != null && reminderId.isNotEmpty) {
     _pendingReminders.remove(_notificationIdOf(reminderId));
-    try {
-      await ApiService.acknowledgeReminder(reminderId);
-    } catch (e) {
-      debugPrint('acknowledge error: $e');
+    // 后台点击"我知道了"按钮才立即确认；点击通知主体不确认（由详情页处理）
+    if (details.actionId == _ackActionId) {
+      try {
+        await ApiService.acknowledgeReminder(reminderId);
+      } catch (e) {
+        debugPrint('acknowledge error: $e');
+      }
     }
     final nid = _notificationIdOf(reminderId);
     await _notif.cancel(nid);
@@ -62,7 +68,8 @@ class _PendingReminder {
   final String title;
   final DateTime scheduledAt;
   final String userId;
-  _PendingReminder(this.reminderId, this.title, this.scheduledAt, this.userId);
+  bool reshown;
+  _PendingReminder(this.reminderId, this.title, this.scheduledAt, this.userId, {this.reshown = false});
 }
 
 class NotificationService {
@@ -73,6 +80,18 @@ class NotificationService {
     try {
       await ApiService.registerDeviceToken(token: token, platform: 'ios');
     } catch (_) {}
+  }
+
+  /// 注册导航回调，用于点击通知时跳转到详情页
+  static void registerNavigateCallback(void Function(String reminderId) callback) {
+    _onNavigateToDetail = callback;
+  }
+
+  /// 获取并清除待处理的导航提醒 ID
+  static String? consumePendingNavigation() {
+    final id = _pendingNavigationReminderId;
+    _pendingNavigationReminderId = null;
+    return id;
   }
 
   static Future<void> _scheduleRepeats(
@@ -114,6 +133,14 @@ class NotificationService {
             } catch (_) {}
           }
         } else if (call.method == 'onNotificationTap') {
+          // 点击通知主体 → 只导航到详情页，由详情页自动确认
+          final reminderId = call.arguments as String?;
+          if (reminderId != null) {
+            _pendingNavigationReminderId = reminderId;
+            _onNavigateToDetail?.call(reminderId);
+          }
+        } else if (call.method == 'onAcknowledgeDirect') {
+          // 点击"我知道了"按钮 → 立即确认，不打开 App
           final reminderId = call.arguments as String?;
           if (reminderId != null) {
             try {
@@ -132,8 +159,7 @@ class NotificationService {
             DarwinNotificationCategory(
               _ackCategory,
               actions: [
-                DarwinNotificationAction.plain(_ackActionId, '我知道了',
-                    options: {DarwinNotificationActionOption.foreground}),
+                DarwinNotificationAction.plain(_ackActionId, '我知道了'),
               ],
             ),
           ],
@@ -146,15 +172,18 @@ class NotificationService {
         final pending = _pendingReminders[id];
         final reminderId = details.payload ?? pending?.reminderId;
         if (reminderId == null || reminderId.isEmpty) return;
-        // "我知道了" 按钮 或 点击通知主体 → 确认并停止
-        if (details.actionId == _ackActionId ||
-            details.notificationResponseType == NotificationResponseType.selectedNotification) {
-           try {
+        if (details.actionId == _ackActionId) {
+          // "我知道了" 按钮 → 立即确认
+          try {
             await ApiService.acknowledgeReminder(reminderId);
           } catch (e) {
             debugPrint('acknowledge error: $e');
           }
           await cancelReminder(reminderId);
+        } else if (details.notificationResponseType == NotificationResponseType.selectedNotification) {
+          // 点击通知主体 → 只导航到详情页，由详情页自动确认
+          _pendingNavigationReminderId = reminderId;
+          _onNavigateToDetail?.call(reminderId);
         } else if (pending != null) {
           // 通知触发时查询最新人数重新发送（仅在 pending 存在时）
           if (DateTime.now().difference(pending.scheduledAt) > _validityPeriod) {
@@ -165,7 +194,7 @@ class NotificationService {
             final (body, importance, priority) = _intensity(count, pending.scheduledAt);
             final nd = _buildDetails(importance, priority);
             await _notif.show(id, pending.title, body, nd, payload: pending.reminderId);
-            await _scheduleRepeats(pending.reminderId, pending.title, DateTime.now(), nd, body);
+            await _scheduleRepeats(pending.reminderId, pending.title, pending.scheduledAt, nd, body);
           }
         }
         await _cleanupExpired();
@@ -218,6 +247,7 @@ class NotificationService {
     }
     await _loadPendingReminders();
     await _cleanupExpired();
+    await reshowAllPending(); // 冷启动时恢复错过的通知
     _initialized = true;
   }
 
@@ -269,7 +299,7 @@ class NotificationService {
   static Future<void> _savePendingReminders() async {
     final prefs = await SharedPreferences.getInstance();
     final data = _pendingReminders.map((key, value) =>
-        MapEntry(key.toString(), '${value.reminderId}|${value.title}|${value.scheduledAt.millisecondsSinceEpoch}|${value.userId}'));
+        MapEntry(key.toString(), '${value.reminderId}|${value.title}|${value.scheduledAt.millisecondsSinceEpoch}|${value.userId}|${value.reshown ? 1 : 0}'));
     await prefs.setStringList('pending_reminders', data.entries.map((e) => '${e.key}:${e.value}').toList());
   }
 
@@ -285,15 +315,20 @@ class NotificationService {
       final parts = item.substring(colonIdx + 1).split('|');
       final millis = int.tryParse(parts.length >= 3 ? parts[2] : '') ?? 0;
       final userId = parts.length >= 4 ? parts[3] : '';
-      _pendingReminders[key] = _PendingReminder(parts[0], parts[1], DateTime.fromMillisecondsSinceEpoch(millis), userId);
+      final reshown = parts.length >= 5 && parts[4] == '1';
+      _pendingReminders[key] = _PendingReminder(parts[0], parts[1], DateTime.fromMillisecondsSinceEpoch(millis), userId, reshown: reshown);
     }
   }
 
   /// 清理无效通知：只保留 serverList 中存在的提醒，取消其余通知
   static Future<void> cleanupStale(List<String> validReminderIds, String userId) async {
     final validIds = validReminderIds.toSet();
+    final now = DateTime.now();
     final toRemove = _pendingReminders.entries
-        .where((e) => e.value.userId == userId && !validIds.contains(e.value.reminderId))
+        .where((e) =>
+            e.value.userId == userId &&
+            !validIds.contains(e.value.reminderId) &&
+            now.difference(e.value.scheduledAt) > _validityPeriod) // 只删已过有效期的
         .toList();
     for (final e in toRemove) {
       await cancelReminder(e.value.reminderId);
@@ -305,6 +340,9 @@ class NotificationService {
     for (final entry in _pendingReminders.entries.toList()) {
       final pending = entry.value;
       if (pending.scheduledAt.isAfter(now)) continue;
+      if (pending.reshown) continue; // 已显示过的不再重复显示
+      pending.reshown = true;
+      await _savePendingReminders();
       int count = 0;
       try {
         count = await ApiService.supporterCount(pending.reminderId);
@@ -315,7 +353,7 @@ class NotificationService {
       await _scheduleRepeats(
         pending.reminderId,
         pending.title,
-        now,
+        pending.scheduledAt, // 用原始时间，不用 now
         details,
         body,
       );
@@ -388,8 +426,6 @@ class NotificationService {
         await _scheduleRepeats(pending.reminderId, pending.title, pending.scheduledAt, details, body);
       }
     }
-    // 已过期的提醒立即显示
-    await reshowAllPending();
   }
 
   static NotificationDetails _buildDetails(Importance importance, Priority priority) {

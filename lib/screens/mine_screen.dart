@@ -48,9 +48,7 @@ class _MineScreenState extends State<MineScreen> with AutomaticKeepAliveClientMi
       final items = await ApiService.getMyReminders();
       final counts = <String, int>{};
       for (final r in items) { counts[r.id] = await ApiService.supporterCount(r.id); }
-      // 清理已删除/已确认的提醒的本地通知
       await NotificationService.cleanupStale(items.map((r) => r.id).toList(), widget.uid);
-      // 恢复系统级通知（包括服务器上有但本地未调度的提醒）
       await NotificationService.rescheduleAll(
         serverReminders: items.map((r) => (
           id: r.id,
@@ -62,6 +60,69 @@ class _MineScreenState extends State<MineScreen> with AutomaticKeepAliveClientMi
       if (mounted) setState(() { _items = items; _counts = counts; });
     } catch (_) {}
     if (mounted) setState(() { _loading = false; _initialized = true; });
+  }
+
+  Future<void> _showBindEmailDialog() async {
+    final emailCtrl = TextEditingController();
+    final passCtrl = TextEditingController();
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('绑定邮箱'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: emailCtrl,
+              decoration: const InputDecoration(
+                labelText: '邮箱',
+                prefixIcon: Icon(Icons.email_outlined, size: 18),
+              ),
+              keyboardType: TextInputType.emailAddress,
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: passCtrl,
+              decoration: const InputDecoration(
+                labelText: '密码（至少6位）',
+                prefixIcon: Icon(Icons.lock_outline, size: 18),
+              ),
+              obscureText: true,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('取消')),
+          TextButton(
+            onPressed: () async {
+              final email = emailCtrl.text.trim();
+              final password = passCtrl.text;
+              if (email.isEmpty) {
+                ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(content: Text('请输入邮箱')));
+                return;
+              }
+              if (password.length < 6) {
+                ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(content: Text('密码至少6位')));
+                return;
+              }
+              try {
+                await ApiService.bindEmail(email, password);
+                if (ctx.mounted) Navigator.pop(ctx, true);
+              } catch (e) {
+                if (ctx.mounted) {
+                  ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(content: Text(e.toString().replaceFirst('Exception: ', ''))));
+                }
+              }
+            },
+            child: const Text('绑定'),
+          ),
+        ],
+      ),
+    );
+    if (ok == true && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('邮箱绑定成功')));
+      _load();
+    }
   }
 
   @override
@@ -128,6 +189,31 @@ class _MineScreenState extends State<MineScreen> with AutomaticKeepAliveClientMi
                     ]),
                   ]),
                   Text('共 ${_items.length} 个提醒', style: Theme.of(context).textTheme.bodyMedium),
+                  if (SessionStore.email == null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: InkWell(
+                        onTap: _showBindEmailDialog,
+                        borderRadius: BorderRadius.circular(14),
+                        child: Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                          decoration: BoxDecoration(
+                            gradient: gradientPurple,
+                            borderRadius: BorderRadius.circular(14),
+                            boxShadow: [BoxShadow(color: kPrimary.withOpacity(0.3), blurRadius: 12, offset: const Offset(0, 4))],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(Icons.email_rounded, color: Colors.white, size: 18),
+                              SizedBox(width: 8),
+                              Text('绑定邮箱，保护账号', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 14)),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                 ]),
               ),
             ),

@@ -42,7 +42,7 @@ public class ReminderPushScheduler {
                 reminderRepository.save(reminder);
                 continue;
             }
-            if (reminder.getIosRepeatLastSentAt() != null && now - reminder.getIosRepeatLastSentAt() < 120000L) {
+            if (reminder.getIosRepeatLastSentAt() != null && now - reminder.getIosRepeatLastSentAt() < 300000L) {
                 continue;
             }
             reminderNotificationService.sendReminderUpdate(reminder);

@@ -34,7 +34,13 @@ class SessionStore {
     await p.remove(_keyToken);
     await p.remove(_keyUserId);
     await p.remove(_keyEmail);
-}
+  }
+
+  static Future<void> updateEmail(String email) async {
+    _email = email;
+    final p = await SharedPreferences.getInstance();
+    await p.setString(_keyEmail, email);
+  }
 
   static String? get token => _token;
   static String? get userId => _userId;

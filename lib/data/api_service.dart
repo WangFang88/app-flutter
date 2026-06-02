@@ -26,24 +26,36 @@ class ApiService {
     await SessionStore.save(data['token'], data['user']['id'], null);
   }
 
-  static Future<void> loginEmail(String email, String password) async {
-    http.Response r;
-    try {
-      r = await http.post(
-        Uri.parse('$baseUrl/auth/login'),
-        headers: _headers,
-        body: jsonEncode({'email': email, 'password': password}),
-      );
-      if (r.statusCode == 404) {
-        r = await http.post(
-          Uri.parse('$baseUrl/auth/register'),
-          headers: _headers,
-          body: jsonEncode({'email': email, 'password': password}),
-        );
-      }
-    } catch (e) {
-      rethrow;
-    }
+    static Future<void> loginEmail(String email, String password) async {
+    final r = await http.post(
+      Uri.parse('$baseUrl/auth/login'),
+      headers: _headers,
+      body: jsonEncode({'email': email, 'password': password}),
+    );
+    if (r.statusCode == 404) throw Exception('该邮箱未注册，请先注册');
+    if (r.statusCode == 401) throw Exception('密码错误');
+    if (r.statusCode != 200) throw Exception(jsonDecode(r.body)['error']);
+    final data = jsonDecode(r.body);
+    await SessionStore.save(data['token'], data['user']['id'], email);
+  }
+
+  static Future<void> registerEmail(String email, String password) async {
+    final r = await http.post(
+      Uri.parse('$baseUrl/auth/register'),
+      headers: _headers,
+      body: jsonEncode({'email': email, 'password': password}),
+    );
+    if (r.statusCode != 200) throw Exception(jsonDecode(r.body)['error']);
+    final data = jsonDecode(r.body);
+    await SessionStore.save(data['token'], data['user']['id'], email);
+  }
+
+  static Future<void> bindEmail(String email, String password) async {
+    final r = await http.post(
+      Uri.parse('$baseUrl/auth/bind-email'),
+      headers: _headers,
+      body: jsonEncode({'email': email, 'password': password}),
+    );
     if (r.statusCode != 200) throw Exception(jsonDecode(r.body)['error']);
     final data = jsonDecode(r.body);
     await SessionStore.save(data['token'], data['user']['id'], email);

@@ -4,11 +4,14 @@ import com.reminder.dto.AuthResponse;
 import com.reminder.entity.User;
 import com.reminder.repository.UserRepository;
 import com.reminder.security.JwtUtil;
+import com.reminder.util.TextNormalizer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import org.springframework.security.core.Authentication;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,7 +45,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody Map<String, Object> body) {
-        String email = String.valueOf(body.getOrDefault("email", "")).trim().toLowerCase();
+        String email = TextNormalizer.normalizeEmail(String.valueOf(body.getOrDefault("email", "")));
         String password = String.valueOf(body.getOrDefault("password", ""));
 
         if (email.isEmpty() || password.length() < 6) {
@@ -71,7 +74,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, Object> body) {
-        String email = String.valueOf(body.getOrDefault("email", "")).trim().toLowerCase();
+        String email = TextNormalizer.normalizeEmail(String.valueOf(body.getOrDefault("email", "")));
         String password = String.valueOf(body.getOrDefault("password", ""));
 
         User user = userRepository.findByEmail(email).orElse(null);
@@ -89,6 +92,37 @@ public class AuthController {
         String token = jwtUtil.generateToken(user.getId());
         return ResponseEntity.ok(new AuthResponse(token, new AuthResponse.UserDto(
             user.getId(), user.getDisplayLabel(), user.getEmail() != null ? user.getEmail() : "")));
+    }
+
+    @PostMapping("/bind-email")
+    public ResponseEntity<?> bindEmail(Authentication auth, @RequestBody Map<String, Object> body) {
+        String userId = (String) auth.getPrincipal();
+        String email = TextNormalizer.normalizeEmail(String.valueOf(body.getOrDefault("email", "")));
+        String password = String.valueOf(body.getOrDefault("password", ""));
+
+        if (email.isEmpty() || password.length() < 6) {
+            return ResponseEntity.badRequest().body(err("Invalid email or password"));
+        }
+
+        User user = userRepository.findById(userId).orElse(null);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err("User not found"));
+        }
+
+        if (user.getEmail() != null && !user.getEmail().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err("Email already bound"));
+        }
+
+        if (userRepository.existsByEmail(email)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(err("Email already taken by another user"));
+        }
+
+        user.setEmail(email);
+        user.setPasswordHash(passwordEncoder.encode(password));
+        userRepository.save(user);
+
+        String token = jwtUtil.generateToken(userId);
+        return ResponseEntity.ok(new AuthResponse(token, new AuthResponse.UserDto(userId, user.getDisplayLabel(), email)));
     }
 
     private static Map<String, Object> err(String message) {

@@ -30,7 +30,7 @@ public class Reminder {
     private Long iosInitialPushedAt;
 
     @Column(name = "ios_repeat_active", nullable = false)
-    private Boolean iosRepeatActive = false;
+    private Boolean iosRepeatActive = true;
 
     @Column(name = "ios_repeat_last_sent_at")
     private Long iosRepeatLastSentAt;

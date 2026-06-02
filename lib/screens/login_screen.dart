@@ -57,6 +57,27 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     }
   }
 
+  Future<void> _register() async {
+    setState(() { _loading = true; _err = null; });
+    try {
+      if (_emailCtrl.text.trim().isEmpty) {
+        setState(() { _err = '请输入邮箱'; _loading = false; });
+        return;
+      }
+      if (_passCtrl.text.length < 6) {
+        setState(() { _err = '密码至少6位'; _loading = false; });
+        return;
+      }
+      await ApiService.registerEmail(_emailCtrl.text.trim(), _passCtrl.text);
+      await NotificationService.registerLatestIosToken();
+      widget.onLoggedIn();
+    } catch (e) {
+      setState(() { _err = e.toString(); });
+    } finally {
+      setState(() { _loading = false; });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -144,13 +165,27 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                       ),
                       const SizedBox(height: 24),
                       GradientButton(
-                        text: _emailCtrl.text.trim().isNotEmpty ? '邮箱登录 / 注册' : '匿名登录',
+                        text: _emailCtrl.text.trim().isNotEmpty ? '登录' : '匿名登录',
                         onPressed: _loading ? null : _login,
                         loading: _loading,
                       ),
+                      const SizedBox(height: 10),
+                      if (_emailCtrl.text.trim().isNotEmpty)
+                        SizedBox(
+                          width: double.infinity,
+                          height: 48,
+                          child: OutlinedButton(
+                            onPressed: _loading ? null : _register,
+                            style: OutlinedButton.styleFrom(
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                              side: BorderSide(color: kPrimary.withOpacity(0.5)),
+                            ),
+                            child: Text('注册新账号', style: TextStyle(color: kPrimary, fontWeight: FontWeight.w600)),
+                          ),
+                        ),
                       const SizedBox(height: 12),
                       Center(
-                        child: Text('填写邮箱则自动注册或登录，不填则匿名使用',
+                        child: Text('不填邮箱可匿名使用',
                             style: TextStyle(fontSize: 12, color: Colors.grey.shade500)),
                       ),
                     ]),

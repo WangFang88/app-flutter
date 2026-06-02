@@ -32,7 +32,7 @@ public class SecurityConfig {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
-                .antMatchers("/auth/**").permitAll()
+                .antMatchers("/auth/anonymous", "/auth/register", "/auth/login").permitAll()
                 .antMatchers("/stats/public").permitAll()
                 .anyRequest().authenticated()
             .and()

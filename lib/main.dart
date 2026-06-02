@@ -74,6 +74,22 @@ class _MainShellState extends State<MainShell> {
   List<Widget>? _screens;
   final _refreshNotifier = ValueNotifier<int>(0);
 
+  @override
+  void initState() {
+    super.initState();
+    // 注册通知点击导航回调：点击通知主体 → 打开详情页
+    NotificationService.registerNavigateCallback((reminderId) {
+      _openDetail(reminderId);
+    });
+    // 处理 App 从终止状态通过点击通知启动时的待处理导航
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final pendingId = NotificationService.consumePendingNavigation();
+      if (pendingId != null) {
+        _openDetail(pendingId);
+      }
+    });
+  }
+
   Future<void> _openDetail(String id) async {
     final changed = await Navigator.push<bool>(context, MaterialPageRoute(
       builder: (_) => DetailScreen(reminderId: id, myUid: widget.uid),

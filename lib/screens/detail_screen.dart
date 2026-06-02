@@ -139,6 +139,20 @@ class _DetailScreenState extends State<DetailScreen> {
               Expanded(child: ElevatedButton(
                 onPressed: () async {
                   await ApiService.updateReminder(r.id, title: titleCtrl.text.trim(), scheduledAt: scheduledAt, isPublic: isPublic);
+                  // 取消旧通知并用新时间重新调度
+                  await NotificationService.cancelReminder(r.id);
+                  final newTime = DateTime.fromMillisecondsSinceEpoch(scheduledAt);
+                  if (newTime.isAfter(DateTime.now())) {
+                    int count = 0;
+                    try { count = await ApiService.supporterCount(r.id); } catch (_) {}
+                    await NotificationService.scheduleReminder(
+                      reminderId: r.id,
+                      title: titleCtrl.text.trim(),
+                      scheduledAt: newTime,
+                      supporterCount: count,
+                      authorId: widget.myUid,
+                    );
+                  }
                   Navigator.pop(ctx);
                   _load();
                 },

@@ -71,6 +71,7 @@ public class ApnsPushService {
             payloadBuilder.setAlertTitle(title);
             payloadBuilder.setAlertBody(body);
             payloadBuilder.setSoundFileName(sound);
+            payloadBuilder.setCategory("reminder_ack");
             for (Map.Entry<String, Object> entry : payloadData.entrySet()) {
                 payloadBuilder.addCustomProperty(entry.getKey(), entry.getValue());
             }
