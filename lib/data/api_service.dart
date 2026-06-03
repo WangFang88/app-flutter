@@ -23,7 +23,8 @@ class ApiService {
       body: jsonEncode({}),
     );
     final data = jsonDecode(r.body);
-    await SessionStore.save(data['token'], data['user']['id'], null);
+    await SessionStore.save(data['token'], data['user']['id'], null,
+        displayLabel: data['user']['displayLabel']);
   }
 
     static Future<void> loginEmail(String email, String password) async {
@@ -36,7 +37,8 @@ class ApiService {
     if (r.statusCode == 401) throw Exception('密码错误');
     if (r.statusCode != 200) throw Exception(jsonDecode(r.body)['error']);
     final data = jsonDecode(r.body);
-    await SessionStore.save(data['token'], data['user']['id'], email);
+    await SessionStore.save(data['token'], data['user']['id'], email,
+        displayLabel: data['user']['displayLabel']);
   }
 
   static Future<void> registerEmail(String email, String password) async {
@@ -47,7 +49,8 @@ class ApiService {
     );
     if (r.statusCode != 200) throw Exception(jsonDecode(r.body)['error']);
     final data = jsonDecode(r.body);
-    await SessionStore.save(data['token'], data['user']['id'], email);
+    await SessionStore.save(data['token'], data['user']['id'], email,
+        displayLabel: data['user']['displayLabel']);
   }
 
   static Future<void> bindEmail(String email, String password) async {
@@ -58,7 +61,8 @@ class ApiService {
     );
     if (r.statusCode != 200) throw Exception(jsonDecode(r.body)['error']);
     final data = jsonDecode(r.body);
-    await SessionStore.save(data['token'], data['user']['id'], email);
+    await SessionStore.save(data['token'], data['user']['id'], email,
+        displayLabel: data['user']['displayLabel']);
   }
 
   static Future<List<Reminder>> getPublicReminders() async {
@@ -164,6 +168,16 @@ class ApiService {
 
   static Future<void> acknowledgeReminder(String id) async {
     await http.post(Uri.parse('$baseUrl/reminders/$id/acknowledge'), headers: _headers);
+  }
+
+  static Future<void> updateDisplayLabel(String label) async {
+    final r = await http.patch(
+      Uri.parse('$baseUrl/users/me'),
+      headers: _headers,
+      body: jsonEncode({'displayLabel': label}),
+    );
+    if (r.statusCode != 200) throw Exception(jsonDecode(r.body)['error']);
+    await SessionStore.updateDisplayLabel(label);
   }
 }
 

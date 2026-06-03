@@ -4,7 +4,6 @@ import com.eatthepath.pushy.apns.ApnsClient;
 import com.eatthepath.pushy.apns.ApnsClientBuilder;
 import com.eatthepath.pushy.apns.PushNotificationResponse;
 import com.eatthepath.pushy.apns.auth.ApnsSigningKey;
-import com.eatthepath.pushy.apns.util.SimpleApnsPayloadBuilder;
 import com.eatthepath.pushy.apns.util.SimpleApnsPushNotification;
 import com.reminder.entity.DeviceToken;
 import org.slf4j.Logger;
@@ -67,15 +66,23 @@ public class ApnsPushService {
             return false;
         }
         try {
-            SimpleApnsPayloadBuilder payloadBuilder = new SimpleApnsPayloadBuilder();
-            payloadBuilder.setAlertTitle(title);
-            payloadBuilder.setAlertBody(body);
-            payloadBuilder.setSoundFileName(sound);
-            payloadBuilder.setCategory("reminder_ack");
+            // 手动构建 JSON，将 category 放入 aps 字典（Pushy 0.15.4 无 setCategory）
+            StringBuilder sb = new StringBuilder();
+            sb.append("{\"aps\":{\"alert\":{\"title\":\"").append(escapeJson(title))
+              .append("\",\"body\":\"").append(escapeJson(body))
+              .append("\"},\"sound\":\"").append(escapeJson(sound))
+              .append("\",\"category\":\"reminder_ack\"}");
             for (Map.Entry<String, Object> entry : payloadData.entrySet()) {
-                payloadBuilder.addCustomProperty(entry.getKey(), entry.getValue());
+                sb.append(",\"").append(escapeJson(entry.getKey())).append("\":");
+                Object v = entry.getValue();
+                if (v instanceof String) {
+                    sb.append("\"").append(escapeJson((String) v)).append("\"");
+                } else {
+                    sb.append(v);
+                }
             }
-            String payload = payloadBuilder.build();
+            sb.append("}");
+            String payload = sb.toString();
             String token = com.eatthepath.pushy.apns.util.TokenUtil.sanitizeTokenString(deviceToken.getToken());
             SimpleApnsPushNotification notification = new SimpleApnsPushNotification(token, bundleId, payload);
             PushNotificationResponse<SimpleApnsPushNotification> response = client.sendNotification(notification).get();
@@ -88,5 +95,10 @@ public class ApnsPushService {
             log.warn("APNs send failed for user {}: {}", deviceToken.getUserId(), e.toString());
             return false;
         }
+    }
+
+    private static String escapeJson(String s) {
+        return s.replace("\\", "\\\\").replace("\"", "\\\"")
+                .replace("\n", "\\n").replace("\r", "\\r").replace("\t", "\\t");
     }
 }

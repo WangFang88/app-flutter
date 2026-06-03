@@ -6,6 +6,7 @@ import UIKit
   private let pushChannelName = "reminder_app/push"
   private var pushChannel: FlutterMethodChannel?
   private var _pendingReminderId: String?
+  private var _pendingAckReminderId: String?
   private var _didReceiveCalledDuringLaunch = false
 
   // 前台收到通知时显示横幅（iOS 默认前台不显示）
@@ -62,6 +63,14 @@ import UIKit
         self.pushChannel?.invokeMethod("onNotificationTap", arguments: rid)
       }
     }
+    if _pendingAckReminderId != nil {
+      DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+        guard let self = self, let rid = self._pendingAckReminderId else { return }
+        self._pendingAckReminderId = nil
+        NSLog("📱 Sending pending ack: \(rid)")
+        self.pushChannel?.invokeMethod("onAcknowledgeDirect", arguments: rid)
+      }
+    }
 
     return result
   }
@@ -88,7 +97,13 @@ import UIKit
       if actionId == "ack_reminder" {
         // ★ 点击"我知道了"按钮：只确认，不打开 App
         NSLog("📱 Ack button tapped for reminderId: \(reminderId)")
-        pushChannel?.invokeMethod("onAcknowledgeDirect", arguments: reminderId)
+        _pendingAckReminderId = nil
+        if let channel = pushChannel {
+          channel.invokeMethod("onAcknowledgeDirect", arguments: reminderId)
+        } else {
+          // pushChannel 尚未初始化，存起来等 didFinishLaunchingWithOptions 处理
+          _pendingAckReminderId = reminderId
+        }
       } else if actionId == UNNotificationDefaultActionIdentifier {
         // ★ 点击通知主体：打开 App，进入详情页（详情页会自动确认）
         NSLog("📱 Notification body tapped for reminderId: \(reminderId)")

@@ -125,6 +125,50 @@ class _MineScreenState extends State<MineScreen> with AutomaticKeepAliveClientMi
     }
   }
 
+  Future<void> _showEditNameDialog() async {
+    final nameCtrl = TextEditingController(text: SessionStore.displayLabel ?? '');
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('修改昵称'),
+        content: TextField(
+          controller: nameCtrl,
+          decoration: const InputDecoration(
+            labelText: '昵称',
+            prefixIcon: Icon(Icons.person_outline, size: 18),
+          ),
+          autofocus: true,
+          maxLength: 20,
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('取消')),
+          TextButton(
+            onPressed: () async {
+              final name = nameCtrl.text.trim();
+              if (name.isEmpty) {
+                ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(content: Text('请输入昵称')));
+                return;
+              }
+              try {
+                await ApiService.updateDisplayLabel(name);
+                if (ctx.mounted) Navigator.pop(ctx, true);
+              } catch (e) {
+                if (ctx.mounted) {
+                  ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(content: Text(e.toString().replaceFirst('Exception: ', ''))));
+                }
+              }
+            },
+            child: const Text('保存'),
+          ),
+        ],
+      ),
+    );
+    if (ok == true && mounted) {
+      setState(() {}); // 刷新显示
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('昵称修改成功')));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -189,6 +233,29 @@ class _MineScreenState extends State<MineScreen> with AutomaticKeepAliveClientMi
                     ]),
                   ]),
                   Text('共 ${_items.length} 个提醒', style: Theme.of(context).textTheme.bodyMedium),
+                  // 用户名
+                  Padding(
+                    padding: const EdgeInsets.only(top: 12),
+                    child: InkWell(
+                      onTap: _showEditNameDialog,
+                      borderRadius: BorderRadius.circular(10),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 6),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Flexible(child: Text(
+                              SessionStore.displayLabel ?? '未设置昵称',
+                              style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
+                              overflow: TextOverflow.ellipsis,
+                            )),
+                            const SizedBox(width: 4),
+                            Icon(Icons.edit_outlined, size: 14, color: Colors.grey.shade500),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                   if (SessionStore.email == null)
                     Padding(
                       padding: const EdgeInsets.only(top: 16),
