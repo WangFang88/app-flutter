@@ -4,6 +4,7 @@ import UIKit
 @main
 @objc class AppDelegate: FlutterAppDelegate, FlutterImplicitEngineDelegate {
   private let pushChannelName = "reminder_app/push"
+  private let apiBaseUrl = "https://dangling-mumbling-arson.ngrok-free.dev"
   private var pushChannel: FlutterMethodChannel?
   private var _pendingReminderId: String?
   private var _pendingAckReminderId: String?
@@ -20,6 +21,49 @@ import UIKit
     }
   }
 
+  /// 通过原生 URLSession 直接发送 acknowledge 请求（不依赖 MethodChannel / Dart 侧）
+  private func sendNativeAcknowledge(reminderId: String) {
+    guard let token = UserDefaults.standard.string(forKey: "token"), !token.isEmpty else {
+      NSLog("📱 Native ack skipped: no auth token")
+      return
+    }
+    guard let url = URL(string: "\(apiBaseUrl)/reminders/\(reminderId)/acknowledge") else { return }
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    request.httpBody = "{}".data(using: .utf8)
+    URLSession.shared.dataTask(with: request) { _, response, error in
+      if let error = error {
+        NSLog("📱 Native ack failed: \(error.localizedDescription)")
+        return
+      }
+      if let httpResponse = response as? HTTPURLResponse {
+        NSLog("📱 Native ack response: \(httpResponse.statusCode)")
+      }
+    }.resume()
+  }
+
+  /// 设置 pushChannel（在 UIScene 架构下 window?.rootViewController 为 nil，
+  /// 需要通过 FlutterImplicitEngineBridge 的 binaryMessenger 创建）
+  private func setupPushChannel(with messenger: FlutterBinaryMessenger) {
+    guard pushChannel == nil else { return }
+    pushChannel = FlutterMethodChannel(name: pushChannelName, binaryMessenger: messenger)
+    pushChannel?.setMethodCallHandler { [weak self] call, result in
+      if call.method == "registerForRemoteNotifications" {
+        DispatchQueue.main.async {
+          UIApplication.shared.registerForRemoteNotifications()
+          result(nil)
+        }
+      } else if call.method == "reassertDelegate" {
+        UNUserNotificationCenter.current().delegate = self
+        result(nil)
+      } else {
+        result(FlutterMethodNotImplemented)
+      }
+    }
+  }
+
   override func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -32,18 +76,9 @@ import UIKit
     let ackCategory = UNNotificationCategory(identifier: "reminder_ack", actions: [ackAction], intentIdentifiers: [], options: [])
     UNUserNotificationCenter.current().setNotificationCategories([ackCategory])
 
+    // UIScene 下 window?.rootViewController 可能为 nil，此处作为兜底
     if let controller = window?.rootViewController as? FlutterViewController {
-      pushChannel = FlutterMethodChannel(name: pushChannelName, binaryMessenger: controller.binaryMessenger)
-      pushChannel?.setMethodCallHandler { [weak self] call, result in
-        guard call.method == "registerForRemoteNotifications" else {
-          result(FlutterMethodNotImplemented)
-          return
-        }
-        DispatchQueue.main.async {
-          UIApplication.shared.registerForRemoteNotifications()
-          result(nil)
-        }
-      }
+      setupPushChannel(with: controller.binaryMessenger)
     }
 
     // 处理 App 从终止状态点击通知启动的情况（didReceive 可能未被调用时的兜底）
@@ -55,20 +90,20 @@ import UIKit
     }
 
     // 等 Flutter MethodChannel handler 注册完成后，发送待处理的通知
-    if _pendingReminderId != nil {
-      DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-        guard let self = self, let rid = self._pendingReminderId else { return }
-        self._pendingReminderId = nil
+    let pendingReminderId = _pendingReminderId
+    let pendingAckId = _pendingAckReminderId
+    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+      guard let self = self else { return }
+      if let rid = pendingReminderId {
         NSLog("📱 Sending pending notification tap: \(rid)")
         self.pushChannel?.invokeMethod("onNotificationTap", arguments: rid)
+        self._pendingReminderId = nil
       }
-    }
-    if _pendingAckReminderId != nil {
-      DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-        guard let self = self, let rid = self._pendingAckReminderId else { return }
-        self._pendingAckReminderId = nil
+      if let rid = pendingAckId {
         NSLog("📱 Sending pending ack: \(rid)")
+        self.sendNativeAcknowledge(reminderId: rid)
         self.pushChannel?.invokeMethod("onAcknowledgeDirect", arguments: rid)
+        self._pendingAckReminderId = nil
       }
     }
 
@@ -93,25 +128,28 @@ import UIKit
     let userInfo = response.notification.request.content.userInfo
     NSLog("📱 Notification tapped, actionId=\(actionId), userInfo=\(userInfo)")
 
-    if let reminderId = userInfo["reminderId"] as? String {
+    // 兼容 APNs 推送的 "reminderId" 和本地通知的 "payload"
+    let reminderId = (userInfo["reminderId"] as? String) ?? (userInfo["payload"] as? String)
+    if let reminderId = reminderId {
       if actionId == "ack_reminder" {
         // ★ 点击"我知道了"按钮：只确认，不打开 App
         NSLog("📱 Ack button tapped for reminderId: \(reminderId)")
         _pendingAckReminderId = nil
+        // ① 原生 HTTP 确认：不依赖 MethodChannel，即使 Dart isolate 未就绪也能写入 MySQL
+        sendNativeAcknowledge(reminderId: reminderId)
+        // ② MethodChannel 方式：让 Dart 侧取消本地通知等副作用
         if let channel = pushChannel {
           channel.invokeMethod("onAcknowledgeDirect", arguments: reminderId)
         } else {
-          // pushChannel 尚未初始化，存起来等 didFinishLaunchingWithOptions 处理
           _pendingAckReminderId = reminderId
         }
       } else if actionId == UNNotificationDefaultActionIdentifier {
         // ★ 点击通知主体：打开 App，进入详情页（详情页会自动确认）
         NSLog("📱 Notification body tapped for reminderId: \(reminderId)")
-        _pendingReminderId = nil // 清除兜底，因为这里已经处理了
+        _pendingReminderId = nil
         if let channel = pushChannel {
           channel.invokeMethod("onNotificationTap", arguments: reminderId)
         } else {
-          // pushChannel 尚未初始化，存起来等 didFinishLaunchingWithOptions 处理
           _pendingReminderId = reminderId
         }
       }
@@ -121,5 +159,9 @@ import UIKit
 
   func didInitializeImplicitFlutterEngine(_ engineBridge: FlutterImplicitEngineBridge) {
     GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
+    // ★ 在 Flutter 引擎初始化时创建 pushChannel（UIScene 场景下唯一可靠的方式）
+    setupPushChannel(with: engineBridge.applicationRegistrar.messenger)
+    // ★ 引擎初始化后，确保 AppDelegate 仍然是 UNUserNotificationCenter 的 delegate
+    UNUserNotificationCenter.current().delegate = self
   }
 }

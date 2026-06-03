@@ -6,7 +6,7 @@ import 'models.dart';
 class ApiService {
   static const baseUrl = String.fromEnvironment(
     'API_BASE_URL',
-    defaultValue: 'http://10.0.2.2:8080',
+    defaultValue: 'https://dangling-mumbling-arson.ngrok-free.dev',
   );
 
   static Map<String, String> get _headers => {
@@ -167,7 +167,10 @@ class ApiService {
   }
 
   static Future<void> acknowledgeReminder(String id) async {
-    await http.post(Uri.parse('$baseUrl/reminders/$id/acknowledge'), headers: _headers);
+    final r = await http.post(Uri.parse('$baseUrl/reminders/$id/acknowledge'), headers: _headers);
+    if (r.statusCode != 200) {
+      throw Exception('确认失败: ${r.statusCode}');
+    }
   }
 
   static Future<void> updateDisplayLabel(String label) async {

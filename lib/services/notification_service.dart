@@ -145,7 +145,9 @@ class NotificationService {
           if (reminderId != null) {
             try {
               await ApiService.acknowledgeReminder(reminderId);
-            } catch (_) {}
+            } catch (e) {
+              debugPrint('onAcknowledgeDirect error: $e');
+            }
             await cancelReminder(reminderId);
           }
         }

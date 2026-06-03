@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "com.example.reminder_app"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "26.1.10909125"
 
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
