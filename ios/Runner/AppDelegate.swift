@@ -160,7 +160,7 @@ import UIKit
   func didInitializeImplicitFlutterEngine(_ engineBridge: FlutterImplicitEngineBridge) {
     GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
     // ★ 在 Flutter 引擎初始化时创建 pushChannel（UIScene 场景下唯一可靠的方式）
-    setupPushChannel(with: engineBridge.applicationRegistrar.messenger)
+    setupPushChannel(with: engineBridge.applicationRegistrar.messenger())
     // ★ 引擎初始化后，确保 AppDelegate 仍然是 UNUserNotificationCenter 的 delegate
     UNUserNotificationCenter.current().delegate = self
   }
