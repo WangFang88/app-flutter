@@ -6,6 +6,7 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz_data;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../data/api_service.dart';
+import '../data/models.dart';
 import '../data/session_store.dart';
 import 'package:flutter/foundation.dart';
 // Android 自定义声音（放在 android/app/src/main/res/raw/）
@@ -376,6 +377,23 @@ class NotificationService {
     }
     _pendingReminders.clear();
     await _savePendingReminders();
+  }
+
+  /// 登录后调用：从服务器获取当前用户的提醒列表并调度本地通知
+  /// 与 MineScreen._load() 中的调用是同一逻辑，确保无论用户在哪登录都会调度
+  static Future<void> rescheduleAfterLogin() async {
+    try {
+      final items = await ApiService.getMyReminders();
+      final reminders = items.map((r) => (
+        id: r.id,
+        title: r.title,
+        scheduledAt: DateTime.fromMillisecondsSinceEpoch(r.scheduledAtMillis),
+        authorId: r.authorId,
+      )).toList();
+      await rescheduleAll(serverReminders: reminders);
+    } catch (e) {
+      debugPrint('rescheduleAfterLogin error: $e');
+    }
   }
 
   /// 重新调度所有待处理的提醒，并补充服务器上有但本地未调度的提醒

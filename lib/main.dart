@@ -87,7 +87,11 @@ class _AppRootState extends State<AppRoot> {
   @override
   Widget build(BuildContext context) {
     if (_uid == null) {
-      return LoginScreen(onLoggedIn: () => setState(() => _uid = SessionStore.userId));
+      return LoginScreen(onLoggedIn: () async {
+        // 登录后调度本地通知（无论用户当前在哪个 Tab）
+        await NotificationService.rescheduleAfterLogin();
+        if (mounted) setState(() => _uid = SessionStore.userId);
+      });
     }
     return MainShell(uid: _uid!, onLogout: _logout);
   }

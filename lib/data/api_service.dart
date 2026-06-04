@@ -175,7 +175,7 @@ class ApiService {
     required String platform,
     String environment = 'production',
   }) async {
-    await _post(
+    final r = await _post(
       Uri.parse('$baseUrl/devices/tokens'),
       body: jsonEncode({
         'token': token,
@@ -183,6 +183,9 @@ class ApiService {
         'environment': environment,
       }),
     );
+    if (r.statusCode != 200 && r.statusCode != 201) {
+      throw Exception('注册设备 token 失败: ${r.statusCode}');
+    }
   }
 
   static Future<void> acknowledgeReminder(String id) async {
