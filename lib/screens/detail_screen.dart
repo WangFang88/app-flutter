@@ -43,7 +43,13 @@ class _DetailScreenState extends State<DetailScreen> {
         } catch (_) {}
         await NotificationService.cancelReminder(widget.reminderId);
       }
-    } catch (_) {}
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('加载详情失败: ${e.toString().replaceFirst('Exception: ', '')}')),
+        );
+      }
+    }
     if (mounted) setState(() => _loading = false);
   }
 

@@ -70,7 +70,13 @@ class _StatsScreenState extends State<StatsScreen> with AutomaticKeepAliveClient
           }
         }
       });
-    } catch (_) {}
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('加载统计失败: ${e.toString().replaceFirst('Exception: ', '')}')),
+        );
+      }
+    }
   }
 
   @override

@@ -19,7 +19,6 @@ const _iosSoundMedium = 'reminder_medium.caf';
 const _iosSoundHigh = 'reminder_high.caf';
 
 final _notif = FlutterLocalNotificationsPlugin();
-const _channel = MethodChannel('reminder_app/battery');
 const _pushChannel = MethodChannel('reminder_app/push');
 
 final Map<int, _PendingReminder> _pendingReminders = {};
@@ -121,7 +120,16 @@ class NotificationService {
   static Future<void> init() async {
     if (_initialized) return;
     tz_data.initializeTimeZones();
-    tz.setLocalLocation(tz.getLocation('Asia/Shanghai'));
+    // 使用设备本地时区，而非硬编码
+    try {
+      // 通过平台通道获取设备 IANA 时区名（如 "Asia/Shanghai"）
+      const tzChannel = MethodChannel('reminder_app/timezone');
+      final String localTzName = await tzChannel.invokeMethod('getLocalTimezone');
+      tz.setLocalLocation(tz.getLocation(localTzName));
+    } catch (_) {
+      // 无法识别设备时区时回退到 Asia/Shanghai
+      tz.setLocalLocation(tz.getLocation('Asia/Shanghai'));
+    }
     if (Platform.isIOS) {
       _pushChannel.setMethodCallHandler((call) async {
         if (call.method == 'onApnsToken') {
@@ -240,11 +248,6 @@ class NotificationService {
     if (Platform.isIOS) {
       try {
         await _pushChannel.invokeMethod('registerForRemoteNotifications');
-      } catch (_) {}
-    }
-    if (Platform.isAndroid) {
-      try {
-        await _channel.invokeMethod('requestIgnoreBatteryOptimizations');
       } catch (_) {}
     }
     await _loadPendingReminders();

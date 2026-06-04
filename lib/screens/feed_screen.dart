@@ -22,6 +22,7 @@ class _FeedScreenState extends State<FeedScreen> with AutomaticKeepAliveClientMi
   Map<String, int> _counts = {};
   bool _loading = true;
   bool _initialized = false;
+  bool _loadFailed = false;
 
   @override
   void initState() {
@@ -43,8 +44,15 @@ class _FeedScreenState extends State<FeedScreen> with AutomaticKeepAliveClientMi
       final items = await ApiService.getPublicReminders();
       final counts = <String, int>{};
       for (final r in items) { counts[r.id] = await ApiService.supporterCount(r.id); }
-      if (mounted) setState(() { _items = items; _counts = counts; });
-    } catch (_) {}
+      if (mounted) setState(() { _items = items; _counts = counts; _loadFailed = false; });
+    } catch (e) {
+      if (mounted && _items.isEmpty) {
+        setState(() => _loadFailed = true);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('加载失败: ${e.toString().replaceFirst('Exception: ', '')}')),
+        );
+      }
+    }
     if (mounted) setState(() { _loading = false; _initialized = true; });
   }
 

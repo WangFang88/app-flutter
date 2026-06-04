@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'data/session_store.dart';
 import 'services/notification_service.dart';
@@ -11,10 +12,42 @@ import 'screens/stats_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // 全局异常捕获：防止未处理异常导致白屏或红色错误页
+  FlutterError.onError = (details) {
+    FlutterError.presentError(details);
+    if (kReleaseMode) {
+      // Release 模式下记录到控制台（后续可接入 Crashlytics）
+      debugPrint('FlutterError: ${details.exception}');
+    }
+  };
+
+  ErrorWidget.builder = (details) {
+    return Material(
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(32),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.error_outline, size: 48, color: Colors.grey),
+              const SizedBox(height: 16),
+              Text('界面加载出错', style: TextStyle(color: Colors.grey.shade700, fontSize: 16)),
+              const SizedBox(height: 8),
+              Text('${details.exception}', style: TextStyle(color: Colors.grey.shade500, fontSize: 12), textAlign: TextAlign.center),
+            ],
+          ),
+        ),
+      ),
+    );
+  };
+
   await SessionStore.load();
   try {
     await NotificationService.init();
-  } catch (_) {}
+  } catch (e) {
+    debugPrint('NotificationService init failed: $e');
+  }
   runApp(const ReminderApp());
 }
 
