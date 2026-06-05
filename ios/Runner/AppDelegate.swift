@@ -23,7 +23,7 @@ import UIKit
 
   /// 通过原生 URLSession 直接发送 acknowledge 请求（不依赖 MethodChannel / Dart 侧）
   private func sendNativeAcknowledge(reminderId: String) {
-    guard let token = UserDefaults.standard.string(forKey: "flutter.token"), !token.isEmpty else {
+    guard let token = UserDefaults.standard.string(forKey: "token"), !token.isEmpty else {
       #if DEBUG
       NSLog("📱 Native ack skipped: no auth token")
       #endif
