@@ -12,25 +12,14 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
+class _LoginScreenState extends State<LoginScreen> {
   final _emailCtrl = TextEditingController();
   final _passCtrl = TextEditingController();
   bool _loading = false;
   String? _err;
-  late final AnimationController _fadeCtrl;
-  late final Animation<double> _fadeAnim;
-
-  @override
-  void initState() {
-    super.initState();
-    _fadeCtrl = AnimationController(vsync: this, duration: const Duration(milliseconds: 600));
-    _fadeAnim = CurvedAnimation(parent: _fadeCtrl, curve: Curves.easeOut);
-    _fadeCtrl.forward();
-  }
 
   @override
   void dispose() {
-    _fadeCtrl.dispose();
     _emailCtrl.dispose();
     _passCtrl.dispose();
     super.dispose();
@@ -82,116 +71,88 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: isDark
-                ? [const Color(0xFF1A1730), const Color(0xFF13111E)]
-                : [const Color(0xFF6366F1), const Color(0xFF8B5CF6), const Color(0xFFF8F7FF)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: isDark ? [0, 1] : [0, 0.35, 0.7],
-          ),
-        ),
-        child: SafeArea(
-          child: FadeTransition(
-            opacity: _fadeAnim,
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 40),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 40),
-                  // Logo区域
-                  Center(
-                    child: Container(
-                      width: 80, height: 80,
-                      decoration: BoxDecoration(
-                        gradient: gradientPurple,
-                        borderRadius: BorderRadius.circular(24),
-                        boxShadow: [BoxShadow(color: kPrimary.withOpacity(0.4), blurRadius: 24, offset: const Offset(0, 8))],
-                      ),
-                      child: const Icon(Icons.notifications_active_rounded, size: 40, color: Colors.white),
-                    ),
+      backgroundColor: isDark ? kBgDark : kSurface,
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 24),
+                Container(
+                  width: 64, height: 64,
+                  decoration: BoxDecoration(
+                    color: kPrimary,
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                  const SizedBox(height: 24),
-                  Center(child: Text('协同提醒',
-                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800,
-                          color: isDark ? Colors.white : Colors.white))),
-                  const SizedBox(height: 8),
-                  Center(child: Text('公有事项可被他人「提醒他」叠加强度',
-                      style: TextStyle(color: isDark ? Colors.white54 : Colors.white70, fontSize: 14))),
-                  const SizedBox(height: 52),
-                  // 表单卡片
+                  child: const Icon(Icons.notifications_active_rounded, size: 32, color: Colors.white),
+                ),
+                const SizedBox(height: 20),
+                Text('协同提醒',
+                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.w700,
+                        color: isDark ? Colors.white : const Color(0xFF1C1C1E))),
+                const SizedBox(height: 6),
+                Text('公有事项可被他人叠加强度',
+                    style: TextStyle(color: isDark ? const Color(0xFF8E8E93) : const Color(0xFFAEAEB2), fontSize: 14)),
+                const SizedBox(height: 40),
+                if (_err != null)
                   Container(
-                    padding: const EdgeInsets.all(24),
+                    margin: const EdgeInsets.only(bottom: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                     decoration: BoxDecoration(
-                      color: isDark ? kCardDark : Colors.white,
-                      borderRadius: BorderRadius.circular(24),
-                      boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 24, offset: const Offset(0, 8))],
+                      color: Colors.red.withValues(alpha: 0.08),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Column(children: [
-                      if (_err != null)
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 16),
-                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                          decoration: BoxDecoration(
-                            color: Colors.red.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Row(children: [
-                            const Icon(Icons.error_outline, color: Colors.red, size: 16),
-                            const SizedBox(width: 8),
-                            Expanded(child: Text(_err!, style: const TextStyle(color: Colors.red, fontSize: 13))),
-                          ]),
-                        ),
-                      TextField(
-                        controller: _emailCtrl,
-                        onChanged: (_) => setState(() {}),
-                        decoration: const InputDecoration(
-                          labelText: '邮箱（可选）',
-                          prefixIcon: Icon(Icons.email_outlined, size: 18),
-                        ),
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                      const SizedBox(height: 12),
-                      TextField(
-                        controller: _passCtrl,
-                        decoration: const InputDecoration(
-                          labelText: '密码（可选）',
-                          prefixIcon: Icon(Icons.lock_outline, size: 18),
-                        ),
-                        obscureText: true,
-                      ),
-                      const SizedBox(height: 24),
-                      GradientButton(
-                        text: _emailCtrl.text.trim().isNotEmpty ? '登录' : '匿名登录',
-                        onPressed: _loading ? null : _login,
-                        loading: _loading,
-                      ),
-                      const SizedBox(height: 10),
-                      if (_emailCtrl.text.trim().isNotEmpty)
-                        SizedBox(
-                          width: double.infinity,
-                          height: 48,
-                          child: OutlinedButton(
-                            onPressed: _loading ? null : _register,
-                            style: OutlinedButton.styleFrom(
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                              side: BorderSide(color: kPrimary.withOpacity(0.5)),
-                            ),
-                            child: Text('注册新账号', style: TextStyle(color: kPrimary, fontWeight: FontWeight.w600)),
-                          ),
-                        ),
-                      const SizedBox(height: 12),
-                      Center(
-                        child: Text('不填邮箱可匿名使用',
-                            style: TextStyle(fontSize: 12, color: Colors.grey.shade500)),
-                      ),
+                    child: Row(children: [
+                      const Icon(Icons.error_outline, color: Colors.red, size: 16),
+                      const SizedBox(width: 8),
+                      Expanded(child: Text(_err!, style: const TextStyle(color: Colors.red, fontSize: 13))),
                     ]),
                   ),
-                ],
-              ),
+                TextField(
+                  controller: _emailCtrl,
+                  onChanged: (_) => setState(() {}),
+                  decoration: const InputDecoration(
+                    labelText: '邮箱（可选）',
+                    prefixIcon: Icon(Icons.email_outlined, size: 18),
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  controller: _passCtrl,
+                  decoration: const InputDecoration(
+                    labelText: '密码（可选）',
+                    prefixIcon: Icon(Icons.lock_outline, size: 18),
+                  ),
+                  obscureText: true,
+                ),
+                const SizedBox(height: 24),
+                GradientButton(
+                  text: _emailCtrl.text.trim().isNotEmpty ? '登录' : '匿名登录',
+                  onPressed: _loading ? null : _login,
+                  loading: _loading,
+                ),
+                const SizedBox(height: 10),
+                if (_emailCtrl.text.trim().isNotEmpty)
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: OutlinedButton(
+                      onPressed: _loading ? null : _register,
+                      style: OutlinedButton.styleFrom(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        side: BorderSide(color: kPrimary.withValues(alpha: 0.4)),
+                      ),
+                      child: Text('注册新账号', style: TextStyle(color: kPrimary, fontWeight: FontWeight.w600)),
+                    ),
+                  ),
+                const SizedBox(height: 16),
+                Text('不填邮箱可匿名使用',
+                    style: TextStyle(fontSize: 12, color: isDark ? const Color(0xFF636366) : const Color(0xFFAEAEB2))),
+                const SizedBox(height: 24),
+              ],
             ),
           ),
         ),

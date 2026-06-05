@@ -22,14 +22,19 @@ import UIKit
   }
 
   /// 通过原生 URLSession 直接发送 acknowledge 请求（不依赖 MethodChannel / Dart 侧）
-  private func sendNativeAcknowledge(reminderId: String) {
+  /// - Parameter completion: 网络请求完成后的回调（确保 completionHandler 在请求结束后才调用，防止 iOS 提前挂起 App）
+  private func sendNativeAcknowledge(reminderId: String, completion: (@escaping () -> Void)? = nil) {
     guard let token = UserDefaults.standard.string(forKey: "token"), !token.isEmpty else {
       #if DEBUG
       NSLog("📱 Native ack skipped: no auth token")
       #endif
+      completion?()
       return
     }
-    guard let url = URL(string: "\(apiBaseUrl)/reminders/\(reminderId)/acknowledge") else { return }
+    guard let url = URL(string: "\(apiBaseUrl)/reminders/\(reminderId)/acknowledge") else {
+      completion?()
+      return
+    }
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -40,12 +45,14 @@ import UIKit
         #if DEBUG
         NSLog("📱 Native ack failed: \(error.localizedDescription)")
         #endif
-        return
       }
       if let httpResponse = response as? HTTPURLResponse {
         #if DEBUG
         NSLog("📱 Native ack response: \(httpResponse.statusCode)")
         #endif
+      }
+      DispatchQueue.main.async {
+        completion?()
       }
     }.resume()
   }
@@ -96,6 +103,8 @@ import UIKit
     }
 
     // 等 Flutter MethodChannel handler 注册完成后，发送待处理的通知
+    // ① 2 秒后尝试刷新（如果引擎就绪则立即处理）
+    // ② didInitializeImplicitFlutterEngine 中也会再次刷新，确保不遗漏
     let pendingReminderId = _pendingReminderId
     let pendingAckId = _pendingAckReminderId
     DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
@@ -142,35 +151,61 @@ import UIKit
 
     // 兼容 APNs 推送的 "reminderId" 和本地通知的 "payload"
     let reminderId = (userInfo["reminderId"] as? String) ?? (userInfo["payload"] as? String)
-    if let reminderId = reminderId {
-      if actionId == "ack_reminder" {
-        // ★ 点击"我知道了"按钮：只确认，不打开 App
-        #if DEBUG
-        NSLog("📱 Ack button tapped for reminderId: \(reminderId)")
-        #endif
-        _pendingAckReminderId = nil
-        // ① 原生 HTTP 确认：不依赖 MethodChannel，即使 Dart isolate 未就绪也能写入 MySQL
-        sendNativeAcknowledge(reminderId: reminderId)
-        // ② MethodChannel 方式：让 Dart 侧取消本地通知等副作用
-        if let channel = pushChannel {
-          channel.invokeMethod("onAcknowledgeDirect", arguments: reminderId)
-        } else {
-          _pendingAckReminderId = reminderId
-        }
-      } else if actionId == UNNotificationDefaultActionIdentifier {
-        // ★ 点击通知主体：打开 App，进入详情页（详情页会自动确认）
-        #if DEBUG
-        NSLog("📱 Notification body tapped for reminderId: \(reminderId)")
-        #endif
-        _pendingReminderId = nil
-        if let channel = pushChannel {
-          channel.invokeMethod("onNotificationTap", arguments: reminderId)
-        } else {
-          _pendingReminderId = reminderId
-        }
-      }
+    guard let reminderId = reminderId else {
+      completionHandler()
+      return
     }
-    completionHandler()
+
+    if actionId == "ack_reminder" {
+      // ★ 点击"我知道了"按钮：只确认，不打开 App
+      #if DEBUG
+      NSLog("📱 Ack button tapped for reminderId: \(reminderId)")
+      #endif
+      _pendingAckReminderId = nil
+      // ① 原生 HTTP 确认（主路径）：URLSession 完成后才调 completionHandler，防止 iOS 提前挂起 App
+      sendNativeAcknowledge(reminderId: reminderId) {
+        completionHandler()
+      }
+      // ② MethodChannel 方式（副路径）：让 Dart 侧取消本地通知等副作用
+      if let channel = pushChannel {
+        channel.invokeMethod("onAcknowledgeDirect", arguments: reminderId)
+      } else {
+        _pendingAckReminderId = reminderId
+      }
+    } else if actionId == UNNotificationDefaultActionIdentifier {
+      // ★ 点击通知主体：打开 App，进入详情页（详情页会自动确认）
+      #if DEBUG
+      NSLog("📱 Notification body tapped for reminderId: \(reminderId)")
+      #endif
+      _pendingReminderId = nil
+      if let channel = pushChannel {
+        channel.invokeMethod("onNotificationTap", arguments: reminderId)
+      } else {
+        _pendingReminderId = reminderId
+      }
+      completionHandler()
+    } else {
+      completionHandler()
+    }
+  }
+
+  /// 引擎就绪后刷新待处理的确认/导航操作（避免 2 秒延迟不够时遗漏）
+  private func flushPendingActions() {
+    if let rid = _pendingReminderId {
+      #if DEBUG
+      NSLog("📱 Flushing pending notification tap: \(rid)")
+      #endif
+      pushChannel?.invokeMethod("onNotificationTap", arguments: rid)
+      _pendingReminderId = nil
+    }
+    if let rid = _pendingAckReminderId {
+      #if DEBUG
+      NSLog("📱 Flushing pending ack: \(rid)")
+      #endif
+      sendNativeAcknowledge(reminderId: rid)
+      pushChannel?.invokeMethod("onAcknowledgeDirect", arguments: rid)
+      _pendingAckReminderId = nil
+    }
   }
 
   func didInitializeImplicitFlutterEngine(_ engineBridge: FlutterImplicitEngineBridge) {
@@ -190,5 +225,8 @@ import UIKit
 
     // ★ 引擎初始化后，确保 AppDelegate 仍然是 UNUserNotificationCenter 的 delegate
     UNUserNotificationCenter.current().delegate = self
+
+    // ★ 引擎就绪，刷新待处理的导航/确认（杀死进程启动场景下 2 秒延迟可能不够）
+    flushPendingActions()
   }
 }

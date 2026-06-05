@@ -83,6 +83,7 @@ class _StatsScreenState extends State<StatsScreen> with AutomaticKeepAliveClient
   Widget build(BuildContext context) {
     super.build(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final cardBg = isDark ? kCardDark : kCardLight;
     return Scaffold(
       body: SafeArea(
         child: RefreshIndicator(
@@ -92,41 +93,43 @@ class _StatsScreenState extends State<StatsScreen> with AutomaticKeepAliveClient
             physics: const AlwaysScrollableScrollPhysics(),
             padding: const EdgeInsets.fromLTRB(20, 32, 20, 24),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text('统计', style: Theme.of(context).textTheme.headlineMedium),
-            const SizedBox(height: 4),
-            Text('数据概览', style: Theme.of(context).textTheme.bodyMedium),
-            const SizedBox(height: 24),
-            Row(children: [
-              Expanded(child: _MetricCard(label: '被提醒事项', value: '$_published', icon: Icons.task_alt_rounded)),
-              const SizedBox(width: 12),
-              Expanded(child: _MetricCard(
-                label: '提醒总人次',
-                value: '$_totalClicks',
-                icon: Icons.people_rounded,
-                onTap: _whoRemindedRaw.isEmpty ? null : () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (_) => WhoRemindedScreen(events: _whoRemindedRaw),
-                  ));
-                },
-              )),
+              Text('统计', style: Theme.of(context).textTheme.headlineMedium),
+              const SizedBox(height: 4),
+              Text('数据概览', style: Theme.of(context).textTheme.bodyMedium),
+              const SizedBox(height: 24),
+              Row(children: [
+                Expanded(child: _MetricCard(label: '被提醒事项', value: '$_published', icon: Icons.task_alt_rounded, cardBg: cardBg)),
+                const SizedBox(width: 12),
+                Expanded(child: _MetricCard(
+                  label: '提醒总人次',
+                  value: '$_totalClicks',
+                  icon: Icons.people_rounded,
+                  cardBg: cardBg,
+                  onTap: _whoRemindedRaw.isEmpty ? null : () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (_) => WhoRemindedScreen(events: _whoRemindedRaw),
+                    ));
+                  },
+                )),
+              ]),
+              const SizedBox(height: 28),
+              if (_publicStatsLoading)
+                _TimePortraitSkeleton(cardBg: cardBg)
+              else if (_publicStatsError != null)
+                _TimePortraitError(message: _publicStatsError!, onRetry: _loadPublicStats, cardBg: cardBg)
+              else if (_publicStats != null)
+                _TimePortraitSection(
+                  isDark: isDark,
+                  cardBg: cardBg,
+                  data: _publicStats!,
+                  selectedDimension: _portraitDimension,
+                  onDimensionChanged: (v) => setState(() => _portraitDimension = v),
+                ),
+              const SizedBox(height: 28),
+              Text('每小时活跃', style: Theme.of(context).textTheme.titleMedium),
+              const SizedBox(height: 16),
+              _BarChart(isDark: isDark, cardBg: cardBg, data: _hourlyData),
             ]),
-            const SizedBox(height: 28),
-            if (_publicStatsLoading)
-              const _TimePortraitSkeleton()
-            else if (_publicStatsError != null)
-              _TimePortraitError(message: _publicStatsError!, onRetry: _loadPublicStats)
-            else if (_publicStats != null)
-              _TimePortraitSection(
-                isDark: isDark,
-                data: _publicStats!,
-                selectedDimension: _portraitDimension,
-                onDimensionChanged: (v) => setState(() => _portraitDimension = v),
-              ),
-            const SizedBox(height: 28),
-            Text('每小时活跃', style: Theme.of(context).textTheme.titleMedium),
-            const SizedBox(height: 16),
-            _BarChart(isDark: isDark, data: _hourlyData),
-          ]),
           ),
         ),
       ),
@@ -138,105 +141,103 @@ class _MetricCard extends StatelessWidget {
   final String label;
   final String value;
   final IconData icon;
+  final Color cardBg;
   final VoidCallback? onTap;
-  const _MetricCard({required this.label, required this.value, required this.icon, this.onTap});
+  const _MetricCard({required this.label, required this.value, required this.icon, required this.cardBg, this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     return GestureDetector(
       onTap: onTap,
       child: Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: isDark ? kCardDark : Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [BoxShadow(color: kPrimary.withOpacity(0.07), blurRadius: 16, offset: const Offset(0, 4))],
-      ),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(gradient: gradientPurple, borderRadius: BorderRadius.circular(10)),
-          child: Icon(icon, color: Colors.white, size: 18),
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: cardBg,
+          borderRadius: BorderRadius.circular(12),
         ),
-        const SizedBox(height: 12),
-        Text(value, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: kPrimary)),
-        const SizedBox(height: 2),
-        Text(label, style: Theme.of(context).textTheme.bodySmall),
-      ]),
-    ),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Icon(icon, color: kPrimary, size: 20),
+          const SizedBox(height: 12),
+          Text(value, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w700, color: Color(0xFF1C1C1E))),
+          const SizedBox(height: 2),
+          Text(label, style: Theme.of(context).textTheme.bodySmall),
+        ]),
+      ),
     );
   }
 }
 
 class _BarChart extends StatelessWidget {
   final bool isDark;
+  final Color cardBg;
   final List<int> data;
-  const _BarChart({required this.isDark, required this.data});
+  const _BarChart({required this.isDark, required this.cardBg, required this.data});
   static const double barWidth = 28;
 
   @override
   Widget build(BuildContext context) {
-    // 显示全部24小时
     final slots = List.generate(24, (i) => i);
     final values = slots.map((h) => data.length > h ? data[h] : 0).toList();
-    final maxVal = values.reduce((a, b) => a > b ? a : b).toDouble();
-    final labels = slots.map((h) => '${h}时').toList();
+    final maxVal = (values.reduce((a, b) => a > b ? a : b)).toDouble();
+    final labels = slots.map((h) => '$h').toList();
+    final barColor = isDark ? const Color(0xFF48484A) : const Color(0xFFE5E5EA);
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
       decoration: BoxDecoration(
-        color: isDark ? kCardDark : Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [BoxShadow(color: kPrimary.withOpacity(0.07), blurRadius: 16, offset: const Offset(0, 4))],
+        color: cardBg,
+        borderRadius: BorderRadius.circular(12),
       ),
       child: SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: SizedBox(
-        width: barWidth * 24, // 24根柱子的总宽度
-        child: Column(children: [
-        SizedBox(
-          height: 140,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: List.generate(values.length, (i) => SizedBox(
-              width: barWidth,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-                  if (values[i] > 0)
-                    Text('${values[i]}', style: TextStyle(fontSize: 10, color: isDark ? Colors.white54 : Colors.grey)),
-                  const SizedBox(height: 4),
-                  Container(
-                    height: maxVal > 0 ? 100 * values[i] / maxVal : 4,
-                    decoration: BoxDecoration(
-                      gradient: gradientPurple,
-                      borderRadius: BorderRadius.circular(8),
-                      boxShadow: [BoxShadow(color: kPrimary.withOpacity(0.25), blurRadius: 6, offset: const Offset(0, 3))],
-                    ),
+        scrollDirection: Axis.horizontal,
+        child: SizedBox(
+          width: barWidth * 24,
+          child: Column(children: [
+            SizedBox(
+              height: 120,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: List.generate(values.length, (i) => SizedBox(
+                  width: barWidth,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+                      if (values[i] > 0)
+                        Text('${values[i]}', style: TextStyle(fontSize: 10, color: isDark ? const Color(0xFF636366) : const Color(0xFFAEAEB2))),
+                      const SizedBox(height: 4),
+                      Container(
+                        height: maxVal > 0 ? 80 * values[i] / maxVal : 4,
+                        decoration: BoxDecoration(
+                          color: values[i] > 0 ? kPrimary : barColor,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                      ),
+                    ]),
                   ),
-                ]),
+                )),
               ),
-            )),
-          ),
+            ),
+            const SizedBox(height: 8),
+            Row(children: List.generate(labels.length, (i) => SizedBox(
+              width: barWidth,
+              child: Center(child: Text(labels[i],
+                  style: TextStyle(fontSize: 10, color: isDark ? const Color(0xFF48484A) : const Color(0xFFAEAEB2)))),
+            ))),
+          ]),
         ),
-        const SizedBox(height: 8),
-        Row(children: List.generate(labels.length, (i) => Expanded(
-          child: Center(child: Text(labels[i],
-              style: TextStyle(fontSize: 10, color: isDark ? Colors.white38 : Colors.grey))),
-        ))),
-        ]),
       ),
-    ),
-  );}
+    );
+  }
 }
 
 class _TimePortraitSection extends StatelessWidget {
   final bool isDark;
+  final Color cardBg;
   final PublicStats data;
   final int selectedDimension;
   final ValueChanged<int> onDimensionChanged;
   const _TimePortraitSection({
     required this.isDark,
+    required this.cardBg,
     required this.data,
     required this.selectedDimension,
     required this.onDimensionChanged,
@@ -248,9 +249,8 @@ class _TimePortraitSection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: isDark ? kCardDark : Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [BoxShadow(color: kPrimary.withOpacity(0.07), blurRadius: 16, offset: const Offset(0, 4))],
+        color: cardBg,
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(children: [
@@ -259,8 +259,8 @@ class _TimePortraitSection extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
             decoration: BoxDecoration(
-              color: kPrimary.withOpacity(0.12),
-              borderRadius: BorderRadius.circular(100),
+              color: kPrimary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(4),
             ),
             child: const Text('全平台', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: kPrimary)),
           ),
@@ -279,7 +279,7 @@ class _TimePortraitSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        _BarChart(isDark: isDark, data: hourlyData),
+        _BarChart(isDark: isDark, cardBg: Colors.transparent, data: hourlyData),
         const SizedBox(height: 12),
         _Top3Summary(isDark: isDark, hourlyData: hourlyData, isByItem: selectedDimension == 0),
       ]),
@@ -303,7 +303,7 @@ class _Top3Summary extends StatelessWidget {
       return Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 12),
-          child: Text('暂无数据', style: TextStyle(fontSize: 13, color: isDark ? Colors.white38 : Colors.grey)),
+          child: Text('暂无数据', style: TextStyle(fontSize: 13, color: isDark ? const Color(0xFF48484A) : const Color(0xFFAEAEB2))),
         ),
       );
     }
@@ -320,13 +320,13 @@ class _Top3Summary extends StatelessWidget {
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                color: isDark ? Colors.white : const Color(0xFF1A1730),
+                color: isDark ? Colors.white : const Color(0xFF1C1C1E),
               ),
             ),
             const SizedBox(width: 8),
             Text(
               i == 0 ? '最热门' : '第${i + 1}热门',
-              style: TextStyle(fontSize: 12, color: isDark ? Colors.white54 : Colors.grey),
+              style: TextStyle(fontSize: 12, color: isDark ? const Color(0xFF8E8E93) : const Color(0xFFAEAEB2)),
             ),
             const Spacer(),
             Text(
@@ -350,8 +350,7 @@ class _RankBadge extends StatelessWidget {
       height: 24,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        gradient: rank == 1 ? gradientPurple : null,
-        color: rank == 1 ? null : kPrimary.withOpacity(0.15 + 0.05 * rank),
+        color: rank == 1 ? kPrimary : kPrimary.withValues(alpha: 0.12),
       ),
       alignment: Alignment.center,
       child: Text(
@@ -367,23 +366,23 @@ class _RankBadge extends StatelessWidget {
 }
 
 class _TimePortraitSkeleton extends StatelessWidget {
-  const _TimePortraitSkeleton();
+  final Color cardBg;
+  const _TimePortraitSkeleton({required this.cardBg});
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final baseColor = isDark ? Colors.white12 : Colors.grey.shade200;
+    final baseColor = isDark ? const Color(0xFF2C2C2E) : const Color(0xFFE5E5EA);
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: isDark ? kCardDark : Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [BoxShadow(color: kPrimary.withOpacity(0.07), blurRadius: 16, offset: const Offset(0, 4))],
+        color: cardBg,
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Container(width: 120, height: 18, decoration: BoxDecoration(color: baseColor, borderRadius: BorderRadius.circular(8))),
+        Container(width: 120, height: 18, decoration: BoxDecoration(color: baseColor, borderRadius: BorderRadius.circular(4))),
         const SizedBox(height: 12),
-        Container(width: double.infinity, height: 36, decoration: BoxDecoration(color: baseColor, borderRadius: BorderRadius.circular(10))),
+        Container(width: double.infinity, height: 36, decoration: BoxDecoration(color: baseColor, borderRadius: BorderRadius.circular(8))),
         const SizedBox(height: 16),
         Row(
           children: List.generate(12, (i) => Expanded(
@@ -392,7 +391,7 @@ class _TimePortraitSkeleton extends StatelessWidget {
               child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
                 Container(
                   height: 40 + (i * 7 % 60).toDouble(),
-                  decoration: BoxDecoration(color: baseColor, borderRadius: BorderRadius.circular(6)),
+                  decoration: BoxDecoration(color: baseColor, borderRadius: BorderRadius.circular(4)),
                 ),
                 const SizedBox(height: 6),
                 Container(width: 16, height: 8, decoration: BoxDecoration(color: baseColor, borderRadius: BorderRadius.circular(4))),
@@ -407,9 +406,9 @@ class _TimePortraitSkeleton extends StatelessWidget {
             child: Row(children: [
               Container(width: 24, height: 24, decoration: BoxDecoration(shape: BoxShape.circle, color: baseColor)),
               const SizedBox(width: 10),
-              Container(width: 100, height: 14, decoration: BoxDecoration(color: baseColor, borderRadius: BorderRadius.circular(6))),
+              Container(width: 100, height: 14, decoration: BoxDecoration(color: baseColor, borderRadius: BorderRadius.circular(4))),
               const Spacer(),
-              Container(width: 36, height: 14, decoration: BoxDecoration(color: baseColor, borderRadius: BorderRadius.circular(6))),
+              Container(width: 36, height: 14, decoration: BoxDecoration(color: baseColor, borderRadius: BorderRadius.circular(4))),
             ]),
           ),
       ]),
@@ -420,7 +419,8 @@ class _TimePortraitSkeleton extends StatelessWidget {
 class _TimePortraitError extends StatelessWidget {
   final String message;
   final VoidCallback onRetry;
-  const _TimePortraitError({required this.message, required this.onRetry});
+  final Color cardBg;
+  const _TimePortraitError({required this.message, required this.onRetry, required this.cardBg});
 
   @override
   Widget build(BuildContext context) {
@@ -428,9 +428,8 @@ class _TimePortraitError extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: isDark ? kCardDark : Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [BoxShadow(color: kPrimary.withOpacity(0.07), blurRadius: 16, offset: const Offset(0, 4))],
+        color: cardBg,
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Column(mainAxisSize: MainAxisSize.min, children: [
         Row(children: [
@@ -439,16 +438,16 @@ class _TimePortraitError extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
             decoration: BoxDecoration(
-              color: kPrimary.withOpacity(0.12),
-              borderRadius: BorderRadius.circular(100),
+              color: kPrimary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(4),
             ),
             child: const Text('全平台', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: kPrimary)),
           ),
         ]),
         const SizedBox(height: 24),
-        Icon(Icons.cloud_off_rounded, color: isDark ? Colors.white38 : Colors.grey, size: 32),
+        Icon(Icons.cloud_off_rounded, color: isDark ? const Color(0xFF48484A) : const Color(0xFFAEAEB2), size: 32),
         const SizedBox(height: 8),
-        Text(message, style: TextStyle(color: isDark ? Colors.white54 : Colors.grey)),
+        Text(message, style: TextStyle(color: isDark ? const Color(0xFF8E8E93) : const Color(0xFFAEAEB2))),
         const SizedBox(height: 8),
         TextButton(onPressed: onRetry, child: const Text('重试')),
       ]),

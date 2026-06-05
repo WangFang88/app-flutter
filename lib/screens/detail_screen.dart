@@ -36,7 +36,6 @@ class _DetailScreenState extends State<DetailScreen> {
       final count = await ApiService.supporterCount(widget.reminderId);
       final has = await ApiService.hasSupported(widget.reminderId, widget.myUid);
       if (mounted) setState(() { _reminder = r; _supporters = count; _supported = has; });
-      // 如果是作者打开详情页且提醒时间已到，自动 acknowledge 停止重复推送
       if (r.authorId == widget.myUid && r.scheduledAtMillis <= DateTime.now().millisecondsSinceEpoch) {
         try {
           await ApiService.acknowledgeReminder(widget.reminderId);
@@ -78,7 +77,7 @@ class _DetailScreenState extends State<DetailScreen> {
         content: const Text('确定要删除这个提醒吗？'),
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('取消')),
-          TextButton(onPressed: () => Navigator.pop(ctx, true), child: Text('删除', style: TextStyle(color: Colors.red))),
+          TextButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('删除', style: TextStyle(color: Colors.red))),
         ],
       ),
     );
@@ -99,7 +98,7 @@ class _DetailScreenState extends State<DetailScreen> {
     await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
       builder: (ctx) => Padding(
         padding: EdgeInsets.fromLTRB(20, 20, 20, MediaQuery.of(ctx).viewInsets.bottom + 20),
         child: StatefulBuilder(
@@ -145,7 +144,6 @@ class _DetailScreenState extends State<DetailScreen> {
               Expanded(child: ElevatedButton(
                 onPressed: () async {
                   await ApiService.updateReminder(r.id, title: titleCtrl.text.trim(), scheduledAt: scheduledAt, isPublic: isPublic);
-                  // 取消旧通知并用新时间重新调度
                   await NotificationService.cancelReminder(r.id);
                   final newTime = DateTime.fromMillisecondsSinceEpoch(scheduledAt);
                   if (newTime.isAfter(DateTime.now())) {
@@ -195,26 +193,24 @@ class _DetailScreenState extends State<DetailScreen> {
                   child: Column(children: [
                     Container(
                       width: double.infinity,
-                      padding: const EdgeInsets.fromLTRB(32, 48, 32, 40),
-                      decoration: const BoxDecoration(
-                        gradient: gradientHeader,
-                        borderRadius: BorderRadius.vertical(bottom: Radius.circular(32)),
+                      padding: const EdgeInsets.fromLTRB(32, 40, 32, 32),
+                      decoration: BoxDecoration(
+                        color: isDark ? kCardDark : kCardLight,
+                        border: Border(bottom: BorderSide(color: isDark ? const Color(0xFF2C2C2E) : const Color(0xFFE5E5EA))),
                       ),
                       child: Column(children: [
                         Text(DateFormat('HH:mm').format(DateTime.fromMillisecondsSinceEpoch(r.scheduledAtMillis)),
-                            style: const TextStyle(fontSize: 52, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1)),
+                            style: TextStyle(fontSize: 48, fontWeight: FontWeight.w700, color: isDark ? Colors.white : const Color(0xFF1C1C1E), letterSpacing: -1)),
                         const SizedBox(height: 4),
                         Text(DateFormat('yyyy年MM月dd日').format(DateTime.fromMillisecondsSinceEpoch(r.scheduledAtMillis)),
-                            style: const TextStyle(color: Colors.white70, fontSize: 15)),
+                            style: TextStyle(color: isDark ? const Color(0xFF8E8E93) : const Color(0xFFAEAEB2), fontSize: 15)),
                       ]),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(20),
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        const SizedBox(height: 4),
                         Text(r.title, style: Theme.of(context).textTheme.headlineSmall),
                         const SizedBox(height: 20),
-                        // 提醒强度进度条
                         Row(children: [
                           const Icon(Icons.people_rounded, size: 16, color: kPrimary),
                           const SizedBox(width: 6),
@@ -223,11 +219,11 @@ class _DetailScreenState extends State<DetailScreen> {
                         ]),
                         const SizedBox(height: 8),
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
+                          borderRadius: BorderRadius.circular(4),
                           child: LinearProgressIndicator(
                             value: (_supporters.clamp(0, 10)) / 10.0,
-                            minHeight: 8,
-                            backgroundColor: isDark ? Colors.white12 : const Color(0xFFE5E7EB),
+                            minHeight: 6,
+                            backgroundColor: isDark ? const Color(0xFF2C2C2E) : const Color(0xFFE5E5EA),
                             valueColor: const AlwaysStoppedAnimation(kPrimary),
                           ),
                         ),
@@ -236,10 +232,10 @@ class _DetailScreenState extends State<DetailScreen> {
                           _supported
                               ? Container(
                                   width: double.infinity,
-                                  height: 54,
+                                  height: 50,
                                   decoration: BoxDecoration(
-                                    color: isDark ? Colors.white10 : const Color(0xFFF3F4F6),
-                                    borderRadius: BorderRadius.circular(100),
+                                    color: isDark ? const Color(0xFF2C2C2E) : const Color(0xFFF2F2F7),
+                                    borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: const Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                                     Icon(Icons.check_circle_rounded, color: kPrimary, size: 20),

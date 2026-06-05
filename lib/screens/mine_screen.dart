@@ -172,7 +172,7 @@ class _MineScreenState extends State<MineScreen> with AutomaticKeepAliveClientMi
       ),
     );
     if (ok == true && mounted) {
-      setState(() {}); // 刷新显示
+      setState(() {});
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('昵称修改成功')));
     }
   }
@@ -194,22 +194,15 @@ class _MineScreenState extends State<MineScreen> with AutomaticKeepAliveClientMi
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
-              child: Container(
-                padding: const EdgeInsets.fromLTRB(20, 56, 20, 28),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [kPrimary.withOpacity(0.12), Colors.transparent],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 56, 20, 20),
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                     Text('我的提醒', style: Theme.of(context).textTheme.headlineMedium),
                     Row(children: [
                       if (_items.isNotEmpty)
                         IconButton(
-                          icon: const Icon(Icons.delete_sweep_rounded, size: 20),
+                          icon: Icon(Icons.delete_sweep_rounded, size: 20, color: Theme.of(context).textTheme.bodySmall?.color),
                           onPressed: () async {
                             final ok = await showDialog<bool>(
                               context: context,
@@ -230,7 +223,7 @@ class _MineScreenState extends State<MineScreen> with AutomaticKeepAliveClientMi
                           tooltip: '清空提醒',
                         ),
                       IconButton(
-                        icon: const Icon(Icons.logout_rounded, size: 20),
+                        icon: Icon(Icons.logout_rounded, size: 20, color: Theme.of(context).textTheme.bodySmall?.color),
                         onPressed: () async {
                           await NotificationService.resetForLogout();
                           await SessionStore.clear();
@@ -240,13 +233,13 @@ class _MineScreenState extends State<MineScreen> with AutomaticKeepAliveClientMi
                       ),
                     ]),
                   ]),
+                  const SizedBox(height: 4),
                   Text('共 ${_items.length} 个提醒', style: Theme.of(context).textTheme.bodyMedium),
-                  // 用户名
                   Padding(
                     padding: const EdgeInsets.only(top: 12),
                     child: InkWell(
                       onTap: _showEditNameDialog,
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(8),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 6),
                         child: Row(
@@ -254,11 +247,11 @@ class _MineScreenState extends State<MineScreen> with AutomaticKeepAliveClientMi
                           children: [
                             Flexible(child: Text(
                               SessionStore.displayLabel ?? '未设置昵称',
-                              style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
+                              style: TextStyle(fontSize: 13, color: Theme.of(context).textTheme.bodySmall?.color),
                               overflow: TextOverflow.ellipsis,
                             )),
                             const SizedBox(width: 4),
-                            Icon(Icons.edit_outlined, size: 14, color: Colors.grey.shade500),
+                            Icon(Icons.edit_outlined, size: 14, color: Theme.of(context).textTheme.bodySmall?.color),
                           ],
                         ),
                       ),
@@ -267,24 +260,16 @@ class _MineScreenState extends State<MineScreen> with AutomaticKeepAliveClientMi
                   if (SessionStore.email == null)
                     Padding(
                       padding: const EdgeInsets.only(top: 16),
-                      child: InkWell(
-                        onTap: _showBindEmailDialog,
-                        borderRadius: BorderRadius.circular(14),
-                        child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                          decoration: BoxDecoration(
-                            gradient: gradientPurple,
-                            borderRadius: BorderRadius.circular(14),
-                            boxShadow: [BoxShadow(color: kPrimary.withOpacity(0.3), blurRadius: 12, offset: const Offset(0, 4))],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(Icons.email_rounded, color: Colors.white, size: 18),
-                              SizedBox(width: 8),
-                              Text('绑定邮箱，保护账号', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 14)),
-                            ],
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: OutlinedButton.icon(
+                          onPressed: _showBindEmailDialog,
+                          icon: const Icon(Icons.email_rounded, size: 18, color: kPrimary),
+                          label: const Text('绑定邮箱，保护账号', style: TextStyle(color: kPrimary, fontWeight: FontWeight.w600)),
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(color: kPrimary.withValues(alpha: 0.3)),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                           ),
                         ),
                       ),
@@ -294,13 +279,14 @@ class _MineScreenState extends State<MineScreen> with AutomaticKeepAliveClientMi
             ),
             if (_loading)
               SliverFillRemaining(
-                child: Column(children: List.generate(5, (_) => const SkeletonCard())
-                    .map((e) => Padding(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5), child: e))
-                    .toList()),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(children: List.generate(5, (_) => const SkeletonCard())),
+                ),
               )
             else if (_initialized && _items.isEmpty)
               const SliverFillRemaining(
-                child: Center(child: Text('暂无提醒', style: TextStyle(color: Colors.grey))),
+                child: Center(child: Text('暂无提醒', style: TextStyle(color: Color(0xFFAEAEB2)))),
               )
             else
               SliverPadding(
@@ -317,19 +303,13 @@ class _MineScreenState extends State<MineScreen> with AutomaticKeepAliveClientMi
           ],
         ),
       ),
-      floatingActionButton: Container(
-        decoration: BoxDecoration(
-          gradient: gradientPurple,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [BoxShadow(color: kPrimary.withOpacity(0.4), blurRadius: 16, offset: const Offset(0, 6))],
-        ),
-        child: FloatingActionButton(
-          heroTag: 'mine_fab',
-          onPressed: widget.onCreateNew,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          child: const Icon(Icons.add_rounded, color: Colors.white),
-        ),
+      floatingActionButton: FloatingActionButton(
+        heroTag: 'mine_fab',
+        onPressed: widget.onCreateNew,
+        backgroundColor: kPrimary,
+        elevation: 0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        child: const Icon(Icons.add_rounded, color: Colors.white),
       ),
     );
   }

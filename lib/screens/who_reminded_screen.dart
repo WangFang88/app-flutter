@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../data/models.dart';
 import '../theme/app_theme.dart';
-import '../widgets/common_widgets.dart';
 
 class WhoRemindedScreen extends StatelessWidget {
   final List<Map<String, dynamic>> events;
@@ -34,19 +33,25 @@ class _RemindEventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final time = DateFormat('MM-dd HH:mm').format(
       DateTime.fromMillisecondsSinceEpoch(event.at),
     );
 
-    return GlassCard(
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: isDark ? kCardDark : kCardLight,
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: Row(children: [
         Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            gradient: gradientPurple,
+            color: isDark ? const Color(0xFF2C2C2E) : const Color(0xFFF2F2F7),
             borderRadius: BorderRadius.circular(10),
           ),
-          child: const Icon(Icons.person_rounded, color: Colors.white, size: 18),
+          child: const Icon(Icons.person_rounded, color: kPrimary, size: 18),
         ),
         const SizedBox(width: 12),
         Expanded(

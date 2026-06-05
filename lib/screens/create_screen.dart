@@ -126,18 +126,17 @@ class _CreateScreenState extends State<CreateScreen> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             decoration: BoxDecoration(
-              color: kPrimary.withOpacity(isDark ? 0.15 : 0.08),
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: kPrimary.withOpacity(0.2)),
+              color: isDark ? const Color(0xFF2C2C2E) : const Color(0xFFF2F2F7),
+              borderRadius: BorderRadius.circular(12),
             ),
             child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               Row(children: [
                 const Icon(Icons.alarm_rounded, size: 16, color: kPrimary),
                 const SizedBox(width: 8),
-                const Text('提醒时间', style: TextStyle(fontWeight: FontWeight.w500)),
+                Text('提醒时间', style: TextStyle(fontWeight: FontWeight.w500, color: isDark ? const Color(0xFFAEAEB2) : const Color(0xFF8E8E93))),
               ]),
               Text(DateFormat('MM-dd HH:mm').format(_selectedTime),
-                  style: const TextStyle(fontWeight: FontWeight.w700, color: kPrimary)),
+                  style: TextStyle(fontWeight: FontWeight.w700, color: isDark ? Colors.white : const Color(0xFF1C1C1E))),
             ]),
           ),
           const SizedBox(height: 32),
@@ -187,13 +186,11 @@ class _CreateScreenState extends State<CreateScreen> {
         duration: const Duration(milliseconds: 180),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
         decoration: BoxDecoration(
-          gradient: selected ? gradientPurple : null,
-          color: selected ? null : (isDark ? Colors.white10 : const Color(0xFFF3F4F6)),
+          color: selected ? kPrimary : (isDark ? const Color(0xFF2C2C2E) : const Color(0xFFF2F2F7)),
           borderRadius: BorderRadius.circular(100),
-          boxShadow: selected ? [BoxShadow(color: kPrimary.withOpacity(0.3), blurRadius: 8, offset: const Offset(0, 3))] : null,
         ),
         child: Text(label, style: TextStyle(
-          color: selected ? Colors.white : (isDark ? Colors.white70 : Colors.black87),
+          color: selected ? Colors.white : (isDark ? const Color(0xFFAEAEB2) : const Color(0xFF8E8E93)),
           fontWeight: FontWeight.w600,
           fontSize: 13,
         )),
@@ -213,14 +210,12 @@ class _CreateScreenState extends State<CreateScreen> {
           duration: const Duration(milliseconds: 180),
           padding: const EdgeInsets.symmetric(vertical: 10),
           decoration: BoxDecoration(
-            gradient: selected ? gradientPurple : null,
-            color: selected ? null : (isDark ? Colors.white10 : const Color(0xFFF3F4F6)),
+            color: selected ? kPrimary : (isDark ? const Color(0xFF2C2C2E) : const Color(0xFFF2F2F7)),
             borderRadius: BorderRadius.circular(12),
-            boxShadow: selected ? [BoxShadow(color: kPrimary.withOpacity(0.3), blurRadius: 8, offset: const Offset(0, 3))] : null,
           ),
           child: Center(child: Text(label, style: TextStyle(
             fontSize: 13, fontWeight: FontWeight.w600,
-            color: selected ? Colors.white : (isDark ? Colors.white70 : const Color(0xFF374151)),
+            color: selected ? Colors.white : (isDark ? const Color(0xFFAEAEB2) : const Color(0xFF8E8E93)),
           ))),
         ),
       ),

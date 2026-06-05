@@ -73,31 +73,25 @@ class _FeedScreenState extends State<FeedScreen> with AutomaticKeepAliveClientMi
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
-              child: Container(
-                padding: const EdgeInsets.fromLTRB(20, 56, 20, 28),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [kPrimary.withOpacity(0.12), Colors.transparent],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 56, 20, 20),
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text('公共提醒', style: Theme.of(context).textTheme.headlineMedium),
                   const SizedBox(height: 4),
-                  Text('此刻 · ${_items.length} 个提醒', style: Theme.of(context).textTheme.bodyMedium),
+                  Text('${_items.length} 个提醒', style: Theme.of(context).textTheme.bodyMedium),
                 ]),
               ),
             ),
             if (_loading)
               SliverFillRemaining(
-                child: Column(children: List.generate(5, (_) => const SkeletonCard())
-                    .map((e) => Padding(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5), child: e))
-                    .toList()),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(children: List.generate(5, (_) => const SkeletonCard())),
+                ),
               )
             else if (_initialized && _items.isEmpty)
               const SliverFillRemaining(
-                child: Center(child: Text('暂无公开提醒', style: TextStyle(color: Colors.grey))),
+                child: Center(child: Text('暂无公开提醒', style: TextStyle(color: Color(0xFFAEAEB2)))),
               )
             else
               SliverPadding(
@@ -114,19 +108,13 @@ class _FeedScreenState extends State<FeedScreen> with AutomaticKeepAliveClientMi
           ],
         ),
       ),
-      floatingActionButton: Container(
-        decoration: BoxDecoration(
-          gradient: gradientPurple,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [BoxShadow(color: kPrimary.withOpacity(0.4), blurRadius: 16, offset: const Offset(0, 6))],
-        ),
-        child: FloatingActionButton(
-          heroTag: 'feed_fab',
-          onPressed: widget.onCreateNew,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          child: const Icon(Icons.add_rounded, color: Colors.white),
-        ),
+      floatingActionButton: FloatingActionButton(
+        heroTag: 'feed_fab',
+        onPressed: widget.onCreateNew,
+        backgroundColor: kPrimary,
+        elevation: 0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        child: const Icon(Icons.add_rounded, color: Colors.white),
       ),
     );
   }
